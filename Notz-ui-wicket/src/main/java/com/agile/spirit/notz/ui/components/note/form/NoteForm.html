@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+<body>
+  <wicket:panel>
+    <form wicket:id="form">
+      <h3><label wicket:id="formTitle">[formTitle]</label></h3>
+
+      <div class="formField">
+        <label class="fieldLabel" for="title"><wicket:message key="title">[title]</wicket:message></label>
+        <span class="fieldRequiredFlag">*</span>
+        <input class="fieldInput" id="title" wicket:id="title" type="text" />
+      </div>
+
+      <div class="formField">
+        <label class="fieldLabel" for="description"><wicket:message key="description">[description]</wicket:message></label>
+        <textarea class="fieldInput" id="description" wicket:id="description" />
+      </div>
+
+      <div class="actionsBar">
+        <input class="formAction" type="submit" wicket:id="cancelButton" wicket:message="value:cancel" value="Cancel"></input>
+        <input class="formAction" type="submit" wicket:id="validateButton" value="Validate"> </input>
+      </div>
+
+      <div class="clear" />
+    </form>
+  </wicket:panel>
+</body>
+</html>

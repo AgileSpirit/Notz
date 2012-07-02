@@ -1,0 +1,96 @@
+/*************/
+/* RESET CSS */
+/*************/
+
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, b, u, i, center, dl, dt, dd, ol, ul, li, fieldset, form, label, input, textarea, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video { border: 0 none; font-family: Arial,Helvetica,sans-serif; margin: 0; padding: 0; vertical-align: baseline; }
+body { font-family: Arial,Helvetica,sans-serif; font-size: 12px; line-height: 1; }
+ol, ul { list-style: none outside none; }
+blockquote, q { quotes: none; }
+table { border-collapse: collapse; border-spacing: 0; }
+em { font-style: italic; }
+img { vertical-align: middle; }
+a { color: #000000; }
+
+/*****************************/
+/* APPLICATION GLOBAL STYLES */
+/*****************************/
+
+body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new roman, sans-serif; margin: 0 auto; width: 900px; }
+
+#header { padding: 20px 0; }
+
+#body {  }
+
+#footer { padding: 20px 0; }
+
+div.clear { display:block; clear: both; }
+
+form { border: 1px solid #999; background-color: #F0F0F0; padding: 10px 20px; }
+form h3 { color: #D60000; text-transform: uppercase; margin-bottom: 10px; }
+form fieldset { border: none; margin: 20px 0; }
+form fieldset span.formSectionTitle { color: #333; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; display: block; width: 100%; border-bottom: 1px solid #333; padding-bottom: 3px; }
+form div.formField { margin-bottom: 5px; }
+form div.formField label.fieldLabel { height: 25px; display: inline-block; width: 100px; text-align: right; }
+form div.formField label.fieldLabelShort { height: 25px; display: inline-block; text-align: right; }
+form div.formField input.fieldInput { height: 25px; width: 200px; padding: 0 3px; border: 1px solid #AAA; }
+form div.formField input.fieldInputShort { height: 25px; width: 100px; padding: 0 3px; border: 1px solid #AAA; }
+form div.formField input.fieldCheckBox { margin-right: 3px; }
+form div.formField select.fieldInput { height: 25px; width: 200px; padding: 0 0 0 3px; border: 1px solid #AAA; }
+form div.formField select.fieldInputShort { height: 25px; width: 100px; padding: 0 0 0 3px; border: 1px solid #AAA; }
+form div.formField span.fieldInput label { margin-left: 2px; margin-right: 5px; }
+form div.formField span.fieldRequiredFlag { margin-left: 2px; margin-right: 0px; font-weight: bold; color: red;}
+form div.formField span.fieldOptionalFlag { margin-left: 2px; margin-right: 3px; }
+form div.actionsBar { display: inline-block; float:right; }
+form div.actionsBar button.formAction { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
+form div.actionsBar button.formAction:hover { background: #AAA; border: 1px solid #888; color: white; }
+form div.actionsBar input[type="reset"] { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
+form div.actionsBar input[type="reset"]:hover { background: #AAA; border: 1px solid #888; color: white; }
+form div.actionsBar input[type="submit"].formAction { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
+form div.actionsBar input[type="submit"].formAction:hover { background: #69A74E; border: 1px solid; border-color: #3B6E22 #3B6E22 #2C5115; color: white; }
+
+ul.feedbackPanel { list-style-type: none; list-style-position: inside; padding: 0; margin: 5px 0; }
+ul.feedbackPanel li { padding: 5px; margin-bottom: -1px; }
+ul.feedbackPanel li.feedbackPanelUNDEFINED { border: 1px solid #CCC; background-color: #EEE; color: #CCC; } /* grey */
+ul.feedbackPanel li.feedbackPanelDEBUG { border: 1px solid #CCC; background-color: #EEE; color: #CCC; } /* grey */
+ul.feedbackPanel li.feedbackPanelINFO { border: 1px solid #00529B; background-color: #BDE5F8; color: #00529B; } /* blue */
+ul.feedbackPanel li.feedbackPanelWARNING { border: 1px solid #9F6000; background-color: #FEEFB3; color: #9F6000; } /* yellow */
+ul.feedbackPanel li.feedbackPanelERROR { border: 1px solid #D8000C; background-color: #FFBABA; color: #333; } /* red */
+ul.feedbackPanel li.feedbackPanelFATAL { border: 1px solid #D8000C; background-color: #FFBABA; color: #D8000C; } /* red */
+
+div.wicket-aa { background-color:white; border:1px solid #CCC; color: #333; }
+div.wicket-aa ul { list-style-image:none; list-style-position:outside; list-style-type:none; margin:0pt; }
+div.wicket-aa ul li { padding: 5px; }
+div.wicket-aa ul li.selected { background-color:#FFC966; }
+
+a.editLink { background-image: url(../img/edit.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle;}
+a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
+
+/****************************/
+/* COMPONENTS CUSTOM STYLES */
+/****************************/
+
+/* --- Common layout --- */
+.content { width: 100%; }
+
+/* --- User Form Page --- */
+.userForm { width: 360px; }
+
+/* --- User List Page --- */
+.noteSearchPanel { background-color: #F0F0F0; border: 1px solid #999; border-bottom: 0; }
+.noteSearchPanel form { border: 0; }
+.noteSearchPanel div.formField { display: inline-block; margin-bottom: 0; }
+.noteSearchPanel div.actionsBar {  }
+
+.noteList div.listHeader { background-color: #F0F0F0; border: 1px solid #999; border-bottom: none; padding: 10px; }
+.noteList div.listHeader span.listTitle { font-weight: bold; }
+
+.noteList table { width: 100%; border: collapse; cellpadding: 0; border-bottom: 1px solid #999; }
+.noteList table tbody { border-right: 1px solid #999; border-left: 1px solid #999; }
+.noteList table tbody tr:hover {background-color: #F0F0F0; }
+.noteList table th { height: 32px; vertical-align: middle; }
+.noteList table td { padding: 0 5px; height: 28px; vertical-align: middle; white-space: nowrap; border-top: 1px solid #DEDEDE; }
+.noteList table td.action { width: 18px; }
+.noteList table td span.title { color: #222222; font-weight: bold; }
+.noteList table td span.description { color: #777777; } 
+
+.noteList div.listFooter { background-color: #F0F0F0; border: 1px solid #999; border-top: 0; padding: 10px; }

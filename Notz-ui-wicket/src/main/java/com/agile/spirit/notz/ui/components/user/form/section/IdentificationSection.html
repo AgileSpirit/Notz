@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<head>
+<title>Form Example</title>
+</head>
+
+<body>
+  <wicket:panel>
+    <span class="formSectionTitle"><wicket:message key="identification">[identification]</wicket:message></span>
+    <div class="formField">
+      <label class="fieldLabel" for="email"><wicket:message key="email">[email]</wicket:message></label>
+      <span class="fieldRequiredFlag">*</span>
+      <input class="fieldInput" id="email" wicket:id="email" type="text" />
+    </div>
+    <div class="formField">
+      <label class="fieldLabel" for="password"><wicket:message key="password">[password]</wicket:message></label>
+      <span class="fieldRequiredFlag">*</span>
+      <input class="fieldInput" id="password" wicket:id="password" type="password" />
+    </div>
+    <wicket:enclosure child="confirmation">
+      <div class="formField">
+        <label class="fieldLabel" for="confirmation"><wicket:message key="confirmation">[confirmation]</wicket:message></label>
+        <span class="fieldRequiredFlag">*</span>
+        <input class="fieldInput" id="confirmation" wicket:id="confirmation" type="password" />
+      </div>
+    </wicket:enclosure>
+    <div wicket:id="identificationFeedback"></div>
+  </wicket:panel>
+</body>
+
+</html>

@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<body>
+  <wicket:panel>
+
+    <form wicket:id="form">
+      <div class="formField">
+        <label class="fieldLabel" for="email"><wicket:message key="email">Email: </wicket:message></label>
+        <input class="fieldInput" id="email" wicket:id="email" type="text" />
+      </div>
+      <div class="formField">
+        <label class="fieldLabel" for="password"><wicket:message key="password">Password: </wicket:message></label>
+        <input class="fieldInput" id="password" wicket:id="password" type="password" />
+        <input class="formAction" type="submit" wicket:id="loginButton" value="Login"> </input>
+      </div>
+      <div>
+        <a href="#"><wicket:message key="forgottenPassword">[forgottenPassword]</wicket:message></a>
+        <a href="#"><wicket:message key="signUp">[signUp]</wicket:message></a>
+      </div>
+      <div class="clear" />
+    </form>
+
+  </wicket:panel>
+</body>
+
+</html>

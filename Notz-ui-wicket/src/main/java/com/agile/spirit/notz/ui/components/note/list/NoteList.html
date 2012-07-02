@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<body>
+  <wicket:panel>
+
+<!-- 
+    <div class="listHeader">
+      <span wicket:id="listTitle">[listTitle]</span>
+    </div>
+ -->
+    <div class="listHeader">
+      <span wicket:id="listTitle">[listTitle]</span>
+    </div>
+    <div class="listData">
+    <table>
+      <tbody>
+        <tr wicket:id="list">
+          <td>
+            <span wicket:id="title" class="title">[title]</span>
+            <span dir="ltr">&nbsp;-&nbsp;</span>
+            <span wicket:id="description" class="description">[description]</span>
+          </td>
+          <td class="action"><a wicket:id="edit" href="#" class="editLink" /></td>
+          <td class="action"><a wicket:id="delete" href="#" class="deleteLink" /></td>
+        </tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="listFooter">
+      <span wicket:id="navigator">[navigator]</span>
+<!--       <a wicket:id="addNoteLink" href="#"><wicket:message key="addNote">[addNote]</wicket:message></a> -->
+    </div>
+  </wicket:panel>
+</body>
+
+</html>

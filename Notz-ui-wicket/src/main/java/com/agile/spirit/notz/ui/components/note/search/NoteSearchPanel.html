@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<body>
+  <wicket:panel>
+
+    <form wicket:id="form">
+      <div class="formField">
+        <label class="fieldLabelShort" for="pattern"><wicket:message key="pattern">Name: </wicket:message></label>
+        <input class="fieldInputShort" id="pattern" wicket:id="pattern" type="text" />
+      </div>
+      <div class="actionsBar">
+        <input class="formAction" type="reset" wicket:id="resetButton" wicket:message="value:reset" value="Reset"></input>
+        <input class="formAction" type="submit" wicket:id="searchButton" wicket:message="value:search" value="Search"> </input>
+      </div>
+      <div class="clear" />
+    </form>
+  </wicket:panel>
+</body>
+
+</html>

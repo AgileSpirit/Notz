@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" 
+      xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<body>
+  <wicket:panel>
+
+    <form wicket:id="form">
+      <h3><label wicket:id="title">Registration</label></h3>
+      <fieldset wicket:id="personalDataSection"></fieldset>
+  
+      <fieldset wicket:id="identificationSection"></fieldset>
+  
+      <fieldset wicket:id="gtuSection"></fieldset>
+  
+      <div class="actionsBar">
+        <input class="formAction" type="reset" wicket:id="resetButton" wicket:message="value:reset" value="Reset"></input>
+        <input class="formAction" type="submit" wicket:id="validateButton" value="Validate"> </input>
+      </div>
+      <div class="clear" />
+  
+    </form>
+  </wicket:panel>
+</body>
+
+</html>
