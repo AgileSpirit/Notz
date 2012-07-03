@@ -22,6 +22,7 @@ public class DataGenerator {
     admin.setFirstName("Chuck");
     admin.setLastName("Noris");
     admin.setEmail("admin@agile-spirit.fr");
+    admin.setEmail("admin");
     admin.setPassword("admin");
     admin.setNotes(generateNotes(13));
     UserServiceImpl.getInstance().saveOrUpdate(admin);

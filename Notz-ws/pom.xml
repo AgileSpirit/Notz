@@ -45,27 +45,10 @@
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
     </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-servlet</artifactId>
+    </dependency>
   </dependencies>
-
-  <build>
-    <plugins>
-      <!-- JAXB -->
-      <plugin>
-        <version>0.8.1</version>
-        <groupId>org.jvnet.jaxb2.maven2</groupId>
-        <artifactId>maven-jaxb2-plugin</artifactId>
-        <executions>
-          <execution>
-            <goals>
-              <goal>generate</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <schemaDirectory>src/main/resources/xsd</schemaDirectory>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
 
 </project>

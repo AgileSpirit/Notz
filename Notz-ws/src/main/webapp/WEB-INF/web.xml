@@ -17,7 +17,7 @@
   
 	<servlet-mapping>
 		<servlet-name>Notz-ws</servlet-name>
-		<url-pattern>/ws/*</url-pattern>
+		<url-pattern>/*</url-pattern>
 	</servlet-mapping>
   
 </web-app>

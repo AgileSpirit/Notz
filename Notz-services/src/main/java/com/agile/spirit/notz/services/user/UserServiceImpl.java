@@ -7,6 +7,7 @@ import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.note.NoteService;
 import com.agile.spirit.notz.services.note.NoteServiceImpl;
+import com.agile.spirit.notz.services.util.DataGenerator;
 import com.agile.spirit.notz.services.util.SearchCriteria;
 
 public class UserServiceImpl implements UserService {
@@ -21,6 +22,7 @@ public class UserServiceImpl implements UserService {
   public static UserService getInstance() {
     if (instance == null) {
       instance = new UserServiceImpl();
+      DataGenerator.generateData();
     }
     return instance;
   }

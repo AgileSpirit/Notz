@@ -15,9 +15,9 @@
   <dependencies>
     <!-- Notz-domain -->
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>Notz-domain</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <!-- LOGGING DEPENDENCIES - LOG4J -->
     <dependency>
@@ -33,6 +33,11 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
+    </dependency>
+    <!-- JERSEY -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-server</artifactId>
     </dependency>
   </dependencies>
 

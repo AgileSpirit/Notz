@@ -2,6 +2,9 @@ package com.agile.spirit.notz.domain;
 
 import java.io.Serializable;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement
 public class BaseEntity implements Serializable, Comparable<BaseEntity> {
 
   private static final long serialVersionUID = 1L;

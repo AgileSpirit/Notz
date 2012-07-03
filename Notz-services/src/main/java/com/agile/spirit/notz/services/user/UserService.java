@@ -2,6 +2,7 @@ package com.agile.spirit.notz.services.user;
 
 import java.util.List;
 
+
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.util.SearchCriteria;
 

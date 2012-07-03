@@ -1,5 +1,8 @@
 package com.agile.spirit.notz.domain;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+@XmlRootElement(name="note")
 public class Note extends BaseEntity {
 
   private static final long serialVersionUID = 1L;

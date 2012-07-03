@@ -3,7 +3,9 @@ package com.agile.spirit.notz.domain;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.xml.bind.annotation.XmlRootElement;
 
+@XmlRootElement(name="user")
 public class User extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
