@@ -19,9 +19,9 @@
   <dependencies>
     <!-- Notz-domain -->
     <dependency>
-      <groupId>${pom.groupId}</groupId>
+      <groupId>${project.groupId}</groupId>
       <artifactId>Notz-services</artifactId>
-      <version>${parent.version}</version>
+      <version>${project.parent.version}</version>
     </dependency>
     <!-- WICKET DEPENDENCIES -->
     <dependency>

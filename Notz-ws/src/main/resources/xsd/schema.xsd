@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+
+  <xsd:element name="note" type="noteType" />
+  <xsd:complexType name="noteType">
+    <xsd:attribute name="title" type="xsd:string" use="required" />
+    <xsd:attribute name="description" type="xsd:string" use="required" />
+  </xsd:complexType>
+
+  <xsd:element name="user" type="userType" />
+  <xsd:complexType name="userType">
+    <xsd:sequence>
+      <xsd:element name="firstName" type="xsd:string" />
+      <xsd:element name="lastName" type="xsd:string" />
+      <xsd:element name="email" type="xsd:string" />
+      <xsd:element name="password" type="xsd:string" />
+      <xsd:element name="notes" type="noteType" minOccurs="0" maxOccurs="unbounded" />
+    </xsd:sequence>
+  </xsd:complexType>
+
+</xsd:schema>

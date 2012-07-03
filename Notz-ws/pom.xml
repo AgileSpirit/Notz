@@ -1,0 +1,71 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.agile.spirit.notz</groupId>
+  <artifactId>Notz-ws</artifactId>
+  <name>Notz-ws</name>
+  <packaging>war</packaging>
+
+  <parent>
+    <groupId>com.agile.spirit.notz</groupId>
+    <artifactId>Notz</artifactId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <dependencies>
+    <!-- Notz-domain -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>Notz-domain</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <!-- Notz-services -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>Notz-services</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
+    <!-- LOGGING DEPENDENCIES - LOG4J -->
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-log4j12</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>log4j</groupId>
+      <artifactId>log4j</artifactId>
+    </dependency>
+    <!-- JUNIT DEPENDENCY FOR TESTING -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <!-- JERSEY -->
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-server</artifactId>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- JAXB -->
+      <plugin>
+        <version>0.8.1</version>
+        <groupId>org.jvnet.jaxb2.maven2</groupId>
+        <artifactId>maven-jaxb2-plugin</artifactId>
+        <executions>
+          <execution>
+            <goals>
+              <goal>generate</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <schemaDirectory>src/main/resources/xsd</schemaDirectory>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>
