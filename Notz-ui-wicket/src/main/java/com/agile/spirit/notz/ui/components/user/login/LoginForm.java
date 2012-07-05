@@ -8,7 +8,7 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 
@@ -33,7 +33,7 @@ public class LoginForm extends NotzPanel {
       public void onSubmit() {
         String email = emailInput.getModelObject();
         String password = passwordInput.getModelObject();
-        User user = UserServiceImpl.getInstance().authenticate(email, password);
+        User user = UserServiceImpl.getInstance().loginUser(email, password);
         if (user != null) {
           getWicketSession().setUser(user);
           setResponsePage(NoteListPage.class);

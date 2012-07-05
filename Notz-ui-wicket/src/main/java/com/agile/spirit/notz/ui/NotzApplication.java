@@ -6,11 +6,11 @@ import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 
-import com.agile.spirit.notz.services.user.UserServiceImpl;
-import com.agile.spirit.notz.services.util.DataGenerator;
+import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 import com.agile.spirit.notz.ui.pages.user.form.UserFormPage;
 import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
+import com.agile.spirit.notz.util.DataGenerator;
 
 public class NotzApplication extends WebApplication {
 

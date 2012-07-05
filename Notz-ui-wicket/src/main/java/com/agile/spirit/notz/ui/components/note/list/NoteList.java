@@ -17,7 +17,7 @@ import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.note.NoteServiceImpl;
+import com.agile.spirit.notz.services.NoteServiceImpl;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.components.note.form.NoteCreationForm;
 import com.agile.spirit.notz.ui.components.note.form.NoteEditionForm;

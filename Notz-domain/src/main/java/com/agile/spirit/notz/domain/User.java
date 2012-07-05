@@ -1,14 +1,31 @@
 package com.agile.spirit.notz.domain;
 
+import static com.agile.spirit.notz.domain.User.FIND_USERS_BY_EMAIL;
+
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="user")
+@Entity
+@Table(name="NTZ_USERS")
+@NamedQueries({@NamedQuery(name=FIND_USERS_BY_EMAIL, query="FROM User u WHERE u.email=:email")})
 public class User extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
+  
+  /*
+   * NAMED QUERIES
+   */
+  public static final String FIND_USERS_BY_EMAIL = "findUsersByEmail";
   
   /*
    * ATTRIBUTES
@@ -18,6 +35,9 @@ public class User extends BaseEntity {
   private String lastName;
   private String email;
   private String password;
+  
+  @OneToMany(cascade = CascadeType.ALL)
+  @JoinColumn(name="USER_ID", referencedColumnName="ID")
   private List<Note> notes;
 
   /*

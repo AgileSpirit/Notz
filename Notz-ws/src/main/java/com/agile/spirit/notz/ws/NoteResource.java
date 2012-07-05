@@ -16,8 +16,8 @@ import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.note.NoteServiceImpl;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.NoteServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 
 @Path("/notes")
 public class NoteResource {
@@ -26,7 +26,7 @@ public class NoteResource {
   @Path("{userId}")
   @Produces(MediaType.APPLICATION_XML)
   public List<Note> getByUserId(@PathParam("userId") Integer userId) {
-    User user = UserServiceImpl.getInstance().getById(userId);
+    User user = UserServiceImpl.getInstance().getUserById(userId);
     if (user != null) {
       return user.getNotes();
     }

@@ -1,12 +1,26 @@
 package com.agile.spirit.notz.domain;
 
+import static com.agile.spirit.notz.domain.Note.FIND_NOTES_BY_USER;
+
+import javax.persistence.Entity;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
+import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name="note")
+@Entity
+@Table(name="NTZ_NOTES")
+@NamedQueries({@NamedQuery(name=FIND_NOTES_BY_USER, query="FROM Note n WHERE n.email=:email")})
 public class Note extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
 
+  /*
+   * NAMED QUERIES
+   */
+  public static final String FIND_NOTES_BY_USER = "findNotesByUser";
+  
   /*
    * ATTRIBUTES
    */

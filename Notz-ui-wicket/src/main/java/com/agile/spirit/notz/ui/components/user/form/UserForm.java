@@ -12,7 +12,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.components.user.form.section.GtuSection;
 import com.agile.spirit.notz.ui.components.user.form.section.IdentificationSection;
 import com.agile.spirit.notz.ui.components.user.form.section.PersonalDataSection;

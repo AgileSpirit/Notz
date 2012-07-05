@@ -11,7 +11,7 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.services.note.NoteServiceImpl;
+import com.agile.spirit.notz.services.NoteServiceImpl;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 
 public abstract class NoteForm extends Panel {

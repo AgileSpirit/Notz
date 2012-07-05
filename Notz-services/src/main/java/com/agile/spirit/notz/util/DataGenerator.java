@@ -1,4 +1,4 @@
-package com.agile.spirit.notz.services.util;
+package com.agile.spirit.notz.util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.Random;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 
 public class DataGenerator {
 
@@ -17,7 +17,7 @@ public class DataGenerator {
     generateUsers(10);
   }
 
-  private static void generateAdminUser() {
+  public static void generateAdminUser() {
     User admin = User.create();
     admin.setFirstName("Chuck");
     admin.setLastName("Noris");
@@ -28,18 +28,20 @@ public class DataGenerator {
     UserServiceImpl.getInstance().saveOrUpdate(admin);
   }
   
-  private static void generateUsers(int rowsNumber) {
+  public static List<User> generateUsers(int rowsNumber) {
+    List<User> generatedUsers = new ArrayList<User>();
     for (int i = 0 ; i < rowsNumber ; i++) {
       User user = User.create();
       user.setFirstName(generateRandomString(true));
       user.setLastName(generateRandomString(true));
       user.setEmail(generateRandomEmail());
       user.setPassword(generateRandomString(true));
-      UserServiceImpl.getInstance().saveOrUpdate(user);
+      generatedUsers.add(user);
     }
+    return generatedUsers;
   }
   
-  private static List<Note> generateNotes(int rowsNumber) {
+  public static List<Note> generateNotes(int rowsNumber) {
     List<Note> notes = new ArrayList<Note>();
     for (int i = 0 ; i < rowsNumber ; i++) {
       Note note = new Note();

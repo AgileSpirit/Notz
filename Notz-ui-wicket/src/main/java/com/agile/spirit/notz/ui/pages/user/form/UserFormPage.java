@@ -7,7 +7,7 @@ import org.apache.wicket.model.LoadableDetachableModel;
 import org.apache.wicket.request.mapper.parameter.PageParameters;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.NotzPage;
 import com.agile.spirit.notz.ui.components.user.form.UserEditionForm;
 import com.agile.spirit.notz.ui.components.user.form.UserForm;
@@ -31,7 +31,7 @@ public class UserFormPage extends NotzPage {
 
   public UserFormPage(PageParameters params) {
     Integer userId = Integer.parseInt(params.get("user").toString());
-    if (UserServiceImpl.getInstance().getById(userId) != null) {
+    if (UserServiceImpl.getInstance().getUserById(userId) != null) {
       buildUserEditionForm(userId);
     } else {
       buildUserRegistrationForm();
@@ -54,7 +54,7 @@ public class UserFormPage extends NotzPage {
     userModel = new CompoundPropertyModel<User>(new LoadableDetachableModel<User>() {
       @Override
       protected User load() {
-        User user = UserServiceImpl.getInstance().getById(userId);
+        User user = UserServiceImpl.getInstance().getUserById(userId);
         return user;
       }
     });

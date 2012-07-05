@@ -1,5 +1,7 @@
 package com.agile.spirit.notz.ws;
 
+import java.util.Calendar;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -13,7 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.user.UserServiceImpl;
+import com.agile.spirit.notz.services.UserServiceImpl;
 
 @Path("/users")
 public class UserResource {
@@ -28,7 +30,7 @@ public class UserResource {
   @Path("/login")
   @Produces(MediaType.APPLICATION_XML)
   public User login(@FormParam("email") String email, @FormParam("password")String password) {
-    User user = UserServiceImpl.getInstance().authenticate(email, password);
+    User user = UserServiceImpl.getInstance().loginUser(email, password);
     if (user == null) {
       return null;
     } else {
@@ -41,6 +43,7 @@ public class UserResource {
   @Produces(MediaType.APPLICATION_XML)
   public User save(JAXBElement<User> webUser) {
     User user = webUser.getValue();
+    user.setCreationDate(Calendar.getInstance().getTime());
     UserServiceImpl.getInstance().saveOrUpdate(user);
     return user;
   }
@@ -49,15 +52,15 @@ public class UserResource {
   @Path("/{id}")
   @Produces(MediaType.APPLICATION_XML)
   public User getById(@PathParam("id") Integer id) {
-    return UserServiceImpl.getInstance().getById(id);
+    return UserServiceImpl.getInstance().getUserById(id);
   }
   
   @PUT
-  @Path("/{id}")
   @Consumes(MediaType.APPLICATION_XML)
   @Produces(MediaType.APPLICATION_XML)
   public User update(JAXBElement<User> webUser) {
     User user = webUser.getValue();
+    user.setModificationDate(Calendar.getInstance().getTime());
     UserServiceImpl.getInstance().saveOrUpdate(user);
     return user;
   }
@@ -66,6 +69,14 @@ public class UserResource {
   @Path("/{id}")
   public void delete(@PathParam("id") Integer id) {
     UserServiceImpl.getInstance().delete(id);
+  }
+
+  @GET
+  @Path("/generate/{nb}")
+  @Produces(MediaType.TEXT_PLAIN)
+  public String generateUsers(@PathParam("nb") int nb) {
+    UserServiceImpl.getInstance().generateUsers(nb);
+    return "Users generated";
   }
   
 }

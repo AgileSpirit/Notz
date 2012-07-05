@@ -8,7 +8,7 @@ import org.apache.wicket.model.PropertyModel;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.note.NoteServiceImpl;
+import com.agile.spirit.notz.services.NoteServiceImpl;
 
 public class NoteDataProvider implements IDataProvider<Note> {
 
@@ -28,7 +28,7 @@ public class NoteDataProvider implements IDataProvider<Note> {
 
   @Override
   public Iterator<? extends Note> iterator(int first, int count) {
-    return NoteServiceImpl.getInstance().findByUser(getUser(), first, count).iterator();
+    return NoteServiceImpl.getInstance().findNotesByUser(getUser(), first, count).iterator();
   }
 
   @Override

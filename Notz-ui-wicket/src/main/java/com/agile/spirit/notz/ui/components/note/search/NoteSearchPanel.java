@@ -15,8 +15,8 @@ import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.util.SearchCriteria;
 import com.agile.spirit.notz.ui.NotzPanel;
+import com.agile.spirit.notz.util.SearchCriteria;
 
 public class NoteSearchPanel extends NotzPanel {
 
