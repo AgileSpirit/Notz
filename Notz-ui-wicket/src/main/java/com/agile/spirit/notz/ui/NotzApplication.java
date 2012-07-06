@@ -1,32 +1,33 @@
 package com.agile.spirit.notz.ui;
 
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.apache.wicket.Page;
 import org.apache.wicket.Session;
 import org.apache.wicket.protocol.http.WebApplication;
 import org.apache.wicket.request.Request;
 import org.apache.wicket.request.Response;
 
-import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 import com.agile.spirit.notz.ui.pages.user.form.UserFormPage;
 import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
-import com.agile.spirit.notz.util.DataGenerator;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.config.ClientConfig;
+import com.sun.jersey.api.client.config.DefaultClientConfig;
 
 public class NotzApplication extends WebApplication {
 
-  public NotzApplication() {
-    super();
-    if (UserServiceImpl.getInstance().find(null).size() == 0) {
-      DataGenerator.generateData();
-    }
-  }
+  /*
+   * APPLICATION CONFIGURATION
+   */
   
   @Override
   public void init() {
     super.init();
 
     removeThreadMonitoringFromResourceWatcherForGaeSupport();
-    
+
     mountPage("/notes/list", NoteListPage.class);
     mountPage("/users/form", UserFormPage.class);
   }
@@ -34,7 +35,7 @@ public class NotzApplication extends WebApplication {
   private void removeThreadMonitoringFromResourceWatcherForGaeSupport() {
     this.getResourceSettings().setResourcePollFrequency(null);
   }
-  
+
   @Override
   public Class<? extends Page> getHomePage() {
     return LoginPage.class;
@@ -45,4 +46,22 @@ public class NotzApplication extends WebApplication {
     return new NotzSession(request);
   }
 
+  /*
+   * WEB SERVICE CLIENT CONFIGURATION
+   */
+  
+  public static final String WEB_SERVICE_URL = "http://localhost:8080/Notz-ws";
+  
+  private final Client webServiceClient = buildWebServiceClient();
+
+  private final Client buildWebServiceClient() {
+    ClientConfig clientConfig = new DefaultClientConfig();
+    clientConfig.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, true);
+    return Client.create(clientConfig);
+  }
+
+  public Client getWebServiceclient() {
+    return webServiceClient;
+  }
+  
 }

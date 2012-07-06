@@ -7,7 +7,6 @@ import javax.persistence.EntityManager;
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.util.DataGenerator;
 import com.agile.spirit.notz.util.PersistenceUtil;
-import com.agile.spirit.notz.util.SearchCriteria;
 import com.agile.spirit.notz.util.TransactionnalOperation;
 
 public class UserServiceImpl implements UserService {

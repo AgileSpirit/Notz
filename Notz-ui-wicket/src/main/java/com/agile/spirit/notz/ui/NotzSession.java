@@ -4,7 +4,7 @@ import org.apache.wicket.protocol.http.WebSession;
 import org.apache.wicket.request.Request;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.util.SearchCriteria;
+import com.agile.spirit.notz.services.SearchCriteria;
 
 public class NotzSession extends WebSession {
 

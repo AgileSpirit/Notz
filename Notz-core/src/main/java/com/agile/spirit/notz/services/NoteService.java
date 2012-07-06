@@ -4,7 +4,7 @@ import java.util.List;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.util.SearchCriteria;
+
 
 public interface NoteService {
 

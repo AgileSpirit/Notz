@@ -14,10 +14,11 @@
 
   <properties>
     <wicket.version>1.5.7</wicket.version>
+    <jersey.version>1.12</jersey.version>
   </properties>
   
   <dependencies>
-    <!-- Notz-domain -->
+    <!-- Notz-services -->
     <dependency>
       <groupId>${project.groupId}</groupId>
       <artifactId>Notz-services</artifactId>
@@ -50,10 +51,11 @@
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
-    <!-- JERSEY -->
+    <!-- JERSEY CLIENT -->
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
+      <version>${jersey.version}</version>
     </dependency>
   </dependencies>
 

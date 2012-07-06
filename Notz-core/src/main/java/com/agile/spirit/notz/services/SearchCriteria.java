@@ -1,4 +1,4 @@
-package com.agile.spirit.notz.util;
+package com.agile.spirit.notz.services;
 
 import java.io.Serializable;
 

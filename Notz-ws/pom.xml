@@ -12,13 +12,11 @@
     <version>1.0-SNAPSHOT</version>
   </parent>
 
+  <properties>
+    <jersey.version>1.12</jersey.version>
+  </properties>
+  
   <dependencies>
-    <!-- Notz-domain -->
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>Notz-domain</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
     <!-- Notz-services -->
     <dependency>
       <groupId>${project.groupId}</groupId>
@@ -44,10 +42,12 @@
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-server</artifactId>
+      <version>${jersey.version}</version>
     </dependency>
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-servlet</artifactId>
+      <version>${jersey.version}</version>
     </dependency>
   </dependencies>
 

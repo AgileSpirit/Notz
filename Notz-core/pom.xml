@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.agile.spirit.notz</groupId>
-	<artifactId>Notz-domain</artifactId>
-  <name>Notz-domain</name>
+	<artifactId>Notz-core</artifactId>
+  <name>Notz-core</name>
 	<packaging>jar</packaging>
 
   <parent>

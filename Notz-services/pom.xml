@@ -13,10 +13,10 @@
   </parent>
 
   <dependencies>
-    <!-- Notz-domain -->
+    <!-- Notz-core -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>Notz-domain</artifactId>
+      <artifactId>Notz-core</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <!-- LOGGING DEPENDENCIES - LOG4J -->
@@ -33,11 +33,6 @@
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
-    </dependency>
-    <!-- JERSEY -->
-    <dependency>
-      <groupId>com.sun.jersey</groupId>
-      <artifactId>jersey-server</artifactId>
     </dependency>
     <!-- HIBERNATE DEPENDENCY -->
     <dependency>

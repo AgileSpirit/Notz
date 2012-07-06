@@ -1,8 +1,13 @@
 package com.agile.spirit.notz.ui;
 
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.Panel;
+
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.WebResource;
 
 public class NotzPanel extends Panel {
 
@@ -37,4 +42,20 @@ public class NotzPanel extends Panel {
     target.appendJavaScript( "Wicket.Window.unloadConfirmation = false;" ); 
     modal.show(target);
   }
+  
+  public WebResource getWebResource(final String path) {
+    Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
+    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
+    resource.path(path);
+    return resource;
+  }
+
+  public WebResource getWebResource(final String path, final MultivaluedMap<String, String> params) {
+    Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
+    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
+    resource.path(path);
+    resource.queryParams(params);
+    return resource;
+  }
+
 }
