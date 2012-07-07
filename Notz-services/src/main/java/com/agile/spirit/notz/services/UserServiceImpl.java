@@ -24,7 +24,7 @@ public class UserServiceImpl implements UserService {
    * NAMED QUERIES
    */
   public User getUserByEmail(String email) {
-    return PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_EMAIL, User.class).getResultList().get(0);
+    return PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_EMAIL, User.class).setParameter("email", email).getResultList().get(0);
   }
 
   @Override
@@ -83,6 +83,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public void generateUsers(int nb) {
     List<User> users = DataGenerator.generateUsers(nb);
+    users.add(DataGenerator.generateAdminUser(false));
     for (User user : users) {
       user.setNotes(DataGenerator.generateNotes(5));
       saveOrUpdate(user);

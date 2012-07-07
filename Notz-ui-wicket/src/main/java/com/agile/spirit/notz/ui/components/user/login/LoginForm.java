@@ -1,5 +1,8 @@
 package com.agile.spirit.notz.ui.components.user.login;
 
+import javax.ws.rs.core.MultivaluedMap;
+
+
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -8,9 +11,11 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class LoginForm extends NotzPanel {
 
@@ -33,7 +38,13 @@ public class LoginForm extends NotzPanel {
       public void onSubmit() {
         String email = emailInput.getModelObject();
         String password = passwordInput.getModelObject();
-        User user = UserServiceImpl.getInstance().loginUser(email, password);
+        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+        params.add("email", email);
+        params.add("password", password);
+        WebResource webResource = getWebResource();
+        
+        ClientResponse response = webResource.path("users/login").post(ClientResponse.class, params);
+        User user = response.getEntity(User.class);
         if (user != null) {
           getWicketSession().setUser(user);
           setResponsePage(NoteListPage.class);

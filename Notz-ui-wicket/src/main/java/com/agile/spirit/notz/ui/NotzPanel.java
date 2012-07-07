@@ -43,8 +43,14 @@ public class NotzPanel extends Panel {
     modal.show(target);
   }
   
+  public WebResource getWebResource() {
+    final Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
+    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
+    return resource;
+  }
+
   public WebResource getWebResource(final String path) {
-    Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
+    final Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
     WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
     resource.path(path);
     return resource;

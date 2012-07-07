@@ -23,7 +23,6 @@ public class NoteDataProvider implements IDataProvider<Note> {
   @Override
   public void detach() {
     // TODO Auto-generated method stub
-
   }
 
   @Override

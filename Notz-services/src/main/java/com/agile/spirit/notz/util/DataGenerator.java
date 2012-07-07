@@ -12,20 +12,16 @@ public class DataGenerator {
 
   private final static Random random = new Random();
 
-  public static void generateData() {
-    generateAdminUser();
-    generateUsers(10);
-  }
-
-  public static void generateAdminUser() {
+  public static User generateAdminUser(boolean generateNotes) {
     User admin = User.create();
-    admin.setFirstName("Chuck");
-    admin.setLastName("Noris");
+    admin.setFirstName("Jeremy");
+    admin.setLastName("Buget");
     admin.setEmail("admin@agile-spirit.fr");
-    admin.setEmail("admin");
     admin.setPassword("admin");
-    admin.setNotes(generateNotes(13));
-    UserServiceImpl.getInstance().saveOrUpdate(admin);
+    if (generateNotes) {
+      admin.setNotes(generateNotes(13));
+    }
+    return admin;
   }
   
   public static List<User> generateUsers(int rowsNumber) {

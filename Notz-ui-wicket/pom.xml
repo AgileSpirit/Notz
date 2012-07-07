@@ -18,6 +18,12 @@
   </properties>
   
   <dependencies>
+    <!-- Notz-core -->
+    <dependency>
+      <groupId>${project.groupId}</groupId>
+      <artifactId>Notz-core</artifactId>
+      <version>${project.parent.version}</version>
+    </dependency>
     <!-- Notz-services -->
     <dependency>
       <groupId>${project.groupId}</groupId>

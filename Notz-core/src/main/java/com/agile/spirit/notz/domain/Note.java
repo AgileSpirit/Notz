@@ -3,15 +3,17 @@ package com.agile.spirit.notz.domain;
 import static com.agile.spirit.notz.domain.Note.FIND_NOTES_BY_USER;
 
 import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="note")
+@XmlRootElement(name = "note")
 @Entity
-@Table(name="NTZ_NOTES")
-@NamedQueries({@NamedQuery(name=FIND_NOTES_BY_USER, query="FROM Note n WHERE n.email=:email")})
+@Table(name = "NTZ_NOTES")
+@NamedQueries({ @NamedQuery(name = FIND_NOTES_BY_USER, query = "FROM Note n WHERE n.user.id=:userId") })
 public class Note extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
@@ -20,13 +22,17 @@ public class Note extends BaseEntity {
    * NAMED QUERIES
    */
   public static final String FIND_NOTES_BY_USER = "findNotesByUser";
-  
+
   /*
    * ATTRIBUTES
    */
 
   private String title;
   private String description;
+
+  @ManyToOne
+  @JoinColumn(name = "userId")
+  private User user;
 
   /*
    * CONSTRUCTORS
@@ -42,25 +48,35 @@ public class Note extends BaseEntity {
     note.description = description;
     return note;
   }
-  
-  
+
   /*
    * ACCESSORS
    */
-  
+
   public String getTitle() {
     return title;
   }
+
   public void setTitle(String title) {
     this.title = title;
   }
+
   public String getDescription() {
     return description;
   }
+
   public void setDescription(String description) {
     this.description = description;
   }
-  
+
+  public User getUser() {
+    return user;
+  }
+
+  public void setUser(User user) {
+    this.user = user;
+  }
+
   /*
    * BEHAVIORS
    */
@@ -69,5 +85,5 @@ public class Note extends BaseEntity {
   public String toString() {
     return "Note [title=" + title + ", description=" + description + "]";
   }
-  
+
 }

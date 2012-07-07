@@ -122,6 +122,7 @@ public abstract class UserForm extends Panel {
 
       @Override
       protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+        
         UserServiceImpl.getInstance().saveOrUpdate(model.getObject());
         setResponsePage(LoginPage.class);
       }

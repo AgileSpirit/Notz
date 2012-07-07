@@ -36,8 +36,7 @@ public class User extends BaseEntity {
   private String email;
   private String password;
   
-  @OneToMany(cascade = CascadeType.ALL)
-  @JoinColumn(name="USER_ID", referencedColumnName="ID")
+  @OneToMany(mappedBy="user")
   private List<Note> notes;
 
   /*
