@@ -8,7 +8,7 @@ import com.agile.spirit.notz.domain.Note;
 
 public interface NoteResource {
 
-  List<Note> getByUserId(Integer userId, int first, int count);
+  List<Note> getByUserId(Integer userId, String first, String count);
 
   Note getById(Integer id);
 

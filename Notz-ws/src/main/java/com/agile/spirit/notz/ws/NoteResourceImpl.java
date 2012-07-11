@@ -15,9 +15,7 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.NoteServiceImpl;
-import com.agile.spirit.notz.services.UserServiceImpl;
 
 @Path("/notes")
 public class NoteResourceImpl implements NoteResource {
@@ -26,12 +24,18 @@ public class NoteResourceImpl implements NoteResource {
   @Path("{userId}")
   @Produces(MediaType.APPLICATION_XML)
   @Override
-  public List<Note> getByUserId(@PathParam("userId") Integer userId, @QueryParam("first") int first, @QueryParam("count") int count) {
-    User user = UserServiceImpl.getInstance().getUserById(userId);
-    if (user != null) {
-      return user.getNotes();
+  public List<Note> getByUserId(@PathParam("userId") Integer userId, @QueryParam("first") String firstParam,
+      @QueryParam("count") String countParam) {
+    Integer first = null;
+    Integer count = null;
+    if (firstParam != null) {
+      first = new Integer(firstParam);
     }
-    return null;
+    if (countParam != null) {
+      count = new Integer(countParam);
+    }
+    List<Note> notes = NoteServiceImpl.getInstance().getNotesByUser(userId, first, count);
+    return notes;
   }
 
   @GET

@@ -3,6 +3,8 @@ package com.agile.spirit.notz.ui.components.note.list;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.apache.wicket.markup.repeater.data.IDataProvider;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
@@ -10,6 +12,10 @@ import org.apache.wicket.model.PropertyModel;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
+import com.agile.spirit.notz.ui.NotzApplication;
+import com.sun.jersey.api.client.GenericType;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class NoteDataProvider implements IDataProvider<Note> {
 
@@ -28,48 +34,23 @@ public class NoteDataProvider implements IDataProvider<Note> {
 
   @Override
   public Iterator<? extends Note> iterator(int first, int count) {
-    List<Note> notes = getUser().getNotes();
-    return notes.subList(first, first + count).iterator();
+    WebResource webResource = NotzApplication.getWebResource();
+    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+    params.add("first", "" + first);
+    params.add("count", "" + count);
+    List<Note> notes = webResource.path("notes/" + getUser().getId()).queryParams(params).get(new GenericType<List<Note>>() {
+    });
+    return notes.iterator();
   }
 
-  // @Override
-  // public Iterator<? extends Note> iterator(int first, int count) {
-  // WebResource webResource = NotzApplication.getWebResource();
-  // ClientResponse response = webResource.path("notes/" + getUser().getId()).get(ClientResponse.class);
-  // List objects = response.getEntity(List.class);
-  // List<Note> notes = new ArrayList<Note>();
-  // if (objects != null) {
-  // for (Object object : objects) {
-  // if (object instanceof Note) {
-  // notes.add((Note) object);
-  // }
-  // }
-  // }
-  // return notes.subList(first, first + count).iterator();
-  // }
-  //
   @Override
   public int size() {
-    List<Note> notes = getUser().getNotes();
+    WebResource webResource = NotzApplication.getWebResource();
+    List<Note> notes = webResource.path("notes/" + getUser().getId()).get(new GenericType<List<Note>>() {
+    });
     return notes.size();
   }
 
-  // @Override
-  // public int size() {
-  // WebResource webResource = NotzApplication.getWebResource();
-  // ClientResponse response = webResource.path("notes/" + getUser().getId()).get(ClientResponse.class);
-  // List objects = response.getEntity(List.class);
-  // List<Note> notes = new ArrayList<Note>();
-  // if (objects != null) {
-  // for (Object object : objects) {
-  // if (object instanceof Note) {
-  // notes.add((Note) object);
-  // }
-  // }
-  // }
-  // return notes.size();
-  // }
-  //
   @Override
   public IModel<Note> model(Note object) {
     int index = getUser().getNotes().indexOf(object);

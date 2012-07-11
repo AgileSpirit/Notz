@@ -7,36 +7,43 @@ import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.OrderBy;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement(name="user")
+@XmlRootElement(name = "user")
+@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
-@Table(name="NTZ_USERS")
-@NamedQueries({@NamedQuery(name=FIND_USERS_BY_EMAIL, query="FROM User u WHERE u.email=:email")})
+@Table(name = "NTZ_USERS")
+@NamedQueries({ @NamedQuery(name = FIND_USERS_BY_EMAIL, query = "FROM User u WHERE u.email=:email") })
 public class User extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-  
+
   /*
    * NAMED QUERIES
    */
   public static final String FIND_USERS_BY_EMAIL = "findUsersByEmail";
-  
+
   /*
    * ATTRIBUTES
    */
-  
+
   private String firstName;
   private String lastName;
   private String email;
   private String password;
-  
-  @OneToMany(mappedBy="user")
+
+  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, targetEntity = Note.class, fetch = FetchType.LAZY)
+  @JoinColumn(name = "userId")
+  @OrderBy("modificationDate DESC, creationDate DESC")
   private List<Note> notes;
 
   /*
@@ -60,7 +67,7 @@ public class User extends BaseEntity {
   /*
    * ACCESSORS
    */
-  
+
   public String getFirstName() {
     return firstName;
   }
@@ -107,8 +114,8 @@ public class User extends BaseEntity {
 
   @Override
   public String toString() {
-    return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password
-        + ", notes=" + notes.size() + "]";
+    return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", notes="
+        + notes.size() + "]";
   }
 
 }

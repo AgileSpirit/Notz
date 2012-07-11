@@ -8,9 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.xml.bind.annotation.XmlRootElement;
 
-@XmlRootElement
 @MappedSuperclass
 public class BaseEntity implements Serializable, Comparable<BaseEntity> {
 
@@ -56,7 +54,7 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
       return 1;
 
     Integer id1 = this.getId();
-    Integer id2 = ((BaseEntity) compared).getId();
+    Integer id2 = compared.getId();
 
     if (id1 == null) {
       if (id2 == null)

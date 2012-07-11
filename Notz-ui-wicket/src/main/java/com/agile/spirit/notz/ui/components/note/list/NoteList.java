@@ -1,7 +1,5 @@
 package com.agile.spirit.notz.ui.components.note.list;
 
-import java.util.List;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
 import org.apache.wicket.markup.html.basic.Label;
@@ -32,14 +30,14 @@ public class NoteList extends NotzPanel {
   public NoteList(String id) {
     super(id);
   }
-  
+
   @Override
   public void onInitialize() {
     super.onInitialize();
     buildList();
     buildListFooter();
   }
-  
+
   private void buildListTitle() {
     Label listTitle = new Label("listTitle", list.getDataProvider().size() + " notes");
     add(listTitle);
@@ -54,11 +52,11 @@ public class NoteList extends NotzPanel {
         String displayedTitle = shortCutString(note.getTitle(), 40);
         item.add(new Label("title", displayedTitle));
         int descriptionExtendedSize = (note.getTitle().length() <= 40) ? 40 - note.getTitle().length() : 0;
-        item.add(new Label("description", shortCutString(note.getDescription(), 40 + descriptionExtendedSize )));
+        item.add(new Label("description", shortCutString(note.getDescription(), 40 + descriptionExtendedSize)));
 
         final PageParameters params = new PageParameters();
         params.add("note", note.getId());
-//        item.add(new BookmarkablePageLink<NoteFormPage>("edit", NoteFormPage.class, params));
+        // item.add(new BookmarkablePageLink<NoteFormPage>("edit", NoteFormPage.class, params));
         item.add(new AjaxLink("edit") {
           @Override
           public void onClick(AjaxRequestTarget target) {
@@ -72,7 +70,7 @@ public class NoteList extends NotzPanel {
             configureModal(noteRegistrationForm, 400);
             showModal(target);
           }
-          
+
         });
         item.add(new Link<Integer>("delete", new Model<Integer>(note.getId())) {
           @Override
@@ -88,14 +86,16 @@ public class NoteList extends NotzPanel {
   }
 
   private String shortCutString(String phrase, int length) {
-    if (phrase == null) return null;
-    if (phrase.length() <= length) return phrase;
+    if (phrase == null)
+      return null;
+    if (phrase.length() <= length)
+      return phrase;
     return phrase.substring(0, length - 3) + "...";
   }
-  
+
   private void buildListFooter() {
     add(new PagingNavigator("navigator", list));
-//    buildAddNoteLink();
+    // buildAddNoteLink();
   }
 
   private void buildAddNoteLink() {

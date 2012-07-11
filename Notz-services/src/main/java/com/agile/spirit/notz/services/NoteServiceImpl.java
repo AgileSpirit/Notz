@@ -1,13 +1,12 @@
 package com.agile.spirit.notz.services;
 
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.util.PersistenceUtil;
 import com.agile.spirit.notz.util.TransactionnalOperation;
 
@@ -25,8 +24,14 @@ public class NoteServiceImpl implements NoteService {
   /*
    * NAMED QUERIES
    */
-  public List<Note> getNotesByUser(final Integer userId, final int first, final int count) {
-    List<Note> notes = PersistenceUtil.getEntityManager().createNamedQuery(Note.FIND_NOTES_BY_USER, Note.class).getResultList();
+  @Override
+  public List<Note> getNotesByUser(final Integer userId, final Integer first, final Integer count) {
+    Query query = PersistenceUtil.getEntityManager().createNamedQuery(Note.FIND_NOTES_BY_USER, Note.class);
+    query.setParameter("userId", userId);
+    List<Note> notes = query.getResultList();
+    if (notes != null && first != null && count != null) {
+      return notes.subList(first, first + count);
+    }
     return notes;
   }
 
@@ -78,19 +83,6 @@ public class NoteServiceImpl implements NoteService {
         }
       }.execute();
     }
-  }
-
-  @Override
-  public List<Note> findNotesByUser(User user, int first, int count) {
-    if (user != null && user.getId() != null) {
-      User persistedUser = UserServiceImpl.getInstance().getUserById(user.getId());
-      if (persistedUser != null) {
-        List<Note> notes = persistedUser.getNotes();
-        Collections.sort(notes);
-        return notes.subList(first, first + count);
-      }
-    }
-    return null;
   }
 
 }
