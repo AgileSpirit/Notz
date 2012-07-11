@@ -1,27 +1,26 @@
 package com.agile.spirit.notz.ui.components.user.form;
 
-
 import org.apache.wicket.ajax.AjaxEventBehavior;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxButton;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
-import org.apache.wicket.markup.html.panel.Panel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.StringResourceModel;
 
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.UserServiceImpl;
+import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.components.user.form.section.GtuSection;
 import com.agile.spirit.notz.ui.components.user.form.section.IdentificationSection;
 import com.agile.spirit.notz.ui.components.user.form.section.PersonalDataSection;
 import com.agile.spirit.notz.ui.components.user.form.validators.PasswordConfirmationFormValidator;
 import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
 
-public abstract class UserForm extends Panel {
+public abstract class UserForm extends NotzPanel {
 
-  private static final long serialVersionUID = 4907116541209734919L;
+  private static final long serialVersionUID = 1L;
 
   /* Components */
   Form<User> form;
@@ -29,19 +28,16 @@ public abstract class UserForm extends Panel {
   IdentificationSection identificationSection;
   GtuSection gtuSection;
 
-  /* Model data*/
+  /* Model data */
   IModel<User> model;
 
-  public UserForm(String id, IModel<User> model) {
+  public UserForm(String id) {
     super(id);
-    this.model = model;
-  }
-
-  @Override
-  protected void onInitialize() {
-    super.onInitialize();
+    buildModel();
     buildForm();
   }
+
+  protected abstract void buildModel();
 
   protected abstract String getTitleKey();
 
@@ -67,7 +63,6 @@ public abstract class UserForm extends Panel {
     personalDataSection = new PersonalDataSection("personalDataSection", model);
     form.add(personalDataSection);
   }
-
 
   protected abstract boolean isCreationMode();
 
@@ -117,12 +112,12 @@ public abstract class UserForm extends Panel {
       @Override
       protected void onError(AjaxRequestTarget target, Form<?> form) {
         target.add(form);
-        //        super.onError(target, form);
+        // super.onError(target, form);
       }
 
       @Override
       protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-        
+
         UserServiceImpl.getInstance().saveOrUpdate(model.getObject());
         setResponsePage(LoginPage.class);
       }
@@ -131,6 +126,5 @@ public abstract class UserForm extends Panel {
     validateButton.setModel(new StringResourceModel(getValidateButtonKey(), UserForm.this, null));
     form.add(validateButton);
   }
-
 
 }

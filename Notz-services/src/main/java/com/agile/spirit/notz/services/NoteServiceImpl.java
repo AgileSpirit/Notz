@@ -1,6 +1,7 @@
 package com.agile.spirit.notz.services;
 
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,8 +25,9 @@ public class NoteServiceImpl implements NoteService {
   /*
    * NAMED QUERIES
    */
-  public List<Note> getNotesByUser(final Integer userId) {
-    return PersistenceUtil.getEntityManager().createNamedQuery(Note.FIND_NOTES_BY_USER, Note.class).getResultList();
+  public List<Note> getNotesByUser(final Integer userId, final int first, final int count) {
+    List<Note> notes = PersistenceUtil.getEntityManager().createNamedQuery(Note.FIND_NOTES_BY_USER, Note.class).getResultList();
+    return notes;
   }
 
   @Override
@@ -48,9 +50,11 @@ public class NoteServiceImpl implements NoteService {
         @Override
         public Object processInTransaction(final EntityManager entityManager) {
           if (note.getId() == null) {
+            note.setCreationDate(new Date());
             entityManager.persist(note);
             return note;
           } else {
+            note.setModificationDate(new Date());
             return entityManager.merge(note);
           }
         }

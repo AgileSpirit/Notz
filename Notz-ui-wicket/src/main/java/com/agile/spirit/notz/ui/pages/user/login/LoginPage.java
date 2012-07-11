@@ -5,7 +5,6 @@ import com.agile.spirit.notz.ui.components.user.login.LoginForm;
 
 public class LoginPage extends NotzPage {
 
-  
   private static final long serialVersionUID = 1L;
 
   public LoginPage() {
@@ -15,6 +14,13 @@ public class LoginPage extends NotzPage {
 
   private void buildLoginForm() {
     add(new LoginForm("loginForm"));
+  }
+
+  @Override
+  protected void doOnInitialize() {
+    /*
+     * DO NOTHING
+     */
   }
 
 }

@@ -1,5 +1,6 @@
 package com.agile.spirit.notz.services;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -24,7 +25,9 @@ public class UserServiceImpl implements UserService {
    * NAMED QUERIES
    */
   public User getUserByEmail(String email) {
-    return PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_EMAIL, User.class).setParameter("email", email).getResultList().get(0);
+    User user = PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_EMAIL, User.class).setParameter("email", email)
+        .getResultList().get(0);
+    return user;
   }
 
   @Override
@@ -39,9 +42,11 @@ public class UserServiceImpl implements UserService {
         @Override
         public Object processInTransaction(final EntityManager entityManager) {
           if (user.getId() == null) {
+            user.setCreationDate(new Date());
             entityManager.persist(user);
             return user;
           } else {
+            user.setModificationDate(new Date());
             return entityManager.merge(user);
           }
         }

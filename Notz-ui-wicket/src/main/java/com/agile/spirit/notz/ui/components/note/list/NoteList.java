@@ -46,7 +46,7 @@ public class NoteList extends NotzPanel {
   }
 
   private void buildList() {
-    list = new DataView<Note>("list", new NoteDataProvider(new Model<User>(getWicketSession().getUser()))) {
+    list = new DataView<Note>("list", new NoteDataProvider(new Model<User>(getNotzSession().getUser()))) {
 
       @Override
       protected void populateItem(final Item<Note> item) {

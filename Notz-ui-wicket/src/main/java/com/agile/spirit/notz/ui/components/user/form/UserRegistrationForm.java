@@ -1,15 +1,20 @@
 package com.agile.spirit.notz.ui.components.user.form;
 
-import org.apache.wicket.model.IModel;
+import org.apache.wicket.model.CompoundPropertyModel;
 
 import com.agile.spirit.notz.domain.User;
 
 public class UserRegistrationForm extends UserForm {
 
-  private static final long serialVersionUID = -7973296164741028206L;
+  private static final long serialVersionUID = 1L;
 
-  public UserRegistrationForm(String id, IModel<User> user) {
-    super(id, user);
+  public UserRegistrationForm(String id) {
+    super(id);
+  }
+
+  @Override
+  protected void buildModel() {
+    this.model = new CompoundPropertyModel<User>(User.create());
   }
 
   @Override

@@ -17,9 +17,9 @@ public class NotzPanel extends Panel {
     super(id);
   }
   
-  public NotzSession getWicketSession() {
+  public NotzSession getNotzSession() {
     if (getPage() instanceof NotzPage) {
-      return ((NotzPage) getPage()).getWicketSession();
+      return ((NotzPage) getPage()).getNotzSession();
     }
     return null;
   }
@@ -43,25 +43,4 @@ public class NotzPanel extends Panel {
     modal.show(target);
   }
   
-  public WebResource getWebResource() {
-    final Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
-    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
-    return resource;
-  }
-
-  public WebResource getWebResource(final String path) {
-    final Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
-    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
-    resource.path(path);
-    return resource;
-  }
-
-  public WebResource getWebResource(final String path, final MultivaluedMap<String, String> params) {
-    Client webServiceClient = ((NotzApplication) getApplication()).getWebServiceclient();
-    WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
-    resource.path(path);
-    resource.queryParams(params);
-    return resource;
-  }
-
 }
