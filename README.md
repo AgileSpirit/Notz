@@ -17,5 +17,9 @@ Features:
 
 Technical constraints:
 ----------------------
-I.   The application must be totally modulable (separation in 4 layers : Core (Domain & External Interfaces), Services (Persistence + Business rules), WS (Web services), UI (User interface + WS consumption)
+I.   The application must be completely modular => separation in 4 layers : 
+    - Notz-Core (Domain & External Interfaces), 
+    - Notz-Services (Persistence + Business rules), 
+    - Notz-WS (Web services), 
+    - Notz-UI (User interface + WS consumption)
 II.  Build factory configuration (Maven + GIT) and technical design concetption are as important as implementation code
