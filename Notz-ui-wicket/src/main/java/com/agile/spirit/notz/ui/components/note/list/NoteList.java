@@ -80,8 +80,8 @@ public class NoteList extends NotzPanel {
         });
       }
     };
-    list.setItemsPerPage(8);
     add(list);
+    list.setItemsPerPage(2);
     buildListTitle();
   }
 

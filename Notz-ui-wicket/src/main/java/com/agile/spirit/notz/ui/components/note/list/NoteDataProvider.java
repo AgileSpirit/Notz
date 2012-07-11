@@ -6,9 +6,9 @@ import java.util.List;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.wicket.markup.repeater.data.IDataProvider;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.model.PropertyModel;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
@@ -22,6 +22,7 @@ public class NoteDataProvider implements IDataProvider<Note> {
   private static final long serialVersionUID = 1L;
 
   private final Model<User> userModel;
+  private List<Note> notes = null;
 
   public NoteDataProvider(Model<User> userModel) {
     this.userModel = userModel;
@@ -34,12 +35,7 @@ public class NoteDataProvider implements IDataProvider<Note> {
 
   @Override
   public Iterator<? extends Note> iterator(int first, int count) {
-    WebResource webResource = NotzApplication.getWebResource();
-    MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-    params.add("first", "" + first);
-    params.add("count", "" + count);
-    List<Note> notes = webResource.path("notes/" + getUser().getId()).queryParams(params).get(new GenericType<List<Note>>() {
-    });
+    selectNotes(first, count);
     return notes.iterator();
   }
 
@@ -53,13 +49,24 @@ public class NoteDataProvider implements IDataProvider<Note> {
 
   @Override
   public IModel<Note> model(Note object) {
-    int index = getUser().getNotes().indexOf(object);
-    return new PropertyModel<Note>(userModel, "notes." + index);
+    return new CompoundPropertyModel<Note>(object);
   }
 
   /*
    * HELPER
    */
+
+  public List<Note> selectNotes(int first, int count) {
+    if (notes == null) {
+      WebResource webResource = NotzApplication.getWebResource();
+      MultivaluedMap<String, String> params = new MultivaluedMapImpl();
+      params.add("first", "" + first);
+      params.add("count", "" + count);
+      notes = webResource.path("notes/" + getUser().getId()).queryParams(params).get(new GenericType<List<Note>>() {
+      });
+    }
+    return notes;
+  }
 
   public User getUser() {
     return userModel.getObject();
