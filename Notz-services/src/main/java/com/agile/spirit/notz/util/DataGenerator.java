@@ -12,15 +12,13 @@ public class DataGenerator {
 
   private final static Random random = new Random();
 
-  public static User generateAdminUser(boolean generateNotes) {
+  public static User generateAdminUser(int nbNotes) {
     User admin = User.create();
     admin.setFirstName("Jeremy");
     admin.setLastName("Buget");
     admin.setEmail("admin@agile-spirit.fr");
     admin.setPassword("admin");
-    if (generateNotes) {
-      admin.setNotes(generateNotes(13));
-    }
+    admin.setNotes(generateNotes(nbNotes));
     return admin;
   }
 

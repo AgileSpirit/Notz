@@ -17,11 +17,12 @@ a { color: #000000; }
 
 body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new roman, sans-serif; margin: 0 auto; width: 900px; }
 
-#header { padding: 20px 0; }
+#header { padding: 20px; border-bottom: 1px solid #999; }
+#header h1 { }
 
 #body {  }
 
-#footer { padding: 20px 0; }
+#footer { padding: 20px 0; border-top: 1px solid #999; }
 
 div.clear { display:block; clear: both; }
 
@@ -64,13 +65,16 @@ div.wicket-aa ul li.selected { background-color:#FFC966; }
 
 a.editLink { background-image: url(../img/edit.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle;}
 a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
+a.facebookLink { background-image: url(../img/facebook.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+a.twitterLink { background-image: url(../img/twitter.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+a.emailLink { background-image: url(../img/email.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
 
 /****************************/
 /* COMPONENTS CUSTOM STYLES */
 /****************************/
 
 /* --- Common layout --- */
-.content { width: 100%; }
+.content { width: 100%; padding: 10px; }
 
 /* --- User Form Page --- */
 .userForm { width: 360px; }
@@ -83,7 +87,6 @@ a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-r
 
 .noteList div.listHeader { background-color: #F0F0F0; border: 1px solid #999; border-bottom: none; padding: 10px; }
 .noteList div.listHeader span.listTitle { font-weight: bold; }
-
 .noteList table { width: 100%; border: collapse; cellpadding: 0; border-bottom: 1px solid #999; }
 .noteList table tbody { border-right: 1px solid #999; border-left: 1px solid #999; }
 .noteList table tbody tr:hover {background-color: #F0F0F0; }
@@ -92,5 +95,18 @@ a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-r
 .noteList table td.action { width: 18px; }
 .noteList table td span.title { color: #222222; font-weight: bold; }
 .noteList table td span.description { color: #777777; } 
-
 .noteList div.listFooter { background-color: #F0F0F0; border: 1px solid #999; border-top: 0; padding: 10px; }
+
+.noteList { }
+.noteList .note { width: 272px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
+
+.noteList .noteHeader { border-bottom: 1px solid #999; padding: 10px; border: none; }
+.noteList .noteHeader .title { height: 16px; overflow: hidden; display: inline-block; width: 200px; }
+.noteList .noteHeader .title span { font-weight: bold; }
+.noteList .noteHeader .actions { float: right; }
+
+.noteList .noteBody { overflow: hidden; padding: 10px; height: 130px; }
+
+.noteList .noteFooter { border-top: 1px solid #999; padding: 10px; position: absolute; bottom: 0; right: 0; left: 0; }
+.noteList .noteFooter .metadata { color: #ABABAB; display: inline-block; }
+.noteList .noteFooter .links { float: right; }

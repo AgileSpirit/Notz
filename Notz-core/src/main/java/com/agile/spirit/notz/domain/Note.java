@@ -4,6 +4,7 @@ import static com.agile.spirit.notz.domain.Note.FIND_NOTES_BY_USER;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -33,6 +34,8 @@ public class Note extends BaseEntity {
    */
 
   private String title;
+
+  @Lob
   private String description;
 
   @XmlTransient
@@ -46,6 +49,16 @@ public class Note extends BaseEntity {
 
   public static Note create() {
     return create("", "");
+  }
+
+  public static Note create(Note note) {
+    if (note == null) {
+      return create();
+    }
+    Note newNote = create(note.getTitle(), note.getDescription());
+    newNote.setCreationDate(note.getCreationDate());
+    newNote.setModificationDate(note.getModificationDate());
+    return newNote;
   }
 
   public static Note create(String title, String description) {
