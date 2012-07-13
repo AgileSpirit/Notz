@@ -99,6 +99,7 @@ a.emailLink { background-image: url(../img/email.png); background-repeat: no-rep
 
 .noteList { }
 .noteList .note { width: 272px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
+.noteList .note:hover { -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5); box-shadow: 0 0 5px rgba(0,0,0,0.5); cursor: pointer;}
 
 .noteList .noteHeader { border-bottom: 1px solid #999; padding: 10px; border: none; }
 .noteList .noteHeader .title { height: 16px; overflow: hidden; display: inline-block; width: 200px; }
