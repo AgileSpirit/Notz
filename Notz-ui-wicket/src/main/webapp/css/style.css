@@ -18,7 +18,8 @@ a { color: #000000; }
 body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new roman, sans-serif; margin: 0 auto; width: 900px; }
 
 #header { padding: 20px; border-bottom: 1px solid #999; }
-#header h1 { }
+#header .title { float: left; }
+#header .accountMenuBar { float: right; margin-top: 10px; }
 
 #body {  }
 
@@ -26,7 +27,7 @@ body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new ro
 
 div.clear { display:block; clear: both; }
 
-form { border: 1px solid #999; background-color: #F0F0F0; padding: 10px 20px; }
+form { border: 1px solid #E4E4E4; background-color: #F5F5F5; padding: 10px; margin: 10px; }
 form h3 { color: #D60000; text-transform: uppercase; margin-bottom: 10px; }
 form fieldset { border: none; margin: 20px 0; }
 form fieldset span.formSectionTitle { color: #333; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; display: block; width: 100%; border-bottom: 1px solid #333; padding-bottom: 3px; }
@@ -63,51 +64,44 @@ div.wicket-aa ul { list-style-image:none; list-style-position:outside; list-styl
 div.wicket-aa ul li { padding: 5px; }
 div.wicket-aa ul li.selected { background-color:#FFC966; }
 
+a.function { text-decoration: none; background: -moz-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent; padding: 0 10px; 
+  border-color: #D4D4D4 #D4D4D4 #BCBCBC; border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; height: 24px; line-height: 24px; 
+  cursor: pointer; display: inline-block; white-space: nowrap; font-size: 13px; font-weight: bold; text-shadow: 0 1px 0 #FFFFFF; position: relative; }
+a.function:hover { color: #FFF; background: -moz-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent; border-color: #518CC6 #518CC6 #2A65A0; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3); }
 a.editLink { background-image: url(../img/edit.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle;}
 a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
+a.pdfLink { background-image: url(../img/pdf.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
 a.facebookLink { background-image: url(../img/facebook.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
 a.twitterLink { background-image: url(../img/twitter.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
 a.emailLink { background-image: url(../img/email.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
+a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
 
 /****************************/
 /* COMPONENTS CUSTOM STYLES */
 /****************************/
 
 /* --- Common layout --- */
-.content { width: 100%; padding: 10px; }
+.content { padding: 0 10px 10px ; }
 
 /* --- User Form Page --- */
 .userForm { width: 360px; }
 
 /* --- User List Page --- */
-.noteSearchPanel { background-color: #F0F0F0; border: 1px solid #999; border-bottom: 0; }
-.noteSearchPanel form { border: 0; }
-.noteSearchPanel div.formField { display: inline-block; margin-bottom: 0; }
-.noteSearchPanel div.actionsBar {  }
-
-.noteList div.listHeader { background-color: #F0F0F0; border: 1px solid #999; border-bottom: none; padding: 10px; }
-.noteList div.listHeader span.listTitle { font-weight: bold; }
-.noteList table { width: 100%; border: collapse; cellpadding: 0; border-bottom: 1px solid #999; }
-.noteList table tbody { border-right: 1px solid #999; border-left: 1px solid #999; }
-.noteList table tbody tr:hover {background-color: #F0F0F0; }
-.noteList table th { height: 32px; vertical-align: middle; }
-.noteList table td { padding: 0 5px; height: 28px; vertical-align: middle; white-space: nowrap; border-top: 1px solid #DEDEDE; }
-.noteList table td.action { width: 18px; }
-.noteList table td span.title { color: #222222; font-weight: bold; }
-.noteList table td span.description { color: #777777; } 
-.noteList div.listFooter { background-color: #F0F0F0; border: 1px solid #999; border-top: 0; padding: 10px; }
+.toolbar { }
+.toolbar .searchNotesField { float: right; height: 26px; }
+.toolbar .searchNotesField input { margin: 0; padding: 0 10px; background-image: url(../img/search.png); background-repeat: no-repeat; background-position: 5px center;
+  border-color: #D4D4D4 #D4D4D4 #BCBCBC; border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; height: 26px; line-height: 24px; padding-left: 25px; }
+.toolbar .searchNotesField a { margin:0; border-radius: 3px 3px 3px 3px; }
 
 .noteList { }
-.noteList .note { width: 272px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
-.noteList .note:hover { -moz-box-shadow: 0 0 5px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0 5px rgba(0,0,0,0.5); box-shadow: 0 0 5px rgba(0,0,0,0.5); cursor: pointer;}
-
+.noteList .note { width: 270px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
+.noteList .note:hover { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); box-shadow: 0 0 10px rgba(0,0,0,0.5); cursor: pointer;}
 .noteList .noteHeader { border-bottom: 1px solid #999; padding: 10px; border: none; }
 .noteList .noteHeader .title { height: 16px; overflow: hidden; display: inline-block; width: 200px; }
 .noteList .noteHeader .title span { font-weight: bold; }
 .noteList .noteHeader .actions { float: right; }
-
 .noteList .noteBody { overflow: hidden; padding: 10px; height: 130px; }
-
-.noteList .noteFooter { border-top: 1px solid #999; padding: 10px; position: absolute; bottom: 0; right: 0; left: 0; }
+.noteList .noteFooter { border-top: 1px solid #999; padding: 10px; position: absolute; bottom: 0; right: 0; left: 0; background-color: #F2F2F2; }
 .noteList .noteFooter .metadata { color: #ABABAB; display: inline-block; }
 .noteList .noteFooter .links { float: right; }
+

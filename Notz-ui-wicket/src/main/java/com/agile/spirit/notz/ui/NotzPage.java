@@ -3,6 +3,7 @@ package com.agile.spirit.notz.ui;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
 
+import com.agile.spirit.notz.ui.components.user.menu.AccountMenuBar;
 import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
 
 public class NotzPage extends WebPage {
@@ -14,6 +15,7 @@ public class NotzPage extends WebPage {
   public NotzPage() {
     super();
     buildModal();
+    buildAccountMenuBar();
   }
 
   @Override
@@ -50,6 +52,11 @@ public class NotzPage extends WebPage {
     modal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
     modal.setMaskType(ModalWindow.MaskType.SEMI_TRANSPARENT);
     add(modal);
+  }
+
+  private void buildAccountMenuBar() {
+    AccountMenuBar accountMenuBar = new AccountMenuBar("accountMenuBar");
+    add(accountMenuBar);
   }
 
 }

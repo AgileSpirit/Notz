@@ -13,8 +13,8 @@
           <span wicket:id="title" >[title]</span>
         </div>
         <div class="actions">
-          <a wicket:id="edit" href="#" class="editLink" />
-          <a wicket:id="delete" href="#" class="deleteLink" />
+          <a wicket:id="edit" href="#" class="editLink" wicket:message="title:editTitle" />
+          <a wicket:id="delete" href="#" class="deleteLink" wicket:message="title:deleteTitle" />
         </div>
       </div>
       <div class="noteBody">
@@ -27,31 +27,17 @@
           <span wicket:id="modificationDate" >[modificationDate]</span>
         </div>
         <div class="links">
-          <a wicket:id="facebookLink" href="#" class="facebookLink" />
-          <a wicket:id="twitterLink" href="#" class="twitterLink" />
-          <a wicket:id="emailLink" href="#" class="emailLink" />
+          <a wicket:id="pdfLink" href="#" class="pdfLink" wicket:message="title:pdfLinkTitle" />
+          <a wicket:id="facebookLink" href="#" class="facebookLink" wicket:message="title:facebookLinkTitle" />
+          <a wicket:id="twitterLink" href="#" class="twitterLink" wicket:message="title:twitterLinkTitle" />
+          <a wicket:id="emailLink" href="#" class="emailLink" wicket:message="title:emailLinkTitle" />
+          <a wicket:id="permaLink" href="#" class="permaLink" wicket:message="title:permaLinkTitle" />
         </div>
       </div>
     </div>
-    
+
     <div class="clear">&nbsp;</div>
-<!-- 
-    <div class="listData">
-    <table>
-      <tbody>
-        <tr wicket:id="list">
-          <td>
-            <span wicket:id="title" class="title">[title]</span>
-            <span dir="ltr">&nbsp;-&nbsp;</span>
-            <span wicket:id="description" class="description">[description]</span>
-          </td>
-          <td class="action"><a wicket:id="edit" href="#" class="editLink" /></td>
-          <td class="action"><a wicket:id="delete" href="#" class="deleteLink" /></td>
-        </tr>
-      </tbody>
-    </table>
-     </div>
- -->
+
   </wicket:panel>
 </body>
 

@@ -66,12 +66,14 @@ public class NoteList extends NotzPanel {
         item.add(new AjaxLink("edit") {
           @Override
           public void onClick(AjaxRequestTarget target) {
+            // TODO
           }
         });
 
         item.add(new AjaxLink("delete") {
           @Override
           public void onClick(AjaxRequestTarget target) {
+            // TODO
           }
         });
 
@@ -85,21 +87,38 @@ public class NoteList extends NotzPanel {
         Label modificationDate = new Label("modificationDate", displayedDate);
         item.add(modificationDate);
 
+        item.add(new AjaxLink("pdfLink") {
+          @Override
+          public void onClick(AjaxRequestTarget target) {
+            // TODO
+          }
+        });
+
         item.add(new AjaxLink("facebookLink") {
           @Override
           public void onClick(AjaxRequestTarget target) {
+            // TODO
           }
         });
 
         item.add(new AjaxLink("twitterLink") {
           @Override
           public void onClick(AjaxRequestTarget target) {
+            // TODO
           }
         });
 
         item.add(new AjaxLink("emailLink") {
           @Override
           public void onClick(AjaxRequestTarget target) {
+            // TODO
+          }
+        });
+
+        item.add(new AjaxLink("permaLink") {
+          @Override
+          public void onClick(AjaxRequestTarget target) {
+            // TODO
           }
         });
 

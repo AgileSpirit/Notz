@@ -10,6 +10,17 @@
 <body>
   <wicket:extend>
     <div class="content">
+      <form>
+        <div wicket:id="toolBar" class="toolBar">
+          <a wicket:id="addNoteButton" href="#" class="function" wicket:message="title:addNoteTitle"><wicket:message key="addNote">[addNote]</wicket:message></a>
+          &nbsp;
+          <a wicket:id="exportNotesButton" href="#" class="function" wicket:message="title:exportNotesTitle"><wicket:message key="exportNotes">[exportNotes]</wicket:message></a>
+          <div class="searchNotesField">
+            <input wicket:id="searchNotesInput" />
+            <a wicket:id="searchNotesButton" href="#" class="function" ><wicket:message key="searchNotes">[searchNotes]</wicket:message></a>
+          </div>
+        </div>
+      </form>
       <div wicket:id="noteList" class="noteList" />
     </div>
   </wicket:extend>
