@@ -4,7 +4,7 @@ import org.apache.wicket.markup.html.link.BookmarkablePageLink;
 import org.apache.wicket.markup.html.link.Link;
 
 import com.agile.spirit.notz.ui.NotzPanel;
-import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
+import com.agile.spirit.notz.ui.pages.home.HomePage;
 import com.agile.spirit.notz.ui.pages.user.settings.UserSettingsPage;
 
 public class AccountMenuBar extends NotzPanel {
@@ -35,7 +35,7 @@ public class AccountMenuBar extends NotzPanel {
       @Override
       public void onClick() {
         getSession().invalidateNow();
-        setResponsePage(LoginPage.class);
+        setResponsePage(HomePage.class);
       }
     };
     add(logoutLink);
