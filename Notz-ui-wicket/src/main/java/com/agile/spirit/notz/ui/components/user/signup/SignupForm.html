@@ -6,27 +6,27 @@
   <wicket:panel>
     
   <form wicket:id="form">
-    <h3>Créer un compte</h3>
-    <div>
+    <h2><strong>Nouveau sur Notz ?</strong>&nbsp;Inscrivez-vous</h2>
+    <div class="formField">
       <label><wicket:message key="username">[username]</wicket:message></label>
       <input wicket:id="username" type="text" />
     </div>
-    <div>
+    <div class="formField">
       <label><wicket:message key="email">[email]</wicket:message></label>
       <input wicket:id="email" type="text" />
     </div>
-    <div>
+    <div class="formField">
       <label for="password"><wicket:message key="password">[password]</wicket:message></label>
       <input wicket:id="password" type="password" />
     </div>
-    <div>
+    <div class="formField">
       <label><wicket:message key="confirmation">[confirmation]</wicket:message></label>
       <input wicket:id="confirmation" type="password" />
     </div>
-    <div>
+    <div class="formField">
       <a wicket:id="registrationButton" href="#" class="function"><wicket:message key="register">[register]</wicket:message></a>
+      <div class="clear" />
     </div>
-    <div class="clear" />
   </form>
 
   </wicket:panel>

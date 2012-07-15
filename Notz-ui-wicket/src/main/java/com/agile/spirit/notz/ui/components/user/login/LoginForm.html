@@ -6,16 +6,18 @@
   <wicket:panel>
 
     <form wicket:id="form">
-      <div>
-        <label for="email"><wicket:message key="email">Email: </wicket:message></label>
-        <input class="fieldInput" id="email" wicket:id="email" type="text" />
+      <div class="formField">
+        <label for="login"><wicket:message key="login">[login]</wicket:message></label>
+        <input id="login" wicket:id="login" type="text" />
       </div>
-      <div>
-        <label for="password"><wicket:message key="password">Password: </wicket:message></label>
-        <input class="fieldInput" id="password" wicket:id="password" type="password" />
+      <div class="formField">
+        <label for="password"><wicket:message key="password">[password]</wicket:message></label>
+        <input id="password" wicket:id="password" type="password" class="password" />
         <a class="function" wicket:id="loginButton" ><wicket:message key="connect">[connect]</wicket:message></a>
       </div>
-      <div>
+      <div class="formField options">
+        <input type="checkbox" id="rememberMe"/><label for="rememberMe"><wicket:message key="rememberMe">[rememberMe]</wicket:message></label>
+        &nbsp;-&nbsp;
         <a href="#"><wicket:message key="forgottenPassword">[forgottenPassword]</wicket:message></a>
       </div>
       <div class="clear" />

@@ -8,6 +8,7 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
+import org.apache.wicket.util.string.AppendingStringBuffer;
 
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzApplication;
@@ -23,7 +24,7 @@ public class LoginForm extends NotzPanel {
 
   /* Components */
   Form form;
-  TextField<String> emailInput;
+  TextField<String> loginInput;
   PasswordTextField passwordInput;
 
   public LoginForm(String id) {
@@ -36,7 +37,7 @@ public class LoginForm extends NotzPanel {
 
       @Override
       public void onSubmit() {
-        String email = emailInput.getModelObject();
+        String email = loginInput.getModelObject();
         String password = passwordInput.getModelObject();
 
         WebResource webResource = NotzApplication.getWebResource();
@@ -51,25 +52,32 @@ public class LoginForm extends NotzPanel {
           setResponsePage(NoteListPage.class);
         }
       }
+
+      @Override
+      protected CharSequence getEventHandler() {
+        AppendingStringBuffer handler = new AppendingStringBuffer();
+        handler.append(super.getEventHandler());
+        handler.append("; return false;"); // <---- very importante
+        return handler;
+      }
+
     };
     add(form);
 
-    buildEmailInput();
+    buildLoginInput();
     buildPasswordInput();
     buildLoginButton();
+
   }
 
-  private void buildEmailInput() {
-    emailInput = new RequiredTextField<String>("email", new Model<String>());
-    emailInput.setDefaultModelObject("admin@agile-spirit.fr");
-    form.add(emailInput);
+  private void buildLoginInput() {
+    loginInput = new RequiredTextField<String>("login", new Model<String>());
+    form.add(loginInput);
   }
 
   private void buildPasswordInput() {
     passwordInput = new PasswordTextField("password", new Model<String>());
-    passwordInput.setResetPassword(false);
     passwordInput.setRequired(true);
-    passwordInput.setDefaultModelObject("admin");
     form.add(passwordInput);
   }
 

@@ -27,29 +27,16 @@ body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new ro
 
 div.clear { display:block; clear: both; }
 
-form { border: 1px solid #E4E4E4; background-color: #F5F5F5; padding: 10px; margin: 10px; }
-form h3 { color: #D60000; text-transform: uppercase; margin-bottom: 10px; }
-form fieldset { border: none; margin: 20px 0; }
-form fieldset span.formSectionTitle { color: #333; text-transform: uppercase; font-weight: bold; margin-bottom: 10px; display: block; width: 100%; border-bottom: 1px solid #333; padding-bottom: 3px; }
-form div.formField { margin-bottom: 5px; }
-form div.formField label.fieldLabel { height: 25px; display: inline-block; width: 100px; text-align: right; }
-form div.formField label.fieldLabelShort { height: 25px; display: inline-block; text-align: right; }
-form div.formField input.fieldInput { height: 25px; width: 200px; padding: 0 3px; border: 1px solid #AAA; }
-form div.formField input.fieldInputShort { height: 25px; width: 100px; padding: 0 3px; border: 1px solid #AAA; }
-form div.formField input.fieldCheckBox { margin-right: 3px; }
-form div.formField select.fieldInput { height: 25px; width: 200px; padding: 0 0 0 3px; border: 1px solid #AAA; }
-form div.formField select.fieldInputShort { height: 25px; width: 100px; padding: 0 0 0 3px; border: 1px solid #AAA; }
-form div.formField span.fieldInput label { margin-left: 2px; margin-right: 5px; }
-form div.formField span.fieldRequiredFlag { margin-left: 2px; margin-right: 0px; font-weight: bold; color: red;}
-form div.formField span.fieldOptionalFlag { margin-left: 2px; margin-right: 3px; }
-form div.actionsBar { display: inline-block; float:right; }
-form div.actionsBar button.formAction { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
-form div.actionsBar button.formAction:hover { background: #AAA; border: 1px solid #888; color: white; }
-form div.actionsBar input[type="reset"] { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
-form div.actionsBar input[type="reset"]:hover { background: #AAA; border: 1px solid #888; color: white; }
-form div.actionsBar input[type="submit"].formAction { font-weight: bold; margin-left: 10px; cursor: pointer; background: #F0F0F0; border: 1px solid #CCC; color: #666; height: 30px; padding: 2px 7px; text-transform: uppercase; }
-form div.actionsBar input[type="submit"].formAction:hover { background: #69A74E; border: 1px solid; border-color: #3B6E22 #3B6E22 #2C5115; color: white; }
+form { border: 1px solid #CCC; border-radius: 3px; background-color: #F5F5F5; margin: 10px; }
+form h2 { font-size:16px; line-height: 20px; font-weight: normal; color: #777; border-bottom: 1px solid #DDD; padding:10px 15px; }
+form h2 strong { color: #333; }
+form .formField { padding: 5px 15px; }
+form .formField label { display: block; line-height: 22px; }
+form .formField input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
+form .formField input[type="checkbox"] { display: inline-block; width: 0; height: 13px; line-height: 0; vertical-align: middle; }
+form .formField input[type="checkbox"] + label { display: inline; padding-left: 3px; vertical-align: middle; }
 
+/* --- Wicket FeedbackPannel --- */
 ul.feedbackPanel { list-style-type: none; list-style-position: inside; padding: 0; margin: 5px 0; }
 ul.feedbackPanel li { padding: 5px; margin-bottom: -1px; }
 ul.feedbackPanel li.feedbackPanelUNDEFINED { border: 1px solid #CCC; background-color: #EEE; color: #CCC; } /* grey */
@@ -59,15 +46,46 @@ ul.feedbackPanel li.feedbackPanelWARNING { border: 1px solid #9F6000; background
 ul.feedbackPanel li.feedbackPanelERROR { border: 1px solid #D8000C; background-color: #FFBABA; color: #333; } /* red */
 ul.feedbackPanel li.feedbackPanelFATAL { border: 1px solid #D8000C; background-color: #FFBABA; color: #D8000C; } /* red */
 
+/* --- Wicket AutoCompleteTextField --- */
 div.wicket-aa { background-color:white; border:1px solid #CCC; color: #333; }
 div.wicket-aa ul { list-style-image:none; list-style-position:outside; list-style-type:none; margin:0pt; }
 div.wicket-aa ul li { padding: 5px; }
 div.wicket-aa ul li.selected { background-color:#FFC966; }
 
-a.function { text-decoration: none; background: -moz-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent; padding: 0 10px; 
-  border-color: #D4D4D4 #D4D4D4 #BCBCBC; border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; height: 24px; line-height: 24px; 
-  cursor: pointer; display: inline-block; white-space: nowrap; font-size: 13px; font-weight: bold; text-shadow: 0 1px 0 #FFFFFF; position: relative; }
-a.function:hover { color: #FFF; background: -moz-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent; border-color: #518CC6 #518CC6 #2A65A0; text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3); }
+a.function {
+	text-decoration: none;
+	background: linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+  background: -o-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+  background: -moz-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+  background: -webkit-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+  background: -ms-linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
+  padding: 0 10px;
+	border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+	border-radius: 3px 3px 3px 3px;
+	border-style: solid;
+	border-width: 1px;
+	height: 24px;
+	line-height: 24px;
+	cursor: pointer;
+	display: inline-block;
+	white-space: nowrap;
+	font-size: 13px;
+	font-weight: bold;
+	text-shadow: 0 1px 0 #FFFFFF;
+	position: relative;
+}
+
+a.function:hover {
+	color: #FFF;
+	background: linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent;
+	background: -o-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent;
+	background: -moz-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent;
+	background: -webkit-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent;
+	background: -ms-linear-gradient(#599BDC, #3072B3) repeat scroll 0 0 transparent;
+	border-color: #518CC6 #518CC6 #2A65A0;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.3);
+}
+
 a.editLink { background-image: url(../img/edit.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle;}
 a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
 a.pdfLink { background-image: url(../img/pdf.png); background-repeat: no-repeat; width: 16px; height: 16px; display: inline-block; vertical-align: middle; }
@@ -94,34 +112,45 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 .rightColumn { float: right; width: 340px; } 
 
 .overview { padding: 10px; }
-.overview .feature { padding: 10px 0 10px 50px; background-repeat: no-repeat; background-position: 10px 10px; }
-.overview .feature-add { background-image: url(../img/feature1.png); }
-.overview .feature-get { background-image: url(../img/feature2.png); }
-.overview .feature-sync { background-image: url(../img/feature3.png); }
-.overview .feature-share { background-image: url(../img/feature4.png); }
+.overview .feature { padding: 15px 0 10px 60px; background-repeat: no-repeat; background-position: 10px 15px; }
+.overview .feature-add { background-image: url(../img/feature1.png); border-bottom: 1px solid #CCC; }
+.overview .feature-get { background-image: url(../img/feature2.png); border-bottom: 1px solid #CCC; }
+.overview .feature-sync { background-image: url(../img/feature3.png); border-bottom: 1px solid #CCC; }
+.overview .feature-share { background-image: url(../img/feature4.png); border-bottom: 1px solid #CCC; }
+.overview .feature-trends { background-image: url(../img/feature1.png); }
 
 .loginForm {  }
-.loginForm form div { padding: 5px; }
-.loginForm form label { display: block; line-height: 24px; }
-.loginForm form input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
+.loginForm form .formField input.password { width: 178px; display: inline-block; }
+.loginForm form .options { font-size: 13px; line-height: 15px; vertical-align: middle; }
+.loginForm form .options a { vertical-align: middle; }
 
 .signupForm { margin-top: 20px; }
-.signupForm form div { padding: 5px; }
-.signupForm form label { display: block; line-height: 24px; }
-.signupForm form input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
-.signupForm form a { float: right; }
+.signupForm form .formField a { float: right; }
 
 /* -----------------------*/
 /* --- User List Page --- */
 /* -----------------------*/
-.toolbar { }
+.toolbar { padding: 10px; }
 .toolbar .searchNotesField { float: right; height: 26px; }
-.toolbar .searchNotesField input { margin: 0; padding: 0 10px; background-image: url(../img/search.png); background-repeat: no-repeat; background-position: 5px center;
-  border-color: #D4D4D4 #D4D4D4 #BCBCBC; border-radius: 3px 3px 3px 3px; border-style: solid; border-width: 1px; height: 26px; line-height: 24px; padding-left: 25px; }
+.toolbar .searchNotesField input {
+	margin: 0;
+	padding: 0 10px;
+	background-image: url(../img/search.png);
+	background-repeat: no-repeat;
+	background-position: 5px center;
+	border-color: #D4D4D4 #D4D4D4 #BCBCBC;
+	border-radius: 3px 3px 3px 3px;
+	border-style: solid;
+	border-width: 1px;
+	height: 26px;
+	line-height: 24px;
+	padding-left: 25px;
+}
+
 .toolbar .searchNotesField a { margin:0; border-radius: 3px 3px 3px 3px; }
 
 .noteList { }
-.noteList .note { width: 270px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
+.noteList .note { width: 271px; height: 240px; margin: 10px; border: 1px solid #999; float: left; word-wrap:break-word; position: relative;}
 .noteList .note:hover { -moz-box-shadow: 0 0 10px rgba(0,0,0,0.5); -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.5); box-shadow: 0 0 10px rgba(0,0,0,0.5); cursor: pointer;}
 .noteList .noteHeader { border-bottom: 1px solid #999; padding: 10px; border: none; }
 .noteList .noteHeader .title { height: 16px; overflow: hidden; display: inline-block; width: 200px; }
