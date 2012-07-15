@@ -81,12 +81,39 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 /****************************/
 
 /* --- Common layout --- */
-.content { padding: 0 10px 10px ; }
+.content { padding: 10px ; }
 
 /* --- User Form Page --- */
 .userForm { width: 360px; }
 
+/* -----------------------*/
+/* --- Home Page --- */
+/* -----------------------*/
+
+.leftColumn { float: left; width: 540px; }
+.rightColumn { float: right; width: 340px; } 
+
+.overview { padding: 10px; }
+.overview .feature { padding: 10px 0 10px 50px; background-repeat: no-repeat; background-position: 10px 10px; }
+.overview .feature-add { background-image: url(../img/feature1.png); }
+.overview .feature-get { background-image: url(../img/feature2.png); }
+.overview .feature-sync { background-image: url(../img/feature3.png); }
+.overview .feature-share { background-image: url(../img/feature4.png); }
+
+.loginForm {  }
+.loginForm form div { padding: 5px; }
+.loginForm form label { display: block; line-height: 24px; }
+.loginForm form input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
+
+.signupForm { margin-top: 20px; }
+.signupForm form div { padding: 5px; }
+.signupForm form label { display: block; line-height: 24px; }
+.signupForm form input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
+.signupForm form a { float: right; }
+
+/* -----------------------*/
 /* --- User List Page --- */
+/* -----------------------*/
 .toolbar { }
 .toolbar .searchNotesField { float: right; height: 26px; }
 .toolbar .searchNotesField input { margin: 0; padding: 0 10px; background-image: url(../img/search.png); background-repeat: no-repeat; background-position: 5px center;

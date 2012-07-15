@@ -4,7 +4,7 @@ import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
 
 import com.agile.spirit.notz.ui.components.user.menu.AccountMenuBar;
-import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
+import com.agile.spirit.notz.ui.pages.home.HomePage;
 
 public class NotzPage extends WebPage {
 
@@ -26,11 +26,11 @@ public class NotzPage extends WebPage {
 
   /**
    * Add some behavior/logic during Initialization Phase. The default behavior is to check if the user is logged in and to redirect to
-   * LoginPage if not.
+   * HomePage if not.
    */
   protected void doOnInitialize() {
     if (getNotzSession().isUserNotLoggedIn()) {
-      setResponsePage(LoginPage.class);
+      setResponsePage(HomePage.class);
     }
   }
 

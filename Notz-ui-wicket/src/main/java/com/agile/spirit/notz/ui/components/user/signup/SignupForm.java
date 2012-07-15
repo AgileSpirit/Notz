@@ -1,6 +1,4 @@
-package com.agile.spirit.notz.ui.components.user.login;
-
-import javax.ws.rs.core.MultivaluedMap;
+package com.agile.spirit.notz.ui.components.user.signup;
 
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.PasswordTextField;
@@ -9,24 +7,20 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
-import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
-import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
-public class LoginForm extends NotzPanel {
+public class SignupForm extends NotzPanel {
 
   private static final long serialVersionUID = 4907116541209734919L;
 
   /* Components */
   Form form;
+  TextField<String> usernameInput;
   TextField<String> emailInput;
   PasswordTextField passwordInput;
+  PasswordTextField confirmationInput;
 
-  public LoginForm(String id) {
+  public SignupForm(String id) {
     super(id);
     buildForm();
   }
@@ -36,32 +30,30 @@ public class LoginForm extends NotzPanel {
 
       @Override
       public void onSubmit() {
+        String username = usernameInput.getModelObject();
         String email = emailInput.getModelObject();
         String password = passwordInput.getModelObject();
+        String confirmation = confirmationInput.getModelObject();
 
-        WebResource webResource = NotzApplication.getWebResource();
-        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        params.add("email", email);
-        params.add("password", password);
-        ClientResponse response = webResource.path("users/login").post(ClientResponse.class, params);
-
-        User user = response.getEntity(User.class);
-        if (user != null) {
-          getNotzSession().setUser(user);
-          setResponsePage(NoteListPage.class);
-        }
+        // TODO
       }
     };
     add(form);
 
+    buildUsernameInput();
     buildEmailInput();
     buildPasswordInput();
-    buildLoginButton();
+    buildConfirmationInput();
+    buildRegistrationButton();
+  }
+
+  private void buildUsernameInput() {
+    usernameInput = new RequiredTextField<String>("username", new Model<String>());
+    form.add(usernameInput);
   }
 
   private void buildEmailInput() {
     emailInput = new RequiredTextField<String>("email", new Model<String>());
-    emailInput.setDefaultModelObject("admin@agile-spirit.fr");
     form.add(emailInput);
   }
 
@@ -69,13 +61,20 @@ public class LoginForm extends NotzPanel {
     passwordInput = new PasswordTextField("password", new Model<String>());
     passwordInput.setResetPassword(false);
     passwordInput.setRequired(true);
-    passwordInput.setDefaultModelObject("admin");
     form.add(passwordInput);
   }
 
-  private void buildLoginButton() {
-    SubmitLink loginButton = new SubmitLink("loginButton", form);
-    form.add(loginButton);
+  private void buildConfirmationInput() {
+    confirmationInput = new PasswordTextField("confirmation", new Model<String>());
+    confirmationInput.setResetPassword(false);
+    confirmationInput.setRequired(true);
+    form.add(confirmationInput);
+  }
+
+  private void buildRegistrationButton() {
+    SubmitLink registrationButton = new SubmitLink("registrationButton", form) {
+    };
+    form.add(registrationButton);
   }
 
 }

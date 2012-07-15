@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
+
+<head>
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <title>Notz - Home</title>
+</head>
+
+<body>
+  <wicket:extend>
+    <div class="content">
+      <div class="leftColumn">
+        <div class="overview">
+          <div class="introduction">Notz vous aide à vous souvenir de tout sur tous les ordinateurs, téléphones et tablettes que vous
+            utilisez.</div>
+          <div class="features">
+            <div class="feature feature-add">
+              <h4>Capturez vos idées</h4>
+              <p>Enregistrez vos idées, tâches, projets, fichiers, recherches, et plus encore.</p>
+            </div>
+            <div class="feature feature-get">
+              <h4>Accéder à vos notes</h4>
+              <p>Evernote rend tous vos souvenirs disponibles partout où vous allez.</p>
+            </div>
+          </div>
+          <div class="feature feature-sync">
+            <h4>Restez synchronisé</h4>
+            <p>Rechercher par titre, par étiquette, et même des textes contenus dans des images.</p>
+          </div>
+            <div class="feature feature-share">
+              <h4>Publiez vos idées</h4>
+              <p>Enregistrez vos idées, tâches, projets, fichiers, recherches, et plus encore.</p>
+            </div>
+        </div>
+      </div>
+      <div class="rightColumn">
+        <div wicket:id="loginForm" class="loginForm" />
+        <div wicket:id="signupForm" class="signupForm" />
+      </div>
+      <div class="clear" />
+    </div>
+  </wicket:extend>
+</body>
+</html>
