@@ -1,7 +1,5 @@
 package com.agile.spirit.notz.ui.components.note.form;
 
-
-import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
@@ -21,7 +19,7 @@ public abstract class NoteForm extends Panel {
   /* Components */
   Form<Note> form;
 
-  /* Model data*/
+  /* Model data */
   IModel<Note> model;
 
   public NoteForm(String id, IModel<Note> model) {
@@ -35,25 +33,16 @@ public abstract class NoteForm extends Panel {
     buildForm();
   }
 
-  protected abstract String getTitleKey();
-
   private void buildForm() {
     form = new Form<Note>("form");
     form.setOutputMarkupId(true);
 
-    buildFormTitle();
     buildTitleInput();
     buildDescriptionInput();
     buildButtonBar();
 
     add(form);
   }
-
-  private void buildFormTitle() {
-    Label formTitle = new Label("formTitle", new StringResourceModel(getTitleKey(), NoteForm.this, null));
-    form.add(formTitle);
-  }
-
 
   private void buildTitleInput() {
     RequiredTextField<String> titleInput = new RequiredTextField<String>("title");
@@ -95,7 +84,7 @@ public abstract class NoteForm extends Panel {
 
       @Override
       public void onSubmit() {
-        
+
       }
     };
     cancelButton.setDefaultFormProcessing(false);

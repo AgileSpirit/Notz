@@ -10,7 +10,7 @@ public interface UserService {
 
   void delete(Integer id);
 
-  User loginUser(String email, String password);
+  User loginUser(String login, String password);
 
   void generateUsers(int nb);
 

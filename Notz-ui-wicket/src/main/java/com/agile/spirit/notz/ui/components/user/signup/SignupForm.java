@@ -7,7 +7,11 @@ import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
+import com.agile.spirit.notz.domain.User;
+import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
+import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.sun.jersey.api.client.WebResource;
 
 public class SignupForm extends NotzPanel {
 
@@ -35,7 +39,14 @@ public class SignupForm extends NotzPanel {
         String password = passwordInput.getModelObject();
         String confirmation = confirmationInput.getModelObject();
 
-        // TODO
+        User user = User.create(username, email, password);
+        WebResource webResource = NotzApplication.getWebResource();
+        User returnedUser = webResource.path("users/").post(User.class, user);
+
+        if (returnedUser != null) {
+          getNotzSession().setUser(returnedUser);
+          setResponsePage(NoteListPage.class);
+        }
       }
     };
     add(form);

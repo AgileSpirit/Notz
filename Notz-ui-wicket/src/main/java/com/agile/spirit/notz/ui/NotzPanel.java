@@ -1,13 +1,8 @@
 package com.agile.spirit.notz.ui;
 
-import javax.ws.rs.core.MultivaluedMap;
-
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.panel.Panel;
-
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.WebResource;
 
 public class NotzPanel extends Panel {
 
@@ -16,31 +11,23 @@ public class NotzPanel extends Panel {
   public NotzPanel(String id) {
     super(id);
   }
-  
+
   public NotzSession getNotzSession() {
-    if (getPage() instanceof NotzPage) {
-      return ((NotzPage) getPage()).getNotzSession();
-    }
-    return null;
+    return ((NotzPage) getPage()).getNotzSession();
   }
 
   public ModalWindow getModal() {
-    if (getPage() instanceof NotzPage) {
-      return ((NotzPage) getPage()).getModal();
-    }
-    return null;
+    return ((NotzPage) getPage()).getModal();
   }
-  
+
   public void configureModal(Panel content, int width) {
     ModalWindow modal = getModal();
     modal.setInitialWidth(width);
     modal.setContent(content);
   }
-  
+
   public void showModal(AjaxRequestTarget target) {
-    ModalWindow modal = getModal();
-    target.appendJavaScript( "Wicket.Window.unloadConfirmation = false;" ); 
-    modal.show(target);
+    ((NotzPage) getPage()).showModal(target);
   }
-  
+
 }

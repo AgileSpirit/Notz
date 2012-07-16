@@ -1,5 +1,6 @@
 package com.agile.spirit.notz.ui;
 
+import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
 
@@ -48,10 +49,16 @@ public class NotzPage extends WebPage {
     modal.setHeightUnit("px");
     modal.setWidthUnit("px");
     modal.setResizable(false);
-    modal.setCookieName("wicket-tips/styledModal");
     modal.setCssClassName(ModalWindow.CSS_CLASS_GRAY);
     modal.setMaskType(ModalWindow.MaskType.SEMI_TRANSPARENT);
     add(modal);
+  }
+
+  public void showModal(AjaxRequestTarget target) {
+    if (target != null) {
+      target.appendJavaScript("Wicket.Window.unloadConfirmation = false;");
+    }
+    modal.show(target);
   }
 
   private void buildAccountMenuBar() {

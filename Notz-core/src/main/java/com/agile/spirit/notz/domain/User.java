@@ -1,6 +1,6 @@
 package com.agile.spirit.notz.domain;
 
-import static com.agile.spirit.notz.domain.User.FIND_USERS_BY_EMAIL;
+import static com.agile.spirit.notz.domain.User.FIND_USERS_BY_LOGIN;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,7 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "NTZ_USERS")
-@NamedQueries({ @NamedQuery(name = FIND_USERS_BY_EMAIL, query = "FROM User u WHERE u.email=:email") })
+@NamedQueries({ @NamedQuery(name = FIND_USERS_BY_LOGIN, query = "FROM User u WHERE u.username=:login OR u.email=:login") })
 public class User extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
@@ -30,12 +30,13 @@ public class User extends BaseEntity {
   /*
    * NAMED QUERIES
    */
-  public static final String FIND_USERS_BY_EMAIL = "findUsersByEmail";
+  public static final String FIND_USERS_BY_LOGIN = "findUsersByLogin";
 
   /*
    * ATTRIBUTES
    */
 
+  private String username;
   private String firstName;
   private String lastName;
   private String email;
@@ -51,11 +52,16 @@ public class User extends BaseEntity {
    */
 
   public static User create() {
-    return create("", "", "", "");
+    return create("", "", "", "", "");
   }
 
-  public static User create(String firstName, String lastName, String email, String password) {
+  public static User create(String username, String email, String password) {
+    return create(username, "", "", email, password);
+  }
+
+  public static User create(String username, String firstName, String lastName, String email, String password) {
     User user = new User();
+    user.username = username;
     user.firstName = firstName;
     user.lastName = lastName;
     user.email = email;
@@ -70,6 +76,14 @@ public class User extends BaseEntity {
 
   public String getFirstName() {
     return firstName;
+  }
+
+  public String getUsername() {
+    return username;
+  }
+
+  public void setUsername(String username) {
+    this.username = username;
   }
 
   public void setFirstName(String firstName) {
@@ -114,8 +128,8 @@ public class User extends BaseEntity {
 
   @Override
   public String toString() {
-    return "User [firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password=" + password + ", notes="
-        + notes.size() + "]";
+    return "User [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+        + password + ", notes=" + notes.size() + "]";
   }
 
 }

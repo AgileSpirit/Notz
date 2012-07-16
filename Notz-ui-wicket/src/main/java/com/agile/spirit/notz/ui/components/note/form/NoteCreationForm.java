@@ -13,11 +13,6 @@ public class NoteCreationForm extends NoteForm {
   }
 
   @Override
-  protected String getTitleKey() {
-    return "creation";
-  }
-
-  @Override
   protected String getValidateButtonKey() {
     return "add";
   }

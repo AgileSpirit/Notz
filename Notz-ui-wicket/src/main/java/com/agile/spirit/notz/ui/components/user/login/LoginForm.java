@@ -8,7 +8,6 @@ import org.apache.wicket.markup.html.form.RequiredTextField;
 import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
-import org.apache.wicket.util.string.AppendingStringBuffer;
 
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzApplication;
@@ -37,12 +36,12 @@ public class LoginForm extends NotzPanel {
 
       @Override
       public void onSubmit() {
-        String email = loginInput.getModelObject();
+        String login = loginInput.getModelObject();
         String password = passwordInput.getModelObject();
 
         WebResource webResource = NotzApplication.getWebResource();
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        params.add("email", email);
+        params.add("login", login);
         params.add("password", password);
         ClientResponse response = webResource.path("users/login").post(ClientResponse.class, params);
 
@@ -51,14 +50,6 @@ public class LoginForm extends NotzPanel {
           getNotzSession().setUser(user);
           setResponsePage(NoteListPage.class);
         }
-      }
-
-      @Override
-      protected CharSequence getEventHandler() {
-        AppendingStringBuffer handler = new AppendingStringBuffer();
-        handler.append(super.getEventHandler());
-        handler.append("; return false;"); // <---- very importante
-        return handler;
       }
 
     };
@@ -72,12 +63,14 @@ public class LoginForm extends NotzPanel {
 
   private void buildLoginInput() {
     loginInput = new RequiredTextField<String>("login", new Model<String>());
+    loginInput.setDefaultModelObject("admin@agile-spirit.fr");
     form.add(loginInput);
   }
 
   private void buildPasswordInput() {
     passwordInput = new PasswordTextField("password", new Model<String>());
     passwordInput.setRequired(true);
+    passwordInput.setDefaultModelObject("admin");
     form.add(passwordInput);
   }
 

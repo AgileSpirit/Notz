@@ -2,10 +2,14 @@ package com.agile.spirit.notz.ui.pages.note.list;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebMarkupContainer;
 import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.Model;
 
+import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.ui.NotzPage;
+import com.agile.spirit.notz.ui.components.note.form.NoteCreationForm;
 import com.agile.spirit.notz.ui.components.note.list.NoteList;
 
 public class NoteListPage extends NotzPage {
@@ -34,7 +38,10 @@ public class NoteListPage extends NotzPage {
     toolBar.add(new AjaxLink("addNoteButton") {
       @Override
       public void onClick(AjaxRequestTarget target) {
-        // TODO
+        ModalWindow modal = getModal();
+        modal.setTitle(getString("noteCreation"));
+        modal.setContent(new NoteCreationForm(modal.getContentId(), new Model<Note>(Note.create())));
+        showModal(target);
       }
     });
 

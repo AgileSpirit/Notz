@@ -33,8 +33,9 @@ form h2 strong { color: #333; }
 form .formField { padding: 5px 15px; }
 form .formField label { display: block; line-height: 22px; }
 form .formField input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
-form .formField input[type="checkbox"] { display: inline-block; width: 0; height: 13px; line-height: 0; vertical-align: middle; }
+form .formField input[type="checkbox"] { display: inline-block; width: 13px; height: 13px; line-height: 0; vertical-align: middle; }
 form .formField input[type="checkbox"] + label { display: inline; padding-left: 3px; vertical-align: middle; }
+form .formField textarea { display: block; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
 
 /* --- Wicket FeedbackPannel --- */
 ul.feedbackPanel { list-style-type: none; list-style-position: inside; padding: 0; margin: 5px 0; }
@@ -52,6 +53,12 @@ div.wicket-aa ul { list-style-image:none; list-style-position:outside; list-styl
 div.wicket-aa ul li { padding: 5px; }
 div.wicket-aa ul li.selected { background-color:#FFC966; }
 
+/* --- Wicket Popup --- */
+.w_content_3 { border: none; }
+.w_topLeft .w_top .w_topRight { background-image: url(../img/noimage.png); }
+
+
+/* --- Function button --- */
 a.function {
 	text-decoration: none;
 	background: linear-gradient(#FAFAFA, #EAEAEA) repeat scroll 0 0 transparent;
@@ -117,7 +124,7 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 .overview .feature-get { background-image: url(../img/feature2.png); border-bottom: 1px solid #CCC; }
 .overview .feature-sync { background-image: url(../img/feature3.png); border-bottom: 1px solid #CCC; }
 .overview .feature-share { background-image: url(../img/feature4.png); border-bottom: 1px solid #CCC; }
-.overview .feature-trends { background-image: url(../img/feature1.png); }
+.overview .feature-trends { background-image: url(../img/feature5.png); }
 
 .loginForm {  }
 .loginForm form .formField input.password { width: 178px; display: inline-block; }
@@ -130,6 +137,7 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 /* -----------------------*/
 /* --- User List Page --- */
 /* -----------------------*/
+
 .toolbar { padding: 10px; }
 .toolbar .searchNotesField { float: right; height: 26px; }
 .toolbar .searchNotesField input {
@@ -161,3 +169,7 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 .noteList .noteFooter .metadata { color: #ABABAB; display: inline-block; }
 .noteList .noteFooter .links { float: right; }
 
+.popupForm { border: none; margin: 0; }
+.popupForm input.strong { font-weight: bold; }
+.popupForm .actions { padding: 10px; }
+.popupForm .actions a.function { float: right; margin: 0 5px; }

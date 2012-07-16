@@ -2,26 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:wicket="http://wicket.apache.org/dtds.data/wicket-xhtml1.4-strict.dtd">
 <body>
   <wicket:panel>
-    <form wicket:id="form">
-      <h3><label wicket:id="formTitle">[formTitle]</label></h3>
+    <form wicket:id="form" class="popupForm">
 
       <div class="formField">
-        <label class="fieldLabel" for="title"><wicket:message key="title">[title]</wicket:message></label>
-        <span class="fieldRequiredFlag">*</span>
-        <input class="fieldInput" id="title" wicket:id="title" type="text" />
+        <label for="title"><wicket:message key="title">[title]</wicket:message></label>
+        <input id="title" class="strong" wicket:id="title" type="text" />
       </div>
 
       <div class="formField">
-        <label class="fieldLabel" for="description"><wicket:message key="description">[description]</wicket:message></label>
-        <textarea class="fieldInput" id="description" wicket:id="description" />
+        <label for="description"><wicket:message key="description">[description]</wicket:message></label>
+        <textarea id="description" wicket:id="description" rows="15" />
       </div>
 
-      <div class="actionsBar">
-        <input class="formAction" type="submit" wicket:id="cancelButton" wicket:message="value:cancel" value="Cancel"></input>
-        <input class="formAction" type="submit" wicket:id="validateButton" value="Validate"> </input>
+      <div class="actions">
+        <a class="function" wicket:id="validateButton"><wicket:message key="validate">[validate]</wicket:message></a>
+        <a class="function" wicket:id="cancelButton" ><wicket:message key="cancel">[cancel]</wicket:message></a>
+        <div class="clear" />
       </div>
 
-      <div class="clear" />
     </form>
   </wicket:panel>
 </body>

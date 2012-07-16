@@ -25,8 +25,8 @@ public class UserServiceImpl implements UserService {
   /*
    * NAMED QUERIES
    */
-  public User getUserByEmail(String email) {
-    User user = PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_EMAIL, User.class).setParameter("email", email)
+  public User getUserByLogin(String login) {
+    User user = PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_LOGIN, User.class).setParameter("login", login)
         .getResultList().get(0);
     return user;
   }
@@ -76,7 +76,7 @@ public class UserServiceImpl implements UserService {
   @Override
   public User loginUser(String email, String password) {
     if (email != null && password != null) {
-      User user = getUserByEmail(email);
+      User user = getUserByLogin(email);
       if (user != null) {
         if (user.getPassword().equals(password)) {
           return user;

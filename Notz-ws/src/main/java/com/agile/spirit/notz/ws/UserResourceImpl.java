@@ -26,20 +26,20 @@ public class UserResourceImpl implements UserResource {
   public String greeting(@PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
     return "Hello " + firstName + " " + lastName + " !";
   }
-  
+
   @POST
   @Path("/login")
   @Produces(MediaType.APPLICATION_XML)
   @Override
-  public User login(@FormParam("email") String email, @FormParam("password")String password) {
-    User user = UserServiceImpl.getInstance().loginUser(email, password);
+  public User login(@FormParam("login") String login, @FormParam("password") String password) {
+    User user = UserServiceImpl.getInstance().loginUser(login, password);
     if (user == null) {
       return null;
     } else {
       return user;
     }
   }
-  
+
   @POST
   @Consumes(MediaType.APPLICATION_XML)
   @Produces(MediaType.APPLICATION_XML)
@@ -50,7 +50,7 @@ public class UserResourceImpl implements UserResource {
     UserServiceImpl.getInstance().saveOrUpdate(user);
     return user;
   }
-  
+
   @GET
   @Path("/{id}")
   @Produces(MediaType.APPLICATION_XML)
@@ -58,7 +58,7 @@ public class UserResourceImpl implements UserResource {
   public User getById(@PathParam("id") Integer id) {
     return UserServiceImpl.getInstance().getUserById(id);
   }
-  
+
   @PUT
   @Consumes(MediaType.APPLICATION_XML)
   @Produces(MediaType.APPLICATION_XML)
@@ -69,7 +69,7 @@ public class UserResourceImpl implements UserResource {
     UserServiceImpl.getInstance().saveOrUpdate(user);
     return user;
   }
-  
+
   @DELETE
   @Path("/{id}")
   @Override
@@ -85,5 +85,5 @@ public class UserResourceImpl implements UserResource {
     UserServiceImpl.getInstance().generateUsers(nb);
     return "Users generated";
   }
-  
+
 }
