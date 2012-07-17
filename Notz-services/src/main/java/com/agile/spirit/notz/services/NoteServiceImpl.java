@@ -6,7 +6,10 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
+import org.hibernate.HibernateException;
+
 import com.agile.spirit.notz.domain.Note;
+import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.util.PersistenceUtil;
 import com.agile.spirit.notz.util.TransactionnalOperation;
 
@@ -25,7 +28,7 @@ public class NoteServiceImpl implements NoteService {
    * NAMED QUERIES
    */
   @Override
-  public List<Note> getNotesByUser(final Integer userId, final Integer first, final Integer count) {
+  public List<Note> getNotesByUser(final String userId, final Integer first, final Integer count) {
     Query query = PersistenceUtil.getEntityManager().createNamedQuery(Note.FIND_NOTES_BY_USER, Note.class);
     query.setParameter("userId", userId);
     List<Note> notes = query.getResultList();
@@ -41,7 +44,7 @@ public class NoteServiceImpl implements NoteService {
   }
 
   @Override
-  public Note getById(Integer id) {
+  public Note getById(String id) {
     if (id != null) {
       return PersistenceUtil.getEntityManager().find(Note.class, id);
     }
@@ -54,14 +57,27 @@ public class NoteServiceImpl implements NoteService {
       return (Note) new TransactionnalOperation() {
         @Override
         public Object processInTransaction(final EntityManager entityManager) {
-          if (note.getId() == null) {
-            note.setCreationDate(new Date());
-            entityManager.persist(note);
-            return note;
+
+          Note entity = getById(note.getId());
+          if (entity == null) {
+            /*
+             * Assert that the user mapped by the note is not null or transient.
+             */
+            String userId = note.getUser().getId();
+            User user = UserServiceImpl.getInstance().getUserById(userId);
+            if (user == null) {
+              throw new HibernateException("User not found or inexistant for ID = " + userId);
+            }
+            note.setUser(user);
+
+            entity = note;
+            entity.setCreationDate(new Date());
           } else {
-            note.setModificationDate(new Date());
-            return entityManager.merge(note);
+            entity.setTitle(note.getTitle());
+            entity.setDescription(note.getDescription());
           }
+          entity.setModificationDate(new Date());
+          return entityManager.merge(entity);
         }
       }.execute();
     }
@@ -69,7 +85,7 @@ public class NoteServiceImpl implements NoteService {
   }
 
   @Override
-  public void delete(final Integer id) {
+  public void delete(final String id) {
     if (id != null) {
       new TransactionnalOperation() {
         @Override

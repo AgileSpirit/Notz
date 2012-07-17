@@ -9,14 +9,9 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
-import javax.xml.bind.Unmarshaller;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "note")
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "NTZ_NOTES")
 @NamedQueries({ @NamedQuery(name = FIND_NOTES_BY_USER, query = "FROM Note n WHERE n.user.id=:userId ORDER BY n.modificationDate DESC, n.creationDate DESC") })
@@ -38,9 +33,8 @@ public class Note extends BaseEntity {
   @Lob
   private String description;
 
-  @XmlTransient
   @ManyToOne(targetEntity = User.class)
-  @JoinColumn(name = "userId", insertable = false, updatable = false)
+  @JoinColumn(name = "userId", updatable = false)
   private User user;
 
   /*
@@ -105,7 +99,4 @@ public class Note extends BaseEntity {
     return "Note [title=" + title + ", description=" + description + "]";
   }
 
-  public void afterUnmarshal(Unmarshaller u, Object user) {
-    this.user = (User) user;
-  }
 }

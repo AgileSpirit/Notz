@@ -61,6 +61,10 @@ public class NotzPage extends WebPage {
     modal.show(target);
   }
 
+  public void closeModal(AjaxRequestTarget target) {
+    modal.close(target);
+  }
+
   private void buildAccountMenuBar() {
     AccountMenuBar accountMenuBar = new AccountMenuBar("accountMenuBar");
     add(accountMenuBar);

@@ -10,13 +10,11 @@ public interface UserResource {
 
   User login(String login, String password);
 
-  User save(JAXBElement<User> webUser);
+  User getById(String id);
 
-  User getById(Integer id);
+  User saveOrUpdate(JAXBElement<User> webUser);
 
-  User update(JAXBElement<User> webUser);
-
-  void delete(Integer id);
+  void delete(String id);
 
   String generateUsers(int nb);
 

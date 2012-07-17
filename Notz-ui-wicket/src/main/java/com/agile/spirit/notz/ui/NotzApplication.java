@@ -12,6 +12,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 
 public class NotzApplication extends WebApplication {
 
@@ -54,7 +55,9 @@ public class NotzApplication extends WebApplication {
   private static final Client buildWebServiceClient() {
     ClientConfig clientConfig = new DefaultClientConfig();
     clientConfig.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, true);
-    return Client.create(clientConfig);
+    Client client = Client.create(clientConfig);
+    client.addFilter(new LoggingFilter(System.out));
+    return client;
   }
 
   public Client getWebServiceclient() {

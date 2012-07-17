@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.AjaxLink;
+import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.basic.Label;
 import org.apache.wicket.markup.html.list.ListItem;
 import org.apache.wicket.markup.html.list.ListView;
@@ -13,6 +14,8 @@ import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
+import com.agile.spirit.notz.ui.components.note.form.NoteEditionForm;
+import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 import com.sun.jersey.api.client.GenericType;
 import com.sun.jersey.api.client.WebResource;
 
@@ -54,7 +57,7 @@ public class NoteList extends NotzPanel {
 
       @Override
       protected void populateItem(ListItem<Note> item) {
-        Note note = item.getModelObject();
+        final Note note = item.getModelObject();
 
         String shortedTitle = shortCutString(note.getTitle(), 26);
         Label title = new Label("title", shortedTitle);
@@ -66,14 +69,19 @@ public class NoteList extends NotzPanel {
         item.add(new AjaxLink("edit") {
           @Override
           public void onClick(AjaxRequestTarget target) {
-            // TODO
+            ModalWindow modal = getModal();
+            modal.setTitle(getString("noteEdition"));
+            modal.setContent(new NoteEditionForm(modal.getContentId(), note));
+            showModal(target);
           }
         });
 
         item.add(new AjaxLink("delete") {
           @Override
           public void onClick(AjaxRequestTarget target) {
-            // TODO
+            WebResource webResource = NotzApplication.getWebResource();
+            webResource.path("notes/" + note.getId()).delete();
+            setResponsePage(NoteListPage.class);
           }
         });
 

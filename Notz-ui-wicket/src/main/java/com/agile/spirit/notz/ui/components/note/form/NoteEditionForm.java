@@ -8,6 +8,10 @@ public class NoteEditionForm extends NoteForm {
 
   private static final long serialVersionUID = 1L;
 
+  public NoteEditionForm(String id, Note note) {
+    super(id, note);
+  }
+
   public NoteEditionForm(String id, IModel<Note> note) {
     super(id, note);
   }

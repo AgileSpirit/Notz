@@ -25,14 +25,14 @@ public class UserServiceImpl implements UserService {
   /*
    * NAMED QUERIES
    */
-  public User getUserByLogin(String login) {
+  public User getUserByLogin(final String login) {
     User user = PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_LOGIN, User.class).setParameter("login", login)
         .getResultList().get(0);
     return user;
   }
 
   @Override
-  public User getUserById(Integer id) {
+  public User getUserById(final String id) {
     return PersistenceUtil.getEntityManager().find(User.class, id);
   }
 
@@ -57,7 +57,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void delete(final Integer id) {
+  public void delete(final String id) {
     if (id != null) {
       new TransactionnalOperation() {
         @Override
@@ -74,7 +74,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public User loginUser(String email, String password) {
+  public User loginUser(final String email, final String password) {
     if (email != null && password != null) {
       User user = getUserByLogin(email);
       if (user != null) {
@@ -87,7 +87,7 @@ public class UserServiceImpl implements UserService {
   }
 
   @Override
-  public void generateUsers(int nb) {
+  public void generateUsers(final int nb) {
     User admin = DataGenerator.generateAdminUser(0);
     Note sampleNote = new Note();
     sampleNote.setTitle("Candide ~ Voltaire");

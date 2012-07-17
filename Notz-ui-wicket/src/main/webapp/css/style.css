@@ -35,7 +35,7 @@ form .formField label { display: block; line-height: 22px; }
 form .formField input { display: block; line-height: 24px; height: 26px; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
 form .formField input[type="checkbox"] { display: inline-block; width: 13px; height: 13px; line-height: 0; vertical-align: middle; }
 form .formField input[type="checkbox"] + label { display: inline; padding-left: 3px; vertical-align: middle; }
-form .formField textarea { display: block; width: 100%; border: 1px solid #AAA; padding: 0 5px; }
+form .formField textarea { display: block; width: 100%; border: 1px solid #AAA; padding: 5px; }
 
 /* --- Wicket FeedbackPannel --- */
 ul.feedbackPanel { list-style-type: none; list-style-position: inside; padding: 0; margin: 5px 0; }

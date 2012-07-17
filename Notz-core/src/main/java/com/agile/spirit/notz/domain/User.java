@@ -8,18 +8,15 @@ import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
-import javax.persistence.JoinColumn;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 @XmlRootElement(name = "user")
-@XmlAccessorType(XmlAccessType.FIELD)
 @Entity
 @Table(name = "NTZ_USERS")
 @NamedQueries({ @NamedQuery(name = FIND_USERS_BY_LOGIN, query = "FROM User u WHERE u.username=:login OR u.email=:login") })
@@ -42,8 +39,7 @@ public class User extends BaseEntity {
   private String email;
   private String password;
 
-  @OneToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE }, targetEntity = Note.class, fetch = FetchType.LAZY)
-  @JoinColumn(name = "userId")
+  @OneToMany(cascade = { CascadeType.ALL }, targetEntity = Note.class, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
   @OrderBy("modificationDate DESC, creationDate DESC")
   private List<Note> notes;
 
@@ -114,6 +110,7 @@ public class User extends BaseEntity {
     this.password = password;
   }
 
+  @XmlTransient
   public List<Note> getNotes() {
     return notes;
   }

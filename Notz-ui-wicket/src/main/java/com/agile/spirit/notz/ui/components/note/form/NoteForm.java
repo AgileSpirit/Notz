@@ -1,20 +1,29 @@
 package com.agile.spirit.notz.ui.components.note.form;
 
-import org.apache.wicket.markup.html.form.Button;
+import javax.ws.rs.core.MediaType;
+
+import org.apache.log4j.Logger;
+import org.apache.wicket.ajax.AjaxRequestTarget;
+import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
 import org.apache.wicket.markup.html.form.Form;
 import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
 import org.apache.wicket.markup.html.form.TextArea;
-import org.apache.wicket.markup.html.panel.Panel;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.StringResourceModel;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.services.NoteServiceImpl;
+import com.agile.spirit.notz.ui.NotzApplication;
+import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
 
-public abstract class NoteForm extends Panel {
+public abstract class NoteForm extends NotzPanel {
 
   private static final long serialVersionUID = 4907116541209734919L;
+
+  private static final Logger LOGGER = Logger.getLogger(NoteForm.class);
 
   /* Components */
   Form<Note> form;
@@ -22,9 +31,14 @@ public abstract class NoteForm extends Panel {
   /* Model data */
   IModel<Note> model;
 
+  public NoteForm(String id, Note note) {
+    super(id);
+    this.model = new CompoundPropertyModel<Note>(note);
+  }
+
   public NoteForm(String id, IModel<Note> model) {
     super(id);
-    this.model = model;
+    this.model = new CompoundPropertyModel<Note>(model);
   }
 
   @Override
@@ -34,7 +48,17 @@ public abstract class NoteForm extends Panel {
   }
 
   private void buildForm() {
-    form = new Form<Note>("form");
+    form = new Form<Note>("form", model) {
+      @Override
+      public void onSubmit() {
+        final Note note = model.getObject();
+        WebResource webResource = NotzApplication.getWebResource();
+        note.setUser(getNotzSession().getUser());
+        ClientResponse response = webResource.path("notes/").entity(note).accept(MediaType.APPLICATION_XML).put(ClientResponse.class);
+        LOGGER.info("Response status = " + response.getClientResponseStatus());
+        setResponsePage(NoteListPage.class);
+      }
+    };
     form.setOutputMarkupId(true);
 
     buildTitleInput();
@@ -64,27 +88,23 @@ public abstract class NoteForm extends Panel {
   protected abstract String getValidateButtonKey();
 
   private void buildValidateButton() {
-    Button validateButton = new Button("validateButton") {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      public void onSubmit() {
-        NoteServiceImpl.getInstance().saveOrUpdate(model.getObject());
-        setResponsePage(NoteListPage.class);
-      }
-
+    final Note note = model.getObject();
+    SubmitLink validateButton = new SubmitLink("validateButton") {
     };
-    validateButton.setModel(new StringResourceModel(getValidateButtonKey(), NoteForm.this, null));
     form.add(validateButton);
   }
 
   private void buildCancelButton() {
-    Button cancelButton = new Button("cancelButton") {
-      private static final long serialVersionUID = 1L;
+    AjaxSubmitLink cancelButton = new AjaxSubmitLink("cancelButton") {
 
       @Override
-      public void onSubmit() {
+      protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
+        closeModal(target);
+      }
 
+      @Override
+      protected void onError(AjaxRequestTarget target, Form<?> form) {
+        // Should never happens
       }
     };
     cancelButton.setDefaultFormProcessing(false);

@@ -30,4 +30,8 @@ public class NotzPanel extends Panel {
     ((NotzPage) getPage()).showModal(target);
   }
 
+  public void closeModal(AjaxRequestTarget target) {
+    ((NotzPage) getPage()).closeModal(target);
+  }
+
 }

@@ -8,15 +8,29 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Version;
+
+import org.hibernate.annotations.GenericGenerator;
 
 @MappedSuperclass
 public class BaseEntity implements Serializable, Comparable<BaseEntity> {
 
   private static final long serialVersionUID = 1L;
 
+  /**
+   * In order to avoid Cycle during JAXB XML (un-)marshalling, one must have totaly unique ID for entities. First type of IdS was Integer
+   * but during research in order to fix cycle problems, one solution was to use XmlID and XmlIDRef annotation. The fact was that these
+   * annotations only accept String IdS. Another fact was that JPA does not provide an implementation for the
+   * "auto strategy of IdS generation". It is why the annotation <code>@GenericGenerator(name = "system-uuid", strategy = "uuid")</code>
+   * using the vendor implementation (Hibernate) is set.
+   */
   @Id
-  @GeneratedValue
-  private Integer id;
+  @GeneratedValue(generator = "system-uuid")
+  @GenericGenerator(name = "system-uuid", strategy = "uuid")
+  private String id;
+
+  @Version
+  protected Integer version;
 
   @Temporal(TemporalType.TIMESTAMP)
   private Date creationDate;
@@ -24,11 +38,11 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
   @Temporal(TemporalType.TIMESTAMP)
   private Date modificationDate;
 
-  public Integer getId() {
+  public String getId() {
     return id;
   }
 
-  public void setId(Integer id) {
+  public void setId(String id) {
     this.id = id;
   }
 
@@ -53,8 +67,8 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
     if (compared == null)
       return 1;
 
-    Integer id1 = this.getId();
-    Integer id2 = compared.getId();
+    String id1 = this.getId();
+    String id2 = compared.getId();
 
     if (id1 == null) {
       if (id2 == null)
@@ -64,12 +78,7 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
     if (id2 == null)
       return 1;
 
-    if (id2 > id1)
-      return -1;
-    else if (id2 == id1)
-      return 0;
-    else
-      return 1;
+    return id1.compareTo(id2);
   }
 
 }

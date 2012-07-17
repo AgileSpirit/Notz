@@ -1,7 +1,5 @@
 package com.agile.spirit.notz.ws;
 
-import java.util.Calendar;
-
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -40,13 +38,12 @@ public class UserResourceImpl implements UserResource {
     }
   }
 
-  @POST
+  @PUT
   @Consumes(MediaType.APPLICATION_XML)
   @Produces(MediaType.APPLICATION_XML)
   @Override
-  public User save(JAXBElement<User> webUser) {
+  public User saveOrUpdate(JAXBElement<User> webUser) {
     User user = webUser.getValue();
-    user.setCreationDate(Calendar.getInstance().getTime());
     UserServiceImpl.getInstance().saveOrUpdate(user);
     return user;
   }
@@ -55,25 +52,14 @@ public class UserResourceImpl implements UserResource {
   @Path("/{id}")
   @Produces(MediaType.APPLICATION_XML)
   @Override
-  public User getById(@PathParam("id") Integer id) {
+  public User getById(@PathParam("id") String id) {
     return UserServiceImpl.getInstance().getUserById(id);
-  }
-
-  @PUT
-  @Consumes(MediaType.APPLICATION_XML)
-  @Produces(MediaType.APPLICATION_XML)
-  @Override
-  public User update(JAXBElement<User> webUser) {
-    User user = webUser.getValue();
-    user.setModificationDate(Calendar.getInstance().getTime());
-    UserServiceImpl.getInstance().saveOrUpdate(user);
-    return user;
   }
 
   @DELETE
   @Path("/{id}")
   @Override
-  public void delete(@PathParam("id") Integer id) {
+  public void delete(@PathParam("id") String id) {
     UserServiceImpl.getInstance().delete(id);
   }
 

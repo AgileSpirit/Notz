@@ -8,14 +8,12 @@ import com.agile.spirit.notz.domain.Note;
 
 public interface NoteResource {
 
-  List<Note> getByUserId(Integer userId, String first, String count);
+  List<Note> getByUserId(String userId, String first, String count);
 
-  Note getById(Integer id);
+  Note getById(String id);
 
-  Note save(JAXBElement<Note> webNote);
+  Note saveOrUpdate(JAXBElement<Note> webNote);
 
-  Note update(JAXBElement<Note> webNote);
-
-  void delete(Integer id);
+  void delete(String id);
 
 }
