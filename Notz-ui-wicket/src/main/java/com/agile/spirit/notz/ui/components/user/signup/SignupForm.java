@@ -11,11 +11,13 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.agile.spirit.notz.ui.ws.PutRequest;
+import com.agile.spirit.notz.ui.ws.WebResourceRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 
 public class SignupForm extends NotzPanel {
 
@@ -45,16 +47,30 @@ public class SignupForm extends NotzPanel {
         String password = passwordInput.getModelObject();
         String confirmation = confirmationInput.getModelObject();
 
-        User user = User.create(username, email, password);
-        WebResource webResource = NotzApplication.getWebResource();
-        ClientResponse response = webResource.path("users/").entity(user).accept(MediaType.APPLICATION_XML).put(ClientResponse.class);
-        LOGGER.info("Response status = " + response.getClientResponseStatus());
+        final User user = User.create(username, email, password);
 
-        User returnedUser = response.getEntity(User.class);
-        if (returnedUser != null) {
-          getNotzSession().setUser(returnedUser);
-          setResponsePage(NoteListPage.class);
-        }
+        WebResourceRequest request = new PutRequest() {
+
+          @Override
+          public void onSuccess(ClientResponse response) {
+            User returnedUser = response.getEntity(User.class);
+            if (returnedUser != null) {
+              getNotzSession().setUser(returnedUser);
+              setResponsePage(NoteListPage.class);
+            }
+          }
+
+          @Override
+          public void onError(ClientResponse response) {
+            // TODO Auto-generated method stub
+          }
+
+          @Override
+          public Builder configureWebResource(WebResource webResource) {
+            return webResource.path("users/").entity(user).accept(MediaType.APPLICATION_XML);
+          }
+        };
+        request.execute();
       }
     };
     add(form);

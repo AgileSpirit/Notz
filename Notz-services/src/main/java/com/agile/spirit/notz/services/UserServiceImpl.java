@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService {
     if (user != null) {
       return (User) new TransactionnalOperation() {
         @Override
-        public Object processInTransaction(final EntityManager entityManager) {
+        public Object process(final EntityManager entityManager) {
           if (user.getId() == null) {
             user.setCreationDate(new Date());
             entityManager.persist(user);
@@ -61,7 +61,7 @@ public class UserServiceImpl implements UserService {
     if (id != null) {
       new TransactionnalOperation() {
         @Override
-        public Object processInTransaction(final EntityManager entityManager) {
+        public Object process(final EntityManager entityManager) {
           User user = entityManager.find(User.class, id);
           if (user != null) {
             entityManager.remove(user);

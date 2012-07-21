@@ -16,7 +16,7 @@ public abstract class TransactionnalOperation {
    * @param entityManager
    * @return
    */
-  public abstract Object processInTransaction(final EntityManager entityManager);
+  public abstract Object process(final EntityManager entityManager);
 
   /**
    * <ol>
@@ -33,7 +33,7 @@ public abstract class TransactionnalOperation {
     EntityManager entityManager = PersistenceUtil.getEntityManager();
     try {
       entityManager.getTransaction().begin();
-      result = processInTransaction(entityManager);
+      result = process(entityManager);
       entityManager.getTransaction().commit();
     } catch (Exception e) {
       e.printStackTrace();

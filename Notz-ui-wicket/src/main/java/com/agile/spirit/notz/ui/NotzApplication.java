@@ -60,10 +60,6 @@ public class NotzApplication extends WebApplication {
     return client;
   }
 
-  public Client getWebServiceclient() {
-    return webServiceClient;
-  }
-
   public static WebResource getWebResource() {
     WebResource resource = webServiceClient.resource(NotzApplication.WEB_SERVICE_URL);
     return resource;

@@ -13,9 +13,10 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.agile.spirit.notz.ui.ws.PutRequest;
+import com.agile.spirit.notz.ui.ws.WebResourceRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -52,11 +53,27 @@ public abstract class NoteForm extends NotzPanel {
       @Override
       public void onSubmit() {
         final Note note = model.getObject();
-        WebResource webResource = NotzApplication.getWebResource();
         note.setUser(getNotzSession().getUser());
-        ClientResponse response = webResource.path("notes/").entity(note).accept(MediaType.APPLICATION_XML).put(ClientResponse.class);
-        LOGGER.info("Response status = " + response.getClientResponseStatus());
-        setResponsePage(NoteListPage.class);
+
+        WebResourceRequest request = new PutRequest() {
+          
+          @Override
+          public WebResource.Builder configureWebResource(WebResource webResource) {
+            return webResource.path("notes/").entity(note).accept(MediaType.APPLICATION_XML);
+          }
+
+          @Override
+          public void onSuccess(ClientResponse response) {
+            setResponsePage(NoteListPage.class);
+          }
+
+          @Override
+          public void onError(ClientResponse response) {
+            // TODO Auto-generated method stub
+          }
+
+        };
+        request.execute();
       }
     };
     form.setOutputMarkupId(true);

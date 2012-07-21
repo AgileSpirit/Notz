@@ -56,7 +56,7 @@ public class NoteServiceImpl implements NoteService {
     if (note != null) {
       return (Note) new TransactionnalOperation() {
         @Override
-        public Object processInTransaction(final EntityManager entityManager) {
+        public Object process(final EntityManager entityManager) {
 
           Note entity = getById(note.getId());
           if (entity == null) {
@@ -89,7 +89,7 @@ public class NoteServiceImpl implements NoteService {
     if (id != null) {
       new TransactionnalOperation() {
         @Override
-        public Object processInTransaction(final EntityManager entityManager) {
+        public Object process(final EntityManager entityManager) {
           Note note = entityManager.find(Note.class, id);
           if (note != null) {
             entityManager.remove(note);

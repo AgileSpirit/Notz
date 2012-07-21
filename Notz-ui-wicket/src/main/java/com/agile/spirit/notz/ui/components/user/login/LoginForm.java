@@ -1,5 +1,6 @@
 package com.agile.spirit.notz.ui.components.user.login;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.MultivaluedMap;
 
 import org.apache.wicket.markup.html.form.Form;
@@ -10,11 +11,13 @@ import org.apache.wicket.markup.html.form.TextField;
 import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.ui.NotzApplication;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.agile.spirit.notz.ui.ws.PostRequest;
+import com.agile.spirit.notz.ui.ws.WebResourceRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class LoginForm extends NotzPanel {
@@ -36,20 +39,37 @@ public class LoginForm extends NotzPanel {
 
       @Override
       public void onSubmit() {
-        String login = loginInput.getModelObject();
-        String password = passwordInput.getModelObject();
+        final String login = loginInput.getModelObject();
+        final String password = passwordInput.getModelObject();
 
-        WebResource webResource = NotzApplication.getWebResource();
+        WebResourceRequest request = new PostRequest() {
+          
+          @Override
+          public void onSuccess(ClientResponse response) {
+            User user = response.getEntity(User.class);
+            if (user != null) {
+              getNotzSession().setUser(user);
+              setResponsePage(NoteListPage.class);
+            }
+          }
+          
+          @Override
+          public void onError(ClientResponse response) {
+            // TODO Auto-generated method stub
+            
+          }
+          
+          @Override
+          public Builder configureWebResource(WebResource webResource) {
+            return webResource.path("users/login").accept(MediaType.APPLICATION_XML);
+          }
+        };
+        
         MultivaluedMap<String, String> params = new MultivaluedMapImpl();
         params.add("login", login);
         params.add("password", password);
-        ClientResponse response = webResource.path("users/login").post(ClientResponse.class, params);
-
-        User user = response.getEntity(User.class);
-        if (user != null) {
-          getNotzSession().setUser(user);
-          setResponsePage(NoteListPage.class);
-        }
+        request.setParams(params);
+        ClientResponse response = request.execute();
       }
 
     };
