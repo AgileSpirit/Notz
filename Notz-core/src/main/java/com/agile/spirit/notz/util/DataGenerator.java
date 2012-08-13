@@ -14,7 +14,7 @@ public class DataGenerator {
 
   public static User generateAdminUser(int nbNotes) {
     User admin = User.create();
-    admin.setName("Jérémy Buget");
+    admin.setName("Jï¿½rï¿½my Buget");
     admin.setEmail("admin@agile-spirit.fr");
     admin.setPassword("admin");
     admin.setNotes(generateNotes(nbNotes));

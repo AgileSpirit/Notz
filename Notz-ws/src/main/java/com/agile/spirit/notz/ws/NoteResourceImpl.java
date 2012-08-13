@@ -14,11 +14,18 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.services.NoteServiceImpl;
+import com.agile.spirit.notz.services.NoteService;
+import com.agile.spirit.notz.services.ServiceFactory;
 
 @Path("/notes")
 public class NoteResourceImpl implements NoteResource {
 
+  NoteService noteService;
+  
+  public NoteResourceImpl() {
+    this.noteService = ServiceFactory.getInstance().getNoteService();
+  }
+  
   @GET
   @Path("/{userId}")
   @Produces(MediaType.APPLICATION_XML)
@@ -33,7 +40,7 @@ public class NoteResourceImpl implements NoteResource {
     if (countParam != null) {
       count = new Integer(countParam);
     }
-    List<Note> notes = NoteServiceImpl.getInstance().getNotesByUser(userId, first, count);
+    List<Note> notes = noteService.getNotesByUser(userId, first, count);
     return notes;
   }
 
@@ -42,7 +49,7 @@ public class NoteResourceImpl implements NoteResource {
   @Produces(MediaType.APPLICATION_XML)
   @Override
   public Note getById(@PathParam("id") String id) {
-    return NoteServiceImpl.getInstance().getById(id);
+    return noteService.getById(id);
   }
 
   @PUT
@@ -51,7 +58,7 @@ public class NoteResourceImpl implements NoteResource {
   @Override
   public Note saveOrUpdate(JAXBElement<Note> webNote) {
     Note note = webNote.getValue();
-    NoteServiceImpl.getInstance().saveOrUpdate(note);
+    noteService.saveOrUpdate(note);
     return note;
   }
 
@@ -59,7 +66,7 @@ public class NoteResourceImpl implements NoteResource {
   @Path("/{id}")
   @Override
   public void delete(@PathParam("id") String id) {
-    NoteServiceImpl.getInstance().delete(id);
+    noteService.delete(id);
   }
 
 }

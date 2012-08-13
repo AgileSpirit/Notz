@@ -14,15 +14,6 @@ import com.agile.spirit.notz.util.TransactionnalOperation;
 
 public class UserServiceImpl implements UserService {
 
-  private static UserService instance;
-
-  public static UserService getInstance() {
-    if (instance == null) {
-      instance = new UserServiceImpl();
-    }
-    return instance;
-  }
-
   /*
    * NAMED QUERIES
    */

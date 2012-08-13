@@ -15,15 +15,6 @@ import com.agile.spirit.notz.util.TransactionnalOperation;
 
 public class NoteServiceImpl implements NoteService {
 
-  private static NoteService instance;
-
-  public static NoteService getInstance() {
-    if (instance == null) {
-      instance = new NoteServiceImpl();
-    }
-    return instance;
-  }
-
   /*
    * NAMED QUERIES
    */
@@ -60,16 +51,6 @@ public class NoteServiceImpl implements NoteService {
 
           Note entity = getById(note.getId());
           if (entity == null) {
-            /*
-             * Assert that the user mapped by the note is not null or transient.
-             */
-            String userId = note.getUser().getId();
-            User user = UserServiceImpl.getInstance().getUserById(userId);
-            if (user == null) {
-              throw new HibernateException("User not found or inexistant for ID = " + userId);
-            }
-            note.setUser(user);
-
             entity = note;
             entity.setCreationDate(new Date());
           } else {

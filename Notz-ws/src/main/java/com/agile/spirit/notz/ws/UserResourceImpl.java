@@ -13,11 +13,18 @@ import javax.ws.rs.core.MediaType;
 import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.UserServiceImpl;
+import com.agile.spirit.notz.services.ServiceFactory;
+import com.agile.spirit.notz.services.UserService;
 
 @Path("/users")
 public class UserResourceImpl implements UserResource {
 
+  UserService userService;
+  
+  public UserResourceImpl() {
+    this.userService = ServiceFactory.getInstance().getUserService();
+  }
+  
   @GET
   @Path("/greeting/{firstName}-{lastName}")
   @Override
@@ -30,7 +37,7 @@ public class UserResourceImpl implements UserResource {
   @Produces(MediaType.APPLICATION_XML)
   @Override
   public User login(@FormParam("login") String login, @FormParam("password") String password) {
-    User user = UserServiceImpl.getInstance().loginUser(login, password);
+    User user = userService.loginUser(login, password);
     if (user == null) {
       return null;
     } else {
@@ -44,7 +51,7 @@ public class UserResourceImpl implements UserResource {
   @Override
   public User saveOrUpdate(JAXBElement<User> webUser) {
     User user = webUser.getValue();
-    UserServiceImpl.getInstance().saveOrUpdate(user);
+    userService.saveOrUpdate(user);
     return user;
   }
 
@@ -53,14 +60,14 @@ public class UserResourceImpl implements UserResource {
   @Produces(MediaType.APPLICATION_XML)
   @Override
   public User getById(@PathParam("id") String id) {
-    return UserServiceImpl.getInstance().getUserById(id);
+    return userService.getUserById(id);
   }
 
   @DELETE
   @Path("/{id}")
   @Override
   public void delete(@PathParam("id") String id) {
-    UserServiceImpl.getInstance().delete(id);
+    userService.delete(id);
   }
 
   @GET
@@ -68,7 +75,7 @@ public class UserResourceImpl implements UserResource {
   @Produces(MediaType.TEXT_PLAIN)
   @Override
   public String generateUsers(@PathParam("nb") int nb) {
-    UserServiceImpl.getInstance().generateUsers(nb);
+    userService.generateUsers(nb);
     return "Users generated";
   }
 

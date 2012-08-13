@@ -11,11 +11,15 @@
   <url>http://maven.apache.org</url>
 
   <modules>
+    <!-- DONE -->    
     <module>Notz-core</module> 
-    <module>Notz-services</module>
+    <module>Notz-services-db</module>
+    <module>Notz-services-memcache</module>
     <module>Notz-ws</module>
-    <!-- <module>notz-ws-rest</module> -->
     <module>Notz-ui-wicket</module>
+
+    <!-- TODO -->
+    <!-- <module>notz-ws-rest</module> -->
     <!-- <module>notz-ui-gwt</module> -->
     <!-- <module>notz-ui-android</module> --> 
   </modules>
