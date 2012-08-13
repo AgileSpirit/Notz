@@ -1,6 +1,6 @@
 package com.agile.spirit.notz.ui.components.user.form;
 
-import org.apache.wicket.model.CompoundPropertyModel;
+import org.apache.wicket.model.IModel;
 
 import com.agile.spirit.notz.domain.User;
 
@@ -8,33 +8,13 @@ public class UserEditionForm extends UserForm {
 
   private static final long serialVersionUID = 2613710719568994484L;
 
-  public UserEditionForm(String id) {
-    super(id);
-  }
-
-  @Override
-  protected void buildModel() {
-    this.model = new CompoundPropertyModel<User>(getNotzSession().getUser());
+  public UserEditionForm(String id, IModel<User> userModel) {
+    super(id, userModel);
   }
 
   @Override
   protected String getTitleKey() {
     return "edition";
-  }
-
-  @Override
-  protected String getValidateButtonKey() {
-    return "update";
-  }
-
-  @Override
-  protected boolean isCreationMode() {
-    return false;
-  }
-
-  @Override
-  protected boolean isGtuSectionVisible() {
-    return false;
   }
 
 }

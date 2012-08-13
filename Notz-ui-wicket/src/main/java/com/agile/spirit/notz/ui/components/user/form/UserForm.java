@@ -1,129 +1,129 @@
 package com.agile.spirit.notz.ui.components.user.form;
 
-import org.apache.wicket.ajax.AjaxEventBehavior;
-import org.apache.wicket.ajax.AjaxRequestTarget;
-import org.apache.wicket.ajax.markup.html.form.AjaxButton;
+import javax.ws.rs.core.MediaType;
+
 import org.apache.wicket.markup.html.basic.Label;
-import org.apache.wicket.markup.html.form.Button;
 import org.apache.wicket.markup.html.form.Form;
+import org.apache.wicket.markup.html.form.PasswordTextField;
+import org.apache.wicket.markup.html.form.RequiredTextField;
+import org.apache.wicket.markup.html.form.SubmitLink;
+import org.apache.wicket.markup.html.form.TextField;
+import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
-import org.apache.wicket.model.StringResourceModel;
+import org.apache.wicket.model.Model;
 
 import com.agile.spirit.notz.domain.User;
-import com.agile.spirit.notz.services.UserServiceImpl;
 import com.agile.spirit.notz.ui.NotzPanel;
-import com.agile.spirit.notz.ui.components.user.form.section.GtuSection;
-import com.agile.spirit.notz.ui.components.user.form.section.IdentificationSection;
-import com.agile.spirit.notz.ui.components.user.form.section.PersonalDataSection;
-import com.agile.spirit.notz.ui.components.user.form.validators.PasswordConfirmationFormValidator;
-import com.agile.spirit.notz.ui.pages.user.login.LoginPage;
+import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
+import com.agile.spirit.notz.ws.AbstractWebRequest;
+import com.agile.spirit.notz.ws.PutRequest;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.api.client.WebResource.Builder;
 
 public abstract class UserForm extends NotzPanel {
 
   private static final long serialVersionUID = 1L;
 
   /* Components */
-  Form<User> form;
-  PersonalDataSection personalDataSection;
-  IdentificationSection identificationSection;
-  GtuSection gtuSection;
+  Form form;
+  Label titleLabel;
+  TextField<String> nameInput;
+  RequiredTextField<String> usernameInput;
+  RequiredTextField<String> emailInput;
+  PasswordTextField passwordInput;
+  PasswordTextField confirmationInput;
 
-  /* Model data */
-  IModel<User> model;
-
-  public UserForm(String id) {
+//  /* Models */
+//  IModel<User> userModel;
+  
+  public UserForm(String id, IModel<User> userModel) {
     super(id);
-    buildModel();
+    setDefaultModel(new CompoundPropertyModel<User>(userModel));
     buildForm();
   }
 
-  protected abstract void buildModel();
-
-  protected abstract String getTitleKey();
-
   private void buildForm() {
-    form = new Form<User>("form");
-    form.setOutputMarkupId(true);
+    form = new Form("form") {
 
-    buildTitle();
-    buildPersonalDataSection();
-    buildIdentificationSection();
-    buildGtuSection();
-    buildButtonBar();
+      @Override
+      public void onSubmit() {
+        String username = usernameInput.getModelObject();
+        String email = emailInput.getModelObject();
+        String password = passwordInput.getModelObject();
+        String confirmation = confirmationInput.getModelObject();
 
+        final User user = User.create(username, email, password);
+
+        AbstractWebRequest request = new PutRequest() {
+
+          @Override
+          public void onSuccess(ClientResponse response) {
+            User returnedUser = response.getEntity(User.class);
+            if (returnedUser != null) {
+              getNotzSession().setUser(returnedUser);
+              setResponsePage(NoteListPage.class);
+            }
+          }
+
+          @Override
+          public Builder configureWebResource(WebResource webResource) {
+            return webResource.path("users/").entity(user).accept(MediaType.APPLICATION_XML);
+          }
+        };
+        request.execute();
+      }
+    };
     add(form);
-  }
 
-  private void buildTitle() {
-    Label title = new Label("title", new StringResourceModel(getTitleKey(), UserForm.this, null));
-    form.add(title);
-  }
-
-  private void buildPersonalDataSection() {
-    personalDataSection = new PersonalDataSection("personalDataSection", model);
-    form.add(personalDataSection);
-  }
-
-  protected abstract boolean isCreationMode();
-
-  private void buildIdentificationSection() {
-    identificationSection = new IdentificationSection("identificationSection", model, isCreationMode());
-    form.add(identificationSection);
-    form.add(new PasswordConfirmationFormValidator(identificationSection));
-  }
-
-  protected abstract boolean isGtuSectionVisible();
-
-  private void buildGtuSection() {
-    gtuSection = new GtuSection("gtuSection", model);
-    gtuSection.setOutputMarkupId(true);
-    gtuSection.setOutputMarkupPlaceholderTag(true);
-    gtuSection.setVisibilityAllowed(isGtuSectionVisible());
-    form.add(gtuSection);
-  }
-
-  private void buildButtonBar() {
-    buildResetButton();
+    buildTitleLabel();
+    buildNameInput();
+    buildUsernameInput();
+    buildEmailInput();
+    buildPasswordInput();
+    buildConfirmationInput();
     buildValidateButton();
   }
 
-  private void buildResetButton() {
-    Button resetButton = new Button("resetButton");
-    resetButton.add(new AjaxEventBehavior("onClick") {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      protected void onEvent(AjaxRequestTarget target) {
-        personalDataSection.resetFields();
-        identificationSection.resetFields();
-        target.add(form);
-      }
-
-    });
-    form.add(resetButton);
+  protected abstract String getTitleKey();
+  
+  private void buildTitleLabel() {
+    titleLabel = new Label("title", getTitleKey());
+    form.add(titleLabel);
+  }
+  
+  private void buildNameInput() {
+    nameInput = new TextField<String>("name");
+    form.add(nameInput);
+  }
+  
+  private void buildUsernameInput() {
+    usernameInput = new RequiredTextField<String>("username");
+    form.add(usernameInput);
   }
 
-  protected abstract String getValidateButtonKey();
+  private void buildEmailInput() {
+    emailInput = new RequiredTextField<String>("email");
+    form.add(emailInput);
+  }
+
+  private void buildPasswordInput() {
+    passwordInput = new PasswordTextField("password");
+    passwordInput.setResetPassword(false);
+    passwordInput.setRequired(true);
+    form.add(passwordInput);
+  }
+
+  private void buildConfirmationInput() {
+    confirmationInput = new PasswordTextField("confirmation", new Model<String>());
+    confirmationInput.setResetPassword(false);
+    confirmationInput.setRequired(true);
+    form.add(confirmationInput);
+  }
 
   private void buildValidateButton() {
-    AjaxButton validateButton = new AjaxButton("validateButton") {
-      private static final long serialVersionUID = 1L;
-
-      @Override
-      protected void onError(AjaxRequestTarget target, Form<?> form) {
-        target.add(form);
-        // super.onError(target, form);
-      }
-
-      @Override
-      protected void onSubmit(AjaxRequestTarget target, Form<?> form) {
-
-        UserServiceImpl.getInstance().saveOrUpdate(model.getObject());
-        setResponsePage(LoginPage.class);
-      }
-
+    SubmitLink validateButton = new SubmitLink("validateButton", form) {
     };
-    validateButton.setModel(new StringResourceModel(getValidateButtonKey(), UserForm.this, null));
     form.add(validateButton);
   }
 

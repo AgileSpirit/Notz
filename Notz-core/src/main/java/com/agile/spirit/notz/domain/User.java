@@ -34,8 +34,7 @@ public class User extends BaseEntity {
    */
 
   private String username;
-  private String firstName;
-  private String lastName;
+  private String name;
   private String email;
   private String password;
 
@@ -48,18 +47,17 @@ public class User extends BaseEntity {
    */
 
   public static User create() {
-    return create("", "", "", "", "");
+    return create("", "", "", "");
   }
 
   public static User create(String username, String email, String password) {
-    return create(username, "", "", email, password);
+    return create(username, "", email, password);
   }
 
-  public static User create(String username, String firstName, String lastName, String email, String password) {
+  public static User create(String username, String name, String email, String password) {
     User user = new User();
     user.username = username;
-    user.firstName = firstName;
-    user.lastName = lastName;
+    user.name = name;
     user.email = email;
     user.password = password;
     user.notes = new ArrayList<Note>();
@@ -70,8 +68,12 @@ public class User extends BaseEntity {
    * ACCESSORS
    */
 
-  public String getFirstName() {
-    return firstName;
+  public String getName() {
+    return name;
+  }
+
+  public void setName(String name) {
+    this.name = name;
   }
 
   public String getUsername() {
@@ -80,18 +82,6 @@ public class User extends BaseEntity {
 
   public void setUsername(String username) {
     this.username = username;
-  }
-
-  public void setFirstName(String firstName) {
-    this.firstName = firstName;
-  }
-
-  public String getLastName() {
-    return lastName;
-  }
-
-  public void setLastName(String lastName) {
-    this.lastName = lastName;
   }
 
   public String getEmail() {
@@ -125,7 +115,7 @@ public class User extends BaseEntity {
 
   @Override
   public String toString() {
-    return "User [username=" + username + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", password="
+    return "User [username=" + username + ", name=" + name + ", email=" + email + ", password="
         + password + ", notes=" + notes.size() + "]";
   }
 

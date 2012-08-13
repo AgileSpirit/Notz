@@ -42,6 +42,11 @@
       <artifactId>wicket-extensions</artifactId>
       <version>${wicket.version}</version>
     </dependency>
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>servlet-api</artifactId>
+      <version>${servlet.version}</version>
+    </dependency>
     <!-- LOGGING DEPENDENCIES - LOG4J -->
     <dependency>
       <groupId>org.slf4j</groupId>

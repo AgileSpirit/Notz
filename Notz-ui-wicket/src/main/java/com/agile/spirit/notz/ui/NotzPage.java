@@ -1,15 +1,24 @@
 package com.agile.spirit.notz.ui;
 
+import java.util.List;
+
+import javax.servlet.http.Cookie;
+
+import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.extensions.ajax.markup.html.modal.ModalWindow;
 import org.apache.wicket.markup.html.WebPage;
+import org.apache.wicket.request.http.WebRequest;
 
+import com.agile.spirit.notz.ui.components.user.login.LoginForm;
 import com.agile.spirit.notz.ui.components.user.menu.AccountMenuBar;
 import com.agile.spirit.notz.ui.pages.home.HomePage;
 
 public class NotzPage extends WebPage {
 
   private static final long serialVersionUID = 1L;
+
+  private static final Logger LOGGER = Logger.getLogger(NotzPage.class);
 
   ModalWindow modal;
 

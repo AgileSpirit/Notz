@@ -1,8 +1,18 @@
 package com.agile.spirit.notz.ui.pages.home;
 
+import java.net.CookieManager;
+
+import javax.ws.rs.core.Cookie;
+
+import org.apache.wicket.util.cookies.CookieDefaults;
+import org.apache.wicket.util.cookies.CookieUtils;
+
+import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzPage;
+import com.agile.spirit.notz.ui.components.note.list.NoteList;
 import com.agile.spirit.notz.ui.components.user.login.LoginForm;
 import com.agile.spirit.notz.ui.components.user.signup.SignupForm;
+import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 
 public class HomePage extends NotzPage {
 
@@ -15,6 +25,18 @@ public class HomePage extends NotzPage {
     buildSignupForm();
   }
 
+  @Override
+  public void onInitialize() {
+    super.onInitialize();
+    
+    User user = getNotzSession().getUser();
+    if (user != null) {
+      setResponsePage(NoteListPage.class);
+    }
+    
+    // TODO Manage cookie / RememberMe feature
+  }
+  
   private void buildOverview() {
     // TODO Auto-generated method stub
 

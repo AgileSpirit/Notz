@@ -13,8 +13,8 @@ import org.apache.wicket.model.Model;
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
-import com.agile.spirit.notz.ui.ws.PutRequest;
-import com.agile.spirit.notz.ui.ws.WebResourceRequest;
+import com.agile.spirit.notz.ws.AbstractWebRequest;
+import com.agile.spirit.notz.ws.PutRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
@@ -49,7 +49,7 @@ public class SignupForm extends NotzPanel {
 
         final User user = User.create(username, email, password);
 
-        WebResourceRequest request = new PutRequest() {
+        AbstractWebRequest request = new PutRequest() {
 
           @Override
           public void onSuccess(ClientResponse response) {
@@ -58,11 +58,6 @@ public class SignupForm extends NotzPanel {
               getNotzSession().setUser(returnedUser);
               setResponsePage(NoteListPage.class);
             }
-          }
-
-          @Override
-          public void onError(ClientResponse response) {
-            // TODO Auto-generated method stub
           }
 
           @Override

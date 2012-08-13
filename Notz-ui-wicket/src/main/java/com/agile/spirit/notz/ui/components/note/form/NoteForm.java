@@ -15,8 +15,8 @@ import org.apache.wicket.model.IModel;
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.ui.NotzPanel;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
-import com.agile.spirit.notz.ui.ws.PutRequest;
-import com.agile.spirit.notz.ui.ws.WebResourceRequest;
+import com.agile.spirit.notz.ws.AbstractWebRequest;
+import com.agile.spirit.notz.ws.PutRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -55,7 +55,7 @@ public abstract class NoteForm extends NotzPanel {
         final Note note = model.getObject();
         note.setUser(getNotzSession().getUser());
 
-        WebResourceRequest request = new PutRequest() {
+        AbstractWebRequest request = new PutRequest() {
           
           @Override
           public WebResource.Builder configureWebResource(WebResource webResource) {

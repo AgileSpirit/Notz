@@ -7,6 +7,7 @@ import javax.persistence.EntityManager;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
+import com.agile.spirit.notz.services.session.SessionManager;
 import com.agile.spirit.notz.util.DataGenerator;
 import com.agile.spirit.notz.util.PersistenceUtil;
 import com.agile.spirit.notz.util.TransactionnalOperation;
@@ -79,6 +80,7 @@ public class UserServiceImpl implements UserService {
       User user = getUserByLogin(email);
       if (user != null) {
         if (user.getPassword().equals(password)) {
+          SessionManager.getInstance().addUserInSession(user);
           return user;
         }
       }
