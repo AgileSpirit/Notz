@@ -8,7 +8,8 @@ import com.sun.jersey.api.client.filter.LoggingFilter;
 
 public class WebClientManager {
 
-  public static final String WEB_SERVICE_URL = "http://localhost:8080/Notz-ws";
+//  public static final String WEB_SERVICE_URL = "http://localhost:8080/Notz-ws";
+  public static final String WEB_SERVICE_URL = "http://notzws.elasticbeanstalk.com";
 
   private static final Client webClient = buildWebClient();
 
