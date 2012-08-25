@@ -20,11 +20,11 @@ import com.agile.spirit.notz.services.UserService;
 public class UserResourceImpl implements UserResource {
 
   UserService userService;
-  
+
   public UserResourceImpl() {
     this.userService = ServiceFactory.getInstance().getUserService();
   }
-  
+
   @GET
   @Path("/greeting/{firstName}-{lastName}")
   @Override
@@ -34,20 +34,19 @@ public class UserResourceImpl implements UserResource {
 
   @POST
   @Path("/login")
-  @Produces(MediaType.APPLICATION_XML)
+  @Produces({ MediaType.APPLICATION_XML })
   @Override
   public User login(@FormParam("login") String login, @FormParam("password") String password) {
     User user = userService.loginUser(login, password);
     if (user == null) {
       return null;
-    } else {
-      return user;
     }
+    return user;
   }
 
   @PUT
-  @Consumes(MediaType.APPLICATION_XML)
-  @Produces(MediaType.APPLICATION_XML)
+  @Consumes({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_XML })
   @Override
   public User saveOrUpdate(JAXBElement<User> webUser) {
     User user = webUser.getValue();
@@ -57,7 +56,7 @@ public class UserResourceImpl implements UserResource {
 
   @GET
   @Path("/{id}")
-  @Produces(MediaType.APPLICATION_XML)
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User getById(@PathParam("id") String id) {
     return userService.getUserById(id);

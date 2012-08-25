@@ -14,7 +14,7 @@
 
   <properties>
     <wicket.version>1.5.7</wicket.version>
-    <jersey.version>1.12</jersey.version>
+    <jersey.version>1.13</jersey.version>
   </properties>
   
   <dependencies>
@@ -66,6 +66,11 @@
     <dependency>
       <groupId>com.sun.jersey</groupId>
       <artifactId>jersey-client</artifactId>
+      <version>${jersey.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>com.sun.jersey</groupId>
+      <artifactId>jersey-json</artifactId>
       <version>${jersey.version}</version>
     </dependency>
   </dependencies>

@@ -28,15 +28,15 @@ public abstract class UserForm extends NotzPanel {
   /* Components */
   Form form;
   Label titleLabel;
-  TextField<String> nameInput;
+  TextField<String> completeNameInput;
   RequiredTextField<String> usernameInput;
   RequiredTextField<String> emailInput;
   PasswordTextField passwordInput;
   PasswordTextField confirmationInput;
 
-//  /* Models */
-//  IModel<User> userModel;
-  
+  // /* Models */
+  // IModel<User> userModel;
+
   public UserForm(String id, IModel<User> userModel) {
     super(id);
     setDefaultModel(new CompoundPropertyModel<User>(userModel));
@@ -48,12 +48,13 @@ public abstract class UserForm extends NotzPanel {
 
       @Override
       public void onSubmit() {
-        String username = usernameInput.getModelObject();
-        String email = emailInput.getModelObject();
-        String password = passwordInput.getModelObject();
-        String confirmation = confirmationInput.getModelObject();
-
-        final User user = User.create(username, email, password);
+        // String username = usernameInput.getModelObject();
+        // String email = emailInput.getModelObject();
+        // String password = passwordInput.getModelObject();
+        // String completeName = completeNameInput.getModelObject();
+        // String confirmation = confirmationInput.getModelObject();
+        //
+        final User user = getUser();
 
         AbstractWebRequest request = new PutRequest() {
 
@@ -77,7 +78,7 @@ public abstract class UserForm extends NotzPanel {
     add(form);
 
     buildTitleLabel();
-    buildNameInput();
+    buildCompleteNameInput();
     buildUsernameInput();
     buildEmailInput();
     buildPasswordInput();
@@ -86,17 +87,17 @@ public abstract class UserForm extends NotzPanel {
   }
 
   protected abstract String getTitleKey();
-  
+
   private void buildTitleLabel() {
     titleLabel = new Label("title", getTitleKey());
     form.add(titleLabel);
   }
-  
-  private void buildNameInput() {
-    nameInput = new TextField<String>("name");
-    form.add(nameInput);
+
+  private void buildCompleteNameInput() {
+    completeNameInput = new TextField<String>("completeName");
+    form.add(completeNameInput);
   }
-  
+
   private void buildUsernameInput() {
     usernameInput = new RequiredTextField<String>("username");
     form.add(usernameInput);
@@ -125,6 +126,10 @@ public abstract class UserForm extends NotzPanel {
     SubmitLink validateButton = new SubmitLink("validateButton", form) {
     };
     form.add(validateButton);
+  }
+
+  private User getUser() {
+    return (User) getDefaultModelObject();
   }
 
 }

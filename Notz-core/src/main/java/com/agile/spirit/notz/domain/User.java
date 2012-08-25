@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.NamedQueries;
@@ -34,12 +35,9 @@ public class User extends BaseEntity {
    */
 
   private String username;
-  private String name;
+  private String completeName;
   private String email;
   private String password;
-
-  @OneToMany(cascade = { CascadeType.ALL }, targetEntity = Note.class, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
-  @OrderBy("modificationDate DESC, creationDate DESC")
   private List<Note> notes;
 
   /*
@@ -54,10 +52,10 @@ public class User extends BaseEntity {
     return create(username, "", email, password);
   }
 
-  public static User create(String username, String name, String email, String password) {
+  public static User create(String username, String completeName, String email, String password) {
     User user = new User();
     user.username = username;
-    user.name = name;
+    user.completeName = completeName;
     user.email = email;
     user.password = password;
     user.notes = new ArrayList<Note>();
@@ -68,14 +66,16 @@ public class User extends BaseEntity {
    * ACCESSORS
    */
 
-  public String getName() {
-    return name;
+  @Column
+  public String getCompleteName() {
+    return completeName;
   }
 
-  public void setName(String name) {
-    this.name = name;
+  public void setCompleteName(String completeName) {
+    this.completeName = completeName;
   }
 
+  @Column(nullable = false, unique = true)
   public String getUsername() {
     return username;
   }
@@ -84,6 +84,7 @@ public class User extends BaseEntity {
     this.username = username;
   }
 
+  @Column
   public String getEmail() {
     return email;
   }
@@ -92,6 +93,7 @@ public class User extends BaseEntity {
     this.email = email;
   }
 
+  @Column(nullable = false)
   public String getPassword() {
     return password;
   }
@@ -100,6 +102,8 @@ public class User extends BaseEntity {
     this.password = password;
   }
 
+  @OneToMany(cascade = { CascadeType.ALL }, targetEntity = Note.class, fetch = FetchType.LAZY, orphanRemoval = true, mappedBy = "user")
+  @OrderBy("modificationDate DESC, creationDate DESC")
   @XmlTransient
   public List<Note> getNotes() {
     return notes;
@@ -113,10 +117,19 @@ public class User extends BaseEntity {
    * BEHAVIORS
    */
 
+  public void merge(User other) {
+    if (other != null) {
+      this.completeName = other.getCompleteName();
+      this.username = other.getUsername();
+      this.email = other.getEmail();
+      this.password = other.getPassword();
+    }
+  }
+
   @Override
   public String toString() {
-    return "User [username=" + username + ", name=" + name + ", email=" + email + ", password="
-        + password + ", notes=" + notes.size() + "]";
+    return "User [username=" + username + ", completeName=" + completeName + ", email=" + email + ", password=" + password + ", notes="
+        + notes.size() + "]";
   }
 
 }

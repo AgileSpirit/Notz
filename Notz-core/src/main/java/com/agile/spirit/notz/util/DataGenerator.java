@@ -14,7 +14,7 @@ public class DataGenerator {
 
   public static User generateAdminUser(int nbNotes) {
     User admin = User.create();
-    admin.setName("J�r�my Buget");
+    admin.setCompleteName("J�r�my Buget");
     admin.setEmail("admin@agile-spirit.fr");
     admin.setPassword("admin");
     admin.setNotes(generateNotes(nbNotes));
@@ -25,7 +25,7 @@ public class DataGenerator {
     List<User> generatedUsers = new ArrayList<User>();
     for (int i = 0; i < rowsNumber; i++) {
       User user = User.create();
-      user.setName(generateRandomString(true));
+      user.setCompleteName(generateRandomString(true));
       user.setEmail(generateRandomEmail());
       user.setPassword(generateRandomString(true));
       generatedUsers.add(user);

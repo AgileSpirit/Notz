@@ -39,8 +39,12 @@ public class UserServiceImpl implements UserService {
             entityManager.persist(user);
             return user;
           } else {
-            user.setModificationDate(new Date());
-            return entityManager.merge(user);
+            User eUser = getUserById(user.getId());
+            if (eUser != null) {
+              eUser.merge(user);
+            }
+            eUser.setModificationDate(new Date());
+            return entityManager.merge(eUser);
           }
         }
       }.execute();

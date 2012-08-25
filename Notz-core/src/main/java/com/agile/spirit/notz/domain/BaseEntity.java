@@ -3,6 +3,7 @@ package com.agile.spirit.notz.domain;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
@@ -17,6 +18,19 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
 
   private static final long serialVersionUID = 1L;
 
+  /*
+   * ATTRIBUTES
+   */
+
+  private String id;
+  protected Integer version;
+  private Date creationDate;
+  private Date modificationDate;
+
+  /*
+   * ACCESSORS
+   */
+
   /**
    * In order to avoid Cycle during JAXB XML (un-)marshalling, one must have totaly unique ID for entities. First type of IdS was Integer
    * but during research in order to fix cycle problems, one solution was to use XmlID and XmlIDRef annotation. The fact was that these
@@ -27,17 +41,6 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
   @Id
   @GeneratedValue(generator = "system-uuid")
   @GenericGenerator(name = "system-uuid", strategy = "uuid")
-  private String id;
-
-  @Version
-  protected Integer version;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date creationDate;
-
-  @Temporal(TemporalType.TIMESTAMP)
-  private Date modificationDate;
-
   public String getId() {
     return id;
   }
@@ -46,6 +49,8 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
     this.id = id;
   }
 
+  @Column(nullable = false)
+  @Temporal(TemporalType.TIMESTAMP)
   public Date getCreationDate() {
     return creationDate;
   }
@@ -54,6 +59,8 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
     this.creationDate = creationDate;
   }
 
+  @Column(nullable = true)
+  @Temporal(TemporalType.TIMESTAMP)
   public Date getModificationDate() {
     return modificationDate;
   }
@@ -61,6 +68,19 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
   public void setModificationDate(Date modificationDate) {
     this.modificationDate = modificationDate;
   }
+
+  @Version
+  public Integer getVersion() {
+    return version;
+  }
+
+  public void setVersion(Integer version) {
+    this.version = version;
+  }
+
+  /*
+   * 
+   */
 
   @Override
   public int compareTo(BaseEntity compared) {

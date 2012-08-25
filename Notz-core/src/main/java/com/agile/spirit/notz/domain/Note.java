@@ -2,6 +2,7 @@ package com.agile.spirit.notz.domain;
 
 import static com.agile.spirit.notz.domain.Note.FIND_NOTES_BY_USER;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
@@ -29,12 +30,7 @@ public class Note extends BaseEntity {
    */
 
   private String title;
-
-  @Lob
   private String description;
-
-  @ManyToOne(targetEntity = User.class)
-  @JoinColumn(name = "userId", updatable = false)
   private User user;
 
   /*
@@ -66,6 +62,7 @@ public class Note extends BaseEntity {
    * ACCESSORS
    */
 
+  @Column
   public String getTitle() {
     return title;
   }
@@ -74,6 +71,8 @@ public class Note extends BaseEntity {
     this.title = title;
   }
 
+  @Column
+  @Lob
   public String getDescription() {
     return description;
   }
@@ -82,6 +81,8 @@ public class Note extends BaseEntity {
     this.description = description;
   }
 
+  @ManyToOne(targetEntity = User.class)
+  @JoinColumn(name = "userId", updatable = false)
   public User getUser() {
     return user;
   }
