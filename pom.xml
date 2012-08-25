@@ -15,13 +15,15 @@
     <module>Notz-core</module> 
     <module>Notz-services-db</module>
     <module>Notz-services-memcache</module>
-    <module>Notz-ws</module>
+    <module>Notz-ws-jersey</module>
     <module>Notz-ui-wicket</module>
 
     <!-- TODO -->
-    <!-- <module>notz-ws-rest</module> -->
     <!-- <module>notz-ui-gwt</module> -->
     <!-- <module>notz-ui-android</module> --> 
+    
+    <!-- NOTICE -->
+    <!-- Notz-ui-js is a basic HTML/JavaScript/CSS project ; so it is not integrated in Maven (for the moment...) -->
   </modules>
   
   <properties>

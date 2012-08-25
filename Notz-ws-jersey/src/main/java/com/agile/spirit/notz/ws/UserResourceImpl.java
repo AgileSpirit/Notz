@@ -34,7 +34,7 @@ public class UserResourceImpl implements UserResource {
 
   @POST
   @Path("/login")
-  @Produces({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User login(@FormParam("login") String login, @FormParam("password") String password) {
     User user = userService.loginUser(login, password);
@@ -46,7 +46,7 @@ public class UserResourceImpl implements UserResource {
 
   @PUT
   @Consumes({ MediaType.APPLICATION_XML })
-  @Produces({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User saveOrUpdate(JAXBElement<User> webUser) {
     User user = webUser.getValue();
