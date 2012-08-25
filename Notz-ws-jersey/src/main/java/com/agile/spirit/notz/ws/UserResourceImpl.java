@@ -45,7 +45,7 @@ public class UserResourceImpl implements UserResource {
   }
 
   @PUT
-  @Consumes({ MediaType.APPLICATION_XML })
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User saveOrUpdate(JAXBElement<User> webUser) {

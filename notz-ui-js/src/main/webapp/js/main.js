@@ -1,5 +1,3 @@
-findAll()
-
 function findAll() {
 	console.log('findAll');
   $.ajax({
@@ -21,4 +19,29 @@ function renderList(data) {
   $.each(list, function(index, note) {
     $('#noteList').append('<li><strong>' + note.title + '</strong>' + note.description + '</li>');
   });
+}
+
+function registerUser() {
+  console.log('register');
+  $.ajax({
+    type: 'PUT',
+    url: 'http://localhost:8080/Notz-ws-jersey/users/',
+    data: signupFormToJSON(),
+    success: function(data) {
+      alert('success' + data);
+    },
+    error: function(data) {
+      alert('error');
+    },
+    dataType: "json"
+  });
+}
+
+//Helper function to serialize all the form fields into a JSON string
+function signupFormToJSON() {
+  return JSON.stringify({"user": {
+      "completeName": $('#signupCompleteName').val(),
+      "email": $('#signupEmail').val(),
+      "password": $('#signupPassword').val()
+      }});
 }
