@@ -28,7 +28,7 @@ public class NoteResourceImpl implements NoteResource {
 
   @GET
   @Path("/{userId}")
-  @Produces({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public List<Note> getByUserId(@PathParam("userId") String userId, @QueryParam("first") String firstParam,
       @QueryParam("count") String countParam) {
@@ -46,7 +46,7 @@ public class NoteResourceImpl implements NoteResource {
 
   @GET
   @Path("/detail/{id}")
-  @Produces({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public Note getById(@PathParam("id") String id) {
     return noteService.getById(id);
@@ -54,7 +54,7 @@ public class NoteResourceImpl implements NoteResource {
 
   @PUT
   @Consumes({ MediaType.APPLICATION_XML })
-  @Produces({ MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public Note saveOrUpdate(JAXBElement<Note> webNote) {
     Note note = webNote.getValue();

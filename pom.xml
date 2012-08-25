@@ -17,6 +17,7 @@
     <module>Notz-services-memcache</module>
     <module>Notz-ws-jersey</module>
     <module>Notz-ui-wicket</module>
+    <module>Notz-ui-js</module>
 
     <!-- TODO -->
     <!-- <module>notz-ui-gwt</module> -->
