@@ -11,11 +11,11 @@ import com.agile.spirit.notz.util.MemoryCache;
 public class UserServiceImpl implements UserService {
 
   MemoryCache memoryCache;
-  
+
   public UserServiceImpl() {
     this.memoryCache = MemoryCache.getInstance();
   }
-  
+
   @Override
   public User getUserById(String id) {
     return memoryCache.getData().get(id);
@@ -82,6 +82,12 @@ public class UserServiceImpl implements UserService {
       user.setNotes(DataGenerator.generateNotes(5));
       saveOrUpdate(user);
     }
+  }
+
+  @Override
+  public List<User> findUser(String expression) {
+    // TODO Auto-generated method stub
+    return null;
   }
 
 }

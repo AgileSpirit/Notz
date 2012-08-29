@@ -1,7 +1,5 @@
 package com.agile.spirit.notz.ws;
 
-import javax.xml.bind.JAXBElement;
-
 import com.agile.spirit.notz.domain.User;
 
 /**
@@ -30,12 +28,12 @@ public interface UserResource {
   User login(String login, String password);
 
   /**
-   * Service used for retrieving a user by its ID
+   * Service used for retrieving a user by its ID, email or username.
    * 
-   * @param id
+   * @param expression
    * @return
    */
-  User getById(String id);
+  User getUser(String expression);
 
   /**
    * Service used for persist or merge a new or existent user.
@@ -43,7 +41,7 @@ public interface UserResource {
    * @param webUser
    * @return
    */
-  User saveOrUpdate(JAXBElement<User> webUser);
+  User saveOrUpdate(User webUser);
 
   /**
    * Service used for delete an existing user.

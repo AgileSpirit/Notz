@@ -11,7 +11,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.services.NoteService;
@@ -53,13 +52,11 @@ public class NoteResourceImpl implements NoteResource {
   }
 
   @PUT
-  @Consumes({ MediaType.APPLICATION_XML })
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
-  public Note saveOrUpdate(JAXBElement<Note> webNote) {
-    Note note = webNote.getValue();
-    noteService.saveOrUpdate(note);
-    return note;
+  public Note saveOrUpdate(Note note) {
+    return noteService.saveOrUpdate(note);
   }
 
   @DELETE

@@ -9,21 +9,11 @@ body { color: #333; font-size: 0.96em; font-family: arial, verdana, times new ro
 #header .title { float: left; }
 #header .accountMenuBar { float: right; margin-top: 10px; }
 
-#body {  }
+#body { padding: 10px ; }
 
 #footer { padding: 20px 0; border-top: 1px solid #999; }
 
 div.clear { display:block; clear: both; }
-
-form { border: 1px solid #CCC; border-radius: 3px; background-color: #F5F5F5; margin: 10px; }
-form .headerArea { border-bottom: 1px solid #DDD; padding: 0 15px; }
-form .headerArea h2 { color: #777; font-weight: normal; font-size: 16px; line-height: 20px; }
-form .headerArea h2 strong { color: #333; font-weight: 500; }
-form .fieldsArea { padding: 15px; }
-form .formField { padding: 5px 15px; }
-form .fieldInput { width: 244px; }
-form .fieldShortInput { width: 126px; }
-form .footerArea {}
 
 a.editLink { background-image: url(../img/edit.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle;}
 a.deleteLink { background-image: url(../img/delete.png); background-repeat: no-repeat; width: 18px; height: 18px; display: inline-block; vertical-align: middle; }
@@ -37,12 +27,6 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 /* COMPONENTS CUSTOM STYLES */
 /****************************/
 
-/* --- Common layout --- */
-.content { padding: 10px ; }
-
-/* --- User Form Page --- */
-.userForm { width: 360px; }
-
 /* -----------------------*/
 /* --- Home Page --- */
 /* -----------------------*/
@@ -50,13 +34,33 @@ a.permaLink { background-image: url(../img/feed.png); background-repeat: no-repe
 .leftColumn { float: left; width: 540px; }
 .rightColumn { float: right; width: 310px; } 
 
-.overview { padding: 10px; }
-.overview .feature { padding: 15px 0 10px 60px; background-repeat: no-repeat; background-position: 10px 15px; }
-.overview .feature-add { background-image: url(../img/feature1.png); border-bottom: 1px solid #CCC; }
-.overview .feature-get { background-image: url(../img/feature2.png); border-bottom: 1px solid #CCC; }
-.overview .feature-sync { background-image: url(../img/feature3.png); border-bottom: 1px solid #CCC; }
-.overview .feature-share { background-image: url(../img/feature4.png); border-bottom: 1px solid #CCC; }
-.overview .feature-trends { background-image: url(../img/feature5.png); }
+.home .overview { padding: 10px; }
+.home .overview .feature { padding: 15px 0 10px 60px; background-repeat: no-repeat; background-position: 10px 15px; }
+.home .overview .feature h4 { margin: 0; }
+.home .overview .feature-add { background-image: url(../img/feature1.png); border-bottom: 1px solid #CCC; }
+.home .overview .feature-get { background-image: url(../img/feature2.png); border-bottom: 1px solid #CCC; }
+.home .overview .feature-sync { background-image: url(../img/feature3.png); border-bottom: 1px solid #CCC; }
+.home .overview .feature-share { background-image: url(../img/feature4.png); border-bottom: 1px solid #CCC; }
+.home .overview .feature-trends { background-image: url(../img/feature5.png); }
+
+.home form { border: 1px solid #CCC; border-radius: 3px; background-color: #F5F5F5; margin: 10px 10px 20px 10px; }
+.home form .headerArea { border-bottom: 1px solid #DDD; padding: 0 15px; }
+.home form .headerArea h2 { color: #777; font-weight: normal; font-size: 16px; line-height: 20px; }
+.home form .headerArea h2 strong { color: #333; font-weight: 800; }
+.home form .fieldsArea { padding: 15px; }
+.home form .formField { padding: 5px 15px; }
+.home form .fieldInput { width: 244px; }
+.home form .fieldShortInput { width: 126px; }
+.home form .footerArea {}
+
+
+
+/* -------------------*/
+/* --- Notes Page --- */
+/* -------------------*/
+
+.notes form input { width: 516px; }
+.notes form textarea { width: 516px; }
 
 /* -----------------------*/
 /* --- User List Page --- */

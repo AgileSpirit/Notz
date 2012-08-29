@@ -1,5 +1,7 @@
 package com.agile.spirit.notz.ws;
 
+import java.util.List;
+
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
@@ -10,7 +12,6 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import javax.xml.bind.JAXBElement;
 
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.ServiceFactory;
@@ -48,18 +49,20 @@ public class UserResourceImpl implements UserResource {
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
-  public User saveOrUpdate(JAXBElement<User> webUser) {
-    User user = webUser.getValue();
-    userService.saveOrUpdate(user);
-    return user;
+  public User saveOrUpdate(User user) {
+    return userService.saveOrUpdate(user);
   }
 
   @GET
-  @Path("/{id}")
+  @Path("/{expression}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
-  public User getById(@PathParam("id") String id) {
-    return userService.getUserById(id);
+  public User getUser(@PathParam("expression") String expression) {
+    List<User> users = userService.findUser(expression);
+    if (users != null && !users.isEmpty()) {
+      return users.get(0);
+    }
+    return null;
   }
 
   @DELETE

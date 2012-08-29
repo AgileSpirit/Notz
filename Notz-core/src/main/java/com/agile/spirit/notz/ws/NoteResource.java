@@ -2,8 +2,6 @@ package com.agile.spirit.notz.ws;
 
 import java.util.List;
 
-import javax.xml.bind.JAXBElement;
-
 import com.agile.spirit.notz.domain.Note;
 
 /**
@@ -37,7 +35,7 @@ public interface NoteResource {
    * @param webUser
    * @return
    */
-  Note saveOrUpdate(JAXBElement<Note> webNote);
+  Note saveOrUpdate(Note webNote);
 
   /**
    * Service used for delete an existing note.

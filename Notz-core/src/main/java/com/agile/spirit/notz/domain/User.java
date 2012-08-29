@@ -66,7 +66,6 @@ public class User extends BaseEntity {
    * ACCESSORS
    */
 
-  @Column
   public String getCompleteName() {
     return completeName;
   }
@@ -75,7 +74,6 @@ public class User extends BaseEntity {
     this.completeName = completeName;
   }
 
-  @Column(nullable = false, unique = true)
   public String getUsername() {
     return username;
   }
@@ -84,7 +82,7 @@ public class User extends BaseEntity {
     this.username = username;
   }
 
-  @Column
+  @Column(nullable = false, unique = true)
   public String getEmail() {
     return email;
   }

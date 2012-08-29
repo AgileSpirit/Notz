@@ -120,4 +120,10 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @Override
+  public List<User> findUser(String expression) {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

@@ -32,7 +32,7 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
    */
 
   /**
-   * In order to avoid Cycle during JAXB XML (un-)marshalling, one must have totaly unique ID for entities. First type of IdS was Integer
+   * In order to avoid Cycle during JAXB XML (un-)marshaling, one must have totally unique ID for entities. First type of IdS was Integer
    * but during research in order to fix cycle problems, one solution was to use XmlID and XmlIDRef annotation. The fact was that these
    * annotations only accept String IdS. Another fact was that JPA does not provide an implementation for the
    * "auto strategy of IdS generation". It is why the annotation <code>@GenericGenerator(name = "system-uuid", strategy = "uuid")</code>
