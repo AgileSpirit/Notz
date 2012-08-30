@@ -1,3 +1,5 @@
+$.getScript('js/controller/notz.js');
+
 /*
  * LOGIN
  */
@@ -11,7 +13,7 @@ function loginUser(login, password) {
   console.log('loginUser');
   $.ajax({
     type: 'POST',
-    url: servicesUri + 'users/login',
+    url: userResource + '/login',
     data: {'login':login, 'password':password},
     success: connectUser,
     error: function(data) {
@@ -34,7 +36,7 @@ function registerUser(data) {
   console.log('registerUser');
   $.ajax({
     type: 'PUT',
-    url: servicesUri + 'users/',
+    url: userResource,
     data: data,
     success: connectUser,
     error: function(data) {
@@ -62,7 +64,7 @@ function connectUser(user) {
     var userId = user.id;
     if (userId != null && userId != '') {
       $.cookie('Notz-UserId', userId);
-      $(location).attr('href', applicationUri + 'notes.html');
+      $(location).attr('href', applicationUri + '/notes.html');
     }
   }
 }

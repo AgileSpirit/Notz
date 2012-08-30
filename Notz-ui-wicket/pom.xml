@@ -24,12 +24,6 @@
       <artifactId>Notz-core</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
-    <!-- Notz-services -->
-    <dependency>
-      <groupId>${project.groupId}</groupId>
-      <artifactId>Notz-services</artifactId>
-      <version>${project.parent.version}</version>
-    </dependency>
     <!-- WICKET DEPENDENCIES -->
     <dependency>
       <groupId>org.apache.wicket</groupId>

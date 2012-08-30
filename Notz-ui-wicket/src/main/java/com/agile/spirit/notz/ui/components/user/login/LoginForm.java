@@ -1,8 +1,5 @@
 package com.agile.spirit.notz.ui.components.user.login;
 
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedMap;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.markup.html.form.CheckBox;
 import org.apache.wicket.markup.html.form.Form;
@@ -19,14 +16,13 @@ import com.agile.spirit.notz.ws.PostRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.WebResource.Builder;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 public class LoginForm extends NotzPanel {
 
   private static final long serialVersionUID = 4907116541209734919L;
 
   private static final Logger LOGGER = Logger.getLogger(LoginForm.class);
-  
+
   /* Components */
   Form form;
   RequiredTextField<String> loginInput;
@@ -49,7 +45,7 @@ public class LoginForm extends NotzPanel {
         final String password = passwordInput.getModelObject();
 
         AbstractWebRequest request = new PostRequest() {
-          
+
           @Override
           public void onSuccess(ClientResponse response) {
             User user = response.getEntity(User.class);
@@ -58,17 +54,14 @@ public class LoginForm extends NotzPanel {
               setResponsePage(NoteListPage.class);
             }
           }
-          
+
           @Override
           public Builder configureWebResource(WebResource webResource) {
-            return webResource.path("users/login").accept(MediaType.APPLICATION_XML);
+            return webResource.path("users/login").getRequestBuilder();
           }
         };
-        
-        MultivaluedMap<String, String> params = new MultivaluedMapImpl();
-        params.add("login", login);
-        params.add("password", password);
-        request.setParams(params);
+        request.addParam("login", login);
+        request.addParam("password", password);
         request.execute();
       }
 
@@ -103,5 +96,5 @@ public class LoginForm extends NotzPanel {
     rememberMeCB = new CheckBox("rememberMeCB", new Model<Boolean>(new Boolean(true)));
     return rememberMeCB;
   }
-  
+
 }

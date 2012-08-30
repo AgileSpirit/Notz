@@ -12,6 +12,14 @@ import com.agile.spirit.notz.domain.Note;
 public interface NoteResource {
 
   /**
+   * Service used for retrieving a note by its ID.
+   * 
+   * @param id
+   * @return
+   */
+  Note getById(String noteId);
+
+  /**
    * Service used for retrieving a user list of notes.
    * 
    * @param userId
@@ -19,23 +27,23 @@ public interface NoteResource {
    * @param count
    * @return
    */
-  List<Note> getByUserId(String userId, String first, String count);
+  List<Note> read(String userId, String first, String count);
 
   /**
-   * Service used for retrieving a note by its ID.
-   * 
-   * @param id
-   * @return
-   */
-  Note getById(String id);
-
-  /**
-   * Service used for persist or merge a new or existent note.
+   * Service used for persist a new Note.
    * 
    * @param webUser
    * @return
    */
-  Note saveOrUpdate(Note webNote);
+  Note save(Note note);
+
+  /**
+   * Service used for merge an existing Note.
+   * 
+   * @param webUser
+   * @return
+   */
+  Note update(Note note);
 
   /**
    * Service used for delete an existing note.

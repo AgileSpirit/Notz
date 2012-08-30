@@ -30,20 +30,20 @@
 
     <!-- Modal -->
     <div class="modal fade" id="noteCreationModal" tabindex="-1" role="dialog" aria-labelledby="newNoteLabel" aria-hidden="true">
-      <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h3 id="newNoteLabel">Nouvelle note</h3>
-      </div>
-      <div class="modal-body">
-        <form>
-          <input id="noteCreationTitle" type="text" placeholder="Titre" />
-          <textarea id="noteCreationDescription" placeholder="Description" rows="8" ></textarea>
-        </form>
-      </div>
-      <div class="modal-footer">
-        <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-        <button id="saveNewNoteButton" class="btn btn-primary">Créer</button>
-      </div>
+      <form id="noteCreationForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="newNoteLabel">Nouvelle note</h3>
+        </div>
+        <div class="modal-body">
+            <input id="noteCreationTitle" type="text" placeholder="Titre" />
+            <textarea id="noteCreationDescription" placeholder="Description" rows="8" ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+          <button id="saveNewNoteButton" class="btn btn-primary">Créer</button>
+        </div>
+      </form>
     </div>
   
     <div class="container">

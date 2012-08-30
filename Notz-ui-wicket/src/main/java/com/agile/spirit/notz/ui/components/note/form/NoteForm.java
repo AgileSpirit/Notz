@@ -1,7 +1,5 @@
 package com.agile.spirit.notz.ui.components.note.form;
 
-import javax.ws.rs.core.MediaType;
-
 import org.apache.log4j.Logger;
 import org.apache.wicket.ajax.AjaxRequestTarget;
 import org.apache.wicket.ajax.markup.html.form.AjaxSubmitLink;
@@ -13,12 +11,9 @@ import org.apache.wicket.model.CompoundPropertyModel;
 import org.apache.wicket.model.IModel;
 
 import com.agile.spirit.notz.domain.Note;
+import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.ui.NotzPanel;
-import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 import com.agile.spirit.notz.ws.AbstractWebRequest;
-import com.agile.spirit.notz.ws.PutRequest;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
 
 public abstract class NoteForm extends NotzPanel {
 
@@ -53,26 +48,10 @@ public abstract class NoteForm extends NotzPanel {
       @Override
       public void onSubmit() {
         final Note note = model.getObject();
-        note.setUser(getNotzSession().getUser());
+        final User user = getNotzSession().getUser();
+        note.setUser(user);
 
-        AbstractWebRequest request = new PutRequest() {
-          
-          @Override
-          public WebResource.Builder configureWebResource(WebResource webResource) {
-            return webResource.path("notes/").entity(note).accept(MediaType.APPLICATION_XML);
-          }
-
-          @Override
-          public void onSuccess(ClientResponse response) {
-            setResponsePage(NoteListPage.class);
-          }
-
-          @Override
-          public void onError(ClientResponse response) {
-            // TODO Auto-generated method stub
-          }
-
-        };
+        AbstractWebRequest request = getSubmitRequest(note);
         request.execute();
       }
     };
@@ -85,6 +64,8 @@ public abstract class NoteForm extends NotzPanel {
     add(form);
   }
 
+  protected abstract AbstractWebRequest getSubmitRequest(final Note note);
+
   private void buildTitleInput() {
     RequiredTextField<String> titleInput = new RequiredTextField<String>("title");
     form.add(titleInput);
@@ -94,8 +75,6 @@ public abstract class NoteForm extends NotzPanel {
     TextArea<String> descriptionInput = new TextArea<String>("description");
     form.add(descriptionInput);
   }
-
-  protected abstract boolean isCreationMode();
 
   private void buildButtonBar() {
     buildCancelButton();

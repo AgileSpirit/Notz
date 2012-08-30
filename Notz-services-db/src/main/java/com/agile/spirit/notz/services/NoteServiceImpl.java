@@ -6,10 +6,7 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
 
-import org.hibernate.HibernateException;
-
 import com.agile.spirit.notz.domain.Note;
-import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.util.PersistenceUtil;
 import com.agile.spirit.notz.util.TransactionnalOperation;
 
@@ -53,6 +50,7 @@ public class NoteServiceImpl implements NoteService {
           if (entity == null) {
             entity = note;
             entity.setCreationDate(new Date());
+            entity.setUser(note.getUser());
           } else {
             entity.setTitle(note.getTitle());
             entity.setDescription(note.getDescription());

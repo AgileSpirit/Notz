@@ -19,7 +19,7 @@ public class UserServiceImpl implements UserService {
    */
   public User getUserByLogin(final String login) {
     User user = PersistenceUtil.getEntityManager().createNamedQuery(User.FIND_USERS_BY_LOGIN, User.class).setParameter("login", login)
-        .getResultList().get(0);
+        .getSingleResult();
     return user;
   }
 

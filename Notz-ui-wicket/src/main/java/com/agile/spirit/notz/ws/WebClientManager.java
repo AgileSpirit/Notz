@@ -4,6 +4,7 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.LoggingFilter;
 
 public class WebClientManager {
 
@@ -16,7 +17,7 @@ public class WebClientManager {
     ClientConfig clientConfig = new DefaultClientConfig();
     clientConfig.getProperties().put(ClientConfig.PROPERTY_FOLLOW_REDIRECTS, true);
     Client client = Client.create(clientConfig);
-    // client.addFilter(new LoggingFilter(System.out));
+    client.addFilter(new LoggingFilter(System.out));
     return client;
   }
 

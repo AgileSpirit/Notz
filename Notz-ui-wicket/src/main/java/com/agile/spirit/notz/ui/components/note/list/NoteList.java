@@ -49,13 +49,17 @@ public class NoteList extends NotzPanel {
     AbstractWebRequest request = new GetRequest() {
 
       @Override
+      public Builder configureWebResource(WebResource webResource) {
+        return webResource.path("notes/" + user.getId()).getRequestBuilder();
+      }
+
+      @Override
       public void onSuccess(ClientResponse response) {
         notes = response.getEntity(new GenericType<List<Note>>() {
         });
         if (notes == null) {
           System.out.println("No notes retrieved (notes == null)");
-        }
-        else {
+        } else {
           System.out.println(notes.size() + " notes retrieved");
         }
       }
@@ -66,10 +70,6 @@ public class NoteList extends NotzPanel {
 
       }
 
-      @Override
-      public Builder configureWebResource(WebResource webResource) {
-        return webResource.path("notes/" + user.getId()).getRequestBuilder();
-      }
     };
     request.execute();
   }
@@ -80,6 +80,7 @@ public class NoteList extends NotzPanel {
       @Override
       protected void populateItem(ListItem<Note> item) {
         final Note note = item.getModelObject();
+        final User user = getNotzSession().getUser();
 
         String shortedTitle = shortCutString(note.getTitle(), 26);
         Label title = new Label("title", shortedTitle);
@@ -120,6 +121,7 @@ public class NoteList extends NotzPanel {
                 return webResource.path("notes/" + note.getId()).getRequestBuilder();
               }
             };
+            request.addParam("uid", user.getId());
             request.execute();
           }
         });
@@ -128,8 +130,7 @@ public class NoteList extends NotzPanel {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy hh:mm:ss");
         if (note.getModificationDate() != null) {
           displayedDate += df.format(note.getModificationDate());
-        }
-        else {
+        } else {
           displayedDate += df.format(note.getCreationDate());
         }
         Label modificationDate = new Label("modificationDate", displayedDate);
