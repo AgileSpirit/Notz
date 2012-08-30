@@ -1,0 +1,71 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>Notz by Agile Spirit</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Le styles -->
+  <link rel="stylesheet" href="css/bootstrap.min.css" >
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+
+<body>
+  <div id="header">
+    <div class="title">
+      <h1>Notz</h1>
+    </div>
+    <div class="accountMenuBar" ></div>
+    <div class="clear" ></div>
+  </div>
+
+  <div id="body" class="notes">
+
+    <div class="container">
+      <div class="toolBar">
+        <a href="#noteCreationModal" role="button" class="btn" data-toggle="modal">Ajouter une note</a>
+      </div>
+    </div>
+
+    <!-- Modal -->
+    <div class="modal fade" id="noteCreationModal" tabindex="-1" role="dialog" aria-labelledby="newNoteLabel" aria-hidden="true">
+      <form id="noteCreationForm">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+          <h3 id="newNoteLabel">Nouvelle note</h3>
+        </div>
+        <div class="modal-body">
+            <input id="noteCreationTitle" type="text" placeholder="Titre" />
+            <textarea id="noteCreationDescription" placeholder="Description" rows="8" ></textarea>
+        </div>
+        <div class="modal-footer">
+          <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+          <button id="saveNewNoteButton" class="btn btn-primary">Créer</button>
+        </div>
+      </form>
+    </div>
+  
+    <div class="container">
+      <ul id="noteList"></ul>
+    </div>
+  </div>
+
+  <div id="footer">
+  </div>
+
+  <div class="clear">&nbsp;</div>
+
+  <!-- Le javascript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  <!-- <script src="js/angular-1.0.1.min.js"></script> -->
+  <script src="js/lib/jquery-1.8.0.min.js"></script>
+  <script src="js/lib/jquery.cookie.js"></script>
+  <script src="js/lib/bootstrap.min.js"></script>
+  <script src="js/controller/notz.js"></script>
+  <script src="js/controller/notes.js"></script>
+
+</body>
+
+</html>
