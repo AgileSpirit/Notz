@@ -22,33 +22,42 @@
 
   <div id="body" class="notes">
 
-    <div class="container">
-      <div class="toolBar">
-        <a href="#noteCreationModal" role="button" class="btn" data-toggle="modal">Ajouter une note</a>
-      </div>
+    <div class="container toolbar">
+      <a href="#noteCreationModal" role="button" class="btn" data-toggle="modal">Ajouter une note</a>
     </div>
 
     <!-- Modal -->
     <div class="modal fade" id="noteCreationModal" tabindex="-1" role="dialog" aria-labelledby="newNoteLabel" aria-hidden="true">
-      <form id="noteCreationForm">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-          <h3 id="newNoteLabel">Nouvelle note</h3>
-        </div>
-        <div class="modal-body">
-            <input id="noteCreationTitle" type="text" placeholder="Titre" />
-            <textarea id="noteCreationDescription" placeholder="Description" rows="8" ></textarea>
-        </div>
-        <div class="modal-footer">
-          <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
-          <button id="saveNewNoteButton" class="btn btn-primary">Créer</button>
-        </div>
-      </form>
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+        <h3 id="newNoteLabel">Nouvelle note</h3>
+      </div>
+      <div class="modal-body">
+        <form id="noteCreationForm">
+          <input id="noteCreationTitle" type="text" placeholder="Titre" />
+          <textarea id="noteCreationDescription" placeholder="Description" rows="8" ></textarea>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button class="btn" data-dismiss="modal" aria-hidden="true">Annuler</button>
+        <button id="saveNewNoteButton" class="btn btn-primary">Créer</button>
+      </div>
     </div>
   
+  <!-- 
     <div class="container">
       <ul id="noteList"></ul>
     </div>
+ -->
+
+    <div class="container" >
+      <div id="noteList" class="noteList">
+      </div>
+    </div>
+
+
+
+
   </div>
 
   <div id="footer">
@@ -61,6 +70,7 @@
   <!-- Placed at the end of the document so the pages load faster -->
   <!-- <script src="js/angular-1.0.1.min.js"></script> -->
   <script src="js/lib/jquery-1.8.0.min.js"></script>
+  <script src="js/lib/dateutil.js"></script>
   <script src="js/lib/jquery.cookie.js"></script>
   <script src="js/lib/bootstrap.min.js"></script>
   <script src="js/controller/notz.js"></script>
