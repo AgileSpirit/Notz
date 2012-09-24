@@ -5,7 +5,7 @@ import org.apache.wicket.model.IModel;
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.ui.pages.note.list.NoteListPage;
 import com.agile.spirit.notz.ws.AbstractWebRequest;
-import com.agile.spirit.notz.ws.PostRequest;
+import com.agile.spirit.notz.ws.PutRequest;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 
@@ -28,7 +28,7 @@ public class NoteEditionForm extends NoteForm {
 
   @Override
   protected AbstractWebRequest getSubmitRequest(final Note note) {
-    AbstractWebRequest request = new PostRequest() {
+    AbstractWebRequest request = new PutRequest() {
 
       @Override
       public WebResource.Builder configureWebResource(WebResource webResource) {

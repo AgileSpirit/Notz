@@ -32,15 +32,17 @@ function renderNotes(data) {
      var title = note.title;
      var description = note.description;
      var modificationDate = new Date(note.modificationDate);
-     var modificationDateHtml = modificationDate.format("dd-mm-yyyy hh:MM:ss")
+     var modificationDateHtml = modificationDate.format("dd-mm-yyyy hh:MM:ss");
+     var editLinkId = 'editLink_' + index;
+     var deleteLinkId = 'deleteLink_' + index;
 
      var noteHtml = '';
      noteHtml = noteHtml.concat('<div id="note_' + index + '" class="note">').concat("\n");
      noteHtml = noteHtml.concat('  <div class="noteHeader">').concat("\n");
      noteHtml = noteHtml.concat('    <div class="title"><strong>' + title + '</strong></div>').concat("\n");
      noteHtml = noteHtml.concat('    <div class="actions">').concat("\n");
-     noteHtml = noteHtml.concat('      <a href="#" class="editLink" title="Editer" ></a>').concat("\n");
-     noteHtml = noteHtml.concat('      <a href="#" class="deleteLink" title="Supprimer" ></a>').concat("\n");
+     noteHtml = noteHtml.concat('      <a id="' + editLinkId + '" href="#" class="editLink" title="Editer" ></a>').concat("\n");
+     noteHtml = noteHtml.concat('      <a id="' + deleteLinkId + '" href="#" class="deleteLink" title="Supprimer" ></a>').concat("\n");
      noteHtml = noteHtml.concat('    </div>').concat("\n");
      noteHtml = noteHtml.concat('  </div>').concat("\n");
      noteHtml = noteHtml.concat('  <div class="noteBody">').concat("\n");
@@ -58,6 +60,15 @@ function renderNotes(data) {
      noteHtml = noteHtml.concat('</div>').concat("\n");
      
      $('#noteList').append(noteHtml);
+     
+     $("#" + editLinkId).click(function() {
+       editNote(note);
+     });
+
+     $("#" + deleteLinkId).click(function() {
+       deleteNote(note.id);
+     });
+
    });
 }
 
@@ -77,7 +88,7 @@ $("#noteCreationForm").submit(function(event) {
 function createNote(note) {
   console.log('createNote');
   $.ajax({
-    type: 'PUT',
+    type: 'POST',
     url: noteResource,
     data: note,
     success: function(data) {
@@ -110,3 +121,32 @@ function noteCreationFormToJSON() {
 function getUserId() {
   return $.cookie('Notz-UserId');
 }
+
+/*
+ * NOTE EDITION
+ */
+
+function editNote(note) {
+  console.log('editNote');
+}
+
+/*
+ * NOTE DELETE
+ */
+
+function deleteNote(noteId) {
+  console.log('deleteNote');
+  $.ajax({
+    type: 'DELETE',
+    url: noteResource + '/' + noteId,
+    success: function(data) {
+      loadNotes();
+    },
+    error: function(data) {
+      alert('error');
+    },
+    dataType: 'json',
+    contentType: 'application/json'
+  });
+}
+

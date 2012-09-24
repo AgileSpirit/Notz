@@ -57,7 +57,7 @@ public class NoteResourceImpl implements NoteResource {
     return noteService.getById(noteId);
   }
 
-  @PUT
+  @POST
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
@@ -72,7 +72,7 @@ public class NoteResourceImpl implements NoteResource {
     return null;
   }
 
-  @POST
+  @PUT
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
