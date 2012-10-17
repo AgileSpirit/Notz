@@ -1,5 +1,0 @@
-<resource name="jdbc/notz" auth="Container" type="javax.sql.DataSource">
-  <param name="username" value="Notz" />
-  <param name="password" value="Notz" />
-  <param name="url" value="jdbc:cloudbees://notz" />
-</resource>

@@ -35,7 +35,7 @@ $("#signupForm").submit(function(event) {
 function registerUser(data) {
   console.log('registerUser');
   $.ajax({
-    type: 'PUT',
+    type: 'POST',
     url: userResource,
     data: data,
     success: connectUser,
