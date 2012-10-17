@@ -9,6 +9,8 @@
     <class>com.agile.spirit.notz.domain.Note</class>
 
     <properties>
+      <!-- Localhost -->
+      <!-- 
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Notz"/>
       <property name="hibernate.connection.username" value="root"/>
@@ -19,6 +21,20 @@
       <property name="hibernate.format_sql" value="false"/>
       <property name="hibernate.id.new_generator_mappings" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="validate"/>
+       -->
+       
+      <!-- CloudBees -->
+      <property name="hibernate.connection.driver_class" value="com.cloudbees.jdbc.Driver"/>
+      <property name="hibernate.connection.url" value="jdbc:cloudbees://agilespirit"/>
+      <property name="hibernate.connection.username" value="AgileSpirit"/>
+      <property name="hibernate.connection.password" value="AgileSpirit"/>
+      <property name="hibernate.connection.pool_size" value="1"/>
+      <property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect"/>
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="false"/>
+      <property name="hibernate.id.new_generator_mappings" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="create"/>
+      
     </properties>
 
   </persistence-unit>

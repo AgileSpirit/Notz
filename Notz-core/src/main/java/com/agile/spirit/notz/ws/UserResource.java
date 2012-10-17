@@ -36,12 +36,20 @@ public interface UserResource {
   User getUser(String expression);
 
   /**
-   * Service used for persist or merge a new or existent user.
+   * Service used for persist a new user.
    * 
    * @param webUser
    * @return
    */
-  User saveOrUpdate(User webUser);
+  User save(User webUser);
+
+  /**
+   * Service used for merge an existent user.
+   * 
+   * @param webUser
+   * @return
+   */
+  User update(User webUser);
 
   /**
    * Service used for delete an existing user.

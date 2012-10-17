@@ -45,11 +45,19 @@ public class UserResourceImpl implements UserResource {
     return user;
   }
 
+  @POST
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @Override
+  public User save(User user) {
+    return userService.saveOrUpdate(user);
+  }
+
   @PUT
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
-  public User saveOrUpdate(User user) {
+  public User update(User user) {
     return userService.saveOrUpdate(user);
   }
 

@@ -22,7 +22,8 @@
     <!-- Notz-services -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <artifactId>Notz-services-memcache</artifactId>
+      <!-- <artifactId>Notz-services-memcache</artifactId> -->
+      <artifactId>Notz-services-db</artifactId>
       <version>${project.parent.version}</version>
     </dependency>
     <!-- LOGGING DEPENDENCIES - LOG4J -->
