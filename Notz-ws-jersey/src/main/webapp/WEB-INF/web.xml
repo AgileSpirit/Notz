@@ -19,7 +19,6 @@
     <url-pattern>/*</url-pattern>
   </servlet-mapping>
 
-
   <resource-ref>
     <res-ref-name>jdbc/notz</res-ref-name>
     <res-type>javax.sql.DataSource</res-type>
