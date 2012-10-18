@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<cloudbees-web-app xmlns="http://www.cloudbees.com/xml/webapp/1">
+  <!-- Application ID (formatted CB_ACCOUNT/APPNAME) -->
+  <appid>NotzWS</appid>
+
+  <!-- Extra context parameters -->
+  <!-- 
+  <context-param>
+    <param-name>PARAM_NAME</param-name>
+    <param-value>PARAM_VALUE</param-value>
+  </context-param>
+  -->
+
+  <resource name="jdbc/notz" auth="Container" type="javax.sql.DataSource">
+    <param name="username" value="Notz" />
+    <param name="password" value="Notz" />
+    <param name="url" value="jdbc:cloudbees://notz" />
+  </resource>
+
+</cloudbees-web-app>
+
