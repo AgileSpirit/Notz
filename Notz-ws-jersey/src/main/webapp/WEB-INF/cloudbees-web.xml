@@ -15,6 +15,18 @@
     <param name="username" value="Notz" />
     <param name="password" value="Notz" />
     <param name="url" value="jdbc:cloudbees://notz" />
+
+    <!-- Connection Pool settings -->
+    <param name="maxActive" value="5" />
+    <param name="maxIdle" value="2" />
+    <param name="maxWait" value="10000" />
+    <param name="removeAbandoned" value="true" />
+    <param name="removeAbandonedTimeout" value="60" />
+    <param name="logAbandoned" value="true" />
+  
+    <!-- Avoid idle database timeouts (for low-usage apps) -->
+    <param name="validationQuery" value="SELECT 1" />
+    <param name="testOnBorrow" value="true" />
   </resource>
 
 </cloudbees-web-app>

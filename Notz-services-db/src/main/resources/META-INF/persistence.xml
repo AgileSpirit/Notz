@@ -29,6 +29,10 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:cloudbees://notz" />
       <property name="javax.persistence.jdbc.user" value="Notz" />
       <property name="javax.persistence.jdbc.password" value="Notz" />
+      <property name="hibernate.show_sql" value="true"/>
+      <property name="hibernate.format_sql" value="false"/>
+      <property name="hibernate.id.new_generator_mappings" value="true"/>
+      <property name="hibernate.hbm2ddl.auto" value="validate"/>
       
     </properties>
 
