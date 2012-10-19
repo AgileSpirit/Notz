@@ -13,12 +13,16 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+import org.apache.log4j.Logger;
+
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
 
 @Path("/users")
 public class UserResourceImpl implements UserResource {
+
+  private final static Logger LOGGER = Logger.getLogger(UserResourceImpl.class);
 
   UserService userService;
 
@@ -38,6 +42,7 @@ public class UserResourceImpl implements UserResource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User login(@FormParam("login") String login, @FormParam("password") String password) {
+    LOGGER.info("Login user with login '" + login + "' and password " + password + "'");
     User user = userService.loginUser(login, password);
     if (user == null) {
       return null;
@@ -50,6 +55,7 @@ public class UserResourceImpl implements UserResource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User save(User user) {
+    LOGGER.info("Save user " + user.toString());
     return userService.saveOrUpdate(user);
   }
 
@@ -58,6 +64,7 @@ public class UserResourceImpl implements UserResource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User update(User user) {
+    LOGGER.info("Update user " + user.toString());
     return userService.saveOrUpdate(user);
   }
 
@@ -66,6 +73,7 @@ public class UserResourceImpl implements UserResource {
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Override
   public User getUser(@PathParam("expression") String expression) {
+    LOGGER.info("Get user matching expression '" + expression + "'");
     List<User> users = userService.findUser(expression);
     if (users != null && !users.isEmpty()) {
       return users.get(0);
@@ -77,6 +85,7 @@ public class UserResourceImpl implements UserResource {
   @Path("/{id}")
   @Override
   public void delete(@PathParam("id") String id) {
+    LOGGER.info("Delete user with id '" + id + "'");
     userService.delete(id);
   }
 
