@@ -19,7 +19,7 @@ function loginUser(login, password) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json'
+    dataType: 'jsonp'
   });
 }
 
@@ -42,7 +42,7 @@ function registerUser(data) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json',
+    dataType: 'jsonp',
     contentType: 'application/json'
   });
 }
