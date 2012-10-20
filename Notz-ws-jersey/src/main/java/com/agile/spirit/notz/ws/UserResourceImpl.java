@@ -11,7 +11,10 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
@@ -20,7 +23,7 @@ import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
 
 @Path("/users")
-public class UserResourceImpl implements UserResource {
+public class UserResourceImpl extends BaseResource {
 
   private final static Logger LOGGER = Logger.getLogger(UserResourceImpl.class);
 
@@ -32,7 +35,6 @@ public class UserResourceImpl implements UserResource {
 
   @GET
   @Path("/greeting/{firstName}-{lastName}")
-  @Override
   public String greeting(@PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
     return "Hello " + firstName + " " + lastName + " !";
   }
@@ -40,50 +42,62 @@ public class UserResourceImpl implements UserResource {
   @POST
   @Path("/login")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public User login(@FormParam("login") String login, @FormParam("password") String password) {
+  public Response login(@FormParam("login") String login, @FormParam("password") String password) {
     LOGGER.info("Login user with login '" + login + "' and password " + password + "'");
     User user = userService.loginUser(login, password);
     if (user == null) {
-      return null;
+      throw new WebApplicationException();
     }
-    return user;
+
+    Response response = getResponseOk(user);
+    return response;
   }
 
   @POST
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public User save(User user) {
+  public Response save(User user) {
     LOGGER.info("Save user " + user.toString());
-    return userService.saveOrUpdate(user);
+
+    User persisted = userService.saveOrUpdate(user);
+    if (persisted == null) {
+      throw new WebApplicationException();
+    }
+
+    Response response = getResponseOk(persisted);
+    return response;
   }
 
   @PUT
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public User update(User user) {
+  public Response update(User user) {
     LOGGER.info("Update user " + user.toString());
-    return userService.saveOrUpdate(user);
+    User merged = userService.saveOrUpdate(user);
+    if (merged == null) {
+      throw new WebApplicationException();
+    }
+
+    Response response = getResponseOk(merged);
+    return response;
   }
 
   @GET
   @Path("/{expression}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public User getUser(@PathParam("expression") String expression) {
+  public Response getUser(@PathParam("expression") String expression) {
     LOGGER.info("Get user matching expression '" + expression + "'");
     List<User> users = userService.findUser(expression);
-    if (users != null && !users.isEmpty()) {
-      return users.get(0);
+    if (users == null || users.isEmpty()) {
+      throw new WebApplicationException();
     }
-    return null;
+
+    Response response = getResponseOk(users.get(0));
+    return response;
   }
 
   @DELETE
   @Path("/{id}")
-  @Override
   public void delete(@PathParam("id") String id) {
     LOGGER.info("Delete user with id '" + id + "'");
     userService.delete(id);
@@ -92,10 +106,27 @@ public class UserResourceImpl implements UserResource {
   @GET
   @Path("/generate/{nb}")
   @Produces(MediaType.TEXT_PLAIN)
-  @Override
   public String generateUsers(@PathParam("nb") int nb) {
     userService.generateUsers(nb);
     return "Users generated";
+  }
+
+  @GET
+  @Path("/list")
+  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  public Response listJSON() {
+    LOGGER.info("List (JSON) all users");
+
+    // Retrieve users
+    List<User> users = userService.listUsers();
+
+    GenericEntity<List<User>> genericUsers = new GenericEntity<List<User>>(users) {
+    };
+    LOGGER.info("Retrieved users = " + genericUsers);
+
+    // Build & return Response
+    Response response = getResponseOk(genericUsers);
+    return response;
   }
 
 }

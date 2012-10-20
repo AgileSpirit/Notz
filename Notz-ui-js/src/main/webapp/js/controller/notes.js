@@ -17,7 +17,7 @@ function loadNotes() {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
+    dataType: 'json',
     contentType: 'application/json'
   });
 }
@@ -98,7 +98,7 @@ function createNote(note) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
+    dataType: 'json',
     contentType: 'application/json'
   });
 }
@@ -145,7 +145,7 @@ function deleteNote(noteId) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
+    dataType: 'json',
     contentType: 'application/json'
   });
 }

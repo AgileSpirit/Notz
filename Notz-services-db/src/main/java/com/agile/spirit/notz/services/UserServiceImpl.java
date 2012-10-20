@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
@@ -120,10 +121,22 @@ public class UserServiceImpl implements UserService {
     }
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public List<User> findUser(String expression) {
-    // TODO Auto-generated method stub
-    return null;
+    EntityManager entityManager = PersistenceUtil.getEntityManager();
+    Query query = entityManager.createNamedQuery(User.FIND_USERS_BY_LOGIN, User.class);
+    List<User> users = query.getResultList();
+    return users;
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public List<User> listUsers() {
+    EntityManager entityManager = PersistenceUtil.getEntityManager();
+    Query query = entityManager.createNamedQuery(User.LIST_USERS, User.class);
+    List<User> users = query.getResultList();
+    return users;
   }
 
 }

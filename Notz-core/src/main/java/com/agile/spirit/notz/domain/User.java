@@ -1,6 +1,7 @@
 package com.agile.spirit.notz.domain;
 
 import static com.agile.spirit.notz.domain.User.FIND_USERS_BY_LOGIN;
+import static com.agile.spirit.notz.domain.User.LIST_USERS;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement(name = "user")
 @Entity
 @Table(name = "NTZ_USERS")
-@NamedQueries({ @NamedQuery(name = FIND_USERS_BY_LOGIN, query = "FROM User u WHERE u.username=:login OR u.email=:login") })
+@NamedQueries({ @NamedQuery(name = FIND_USERS_BY_LOGIN, query = "FROM User u WHERE u.username=:login OR u.email=:login"),
+    @NamedQuery(name = LIST_USERS, query = "FROM User u") })
 public class User extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
@@ -29,6 +31,7 @@ public class User extends BaseEntity {
    * NAMED QUERIES
    */
   public static final String FIND_USERS_BY_LOGIN = "findUsersByLogin";
+  public static final String LIST_USERS = "listUsers";
 
   /*
    * ATTRIBUTES

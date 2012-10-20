@@ -90,4 +90,10 @@ public class UserServiceImpl implements UserService {
     return null;
   }
 
+  @Override
+  public List<User> listUsers() {
+    // TODO Auto-generated method stub
+    return null;
+  }
+
 }

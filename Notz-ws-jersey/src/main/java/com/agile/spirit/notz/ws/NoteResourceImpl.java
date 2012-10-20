@@ -11,7 +11,10 @@ import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
+import javax.ws.rs.WebApplicationException;
+import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 
 import com.agile.spirit.notz.domain.Note;
 import com.agile.spirit.notz.domain.User;
@@ -20,7 +23,7 @@ import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
 
 @Path("/notes")
-public class NoteResourceImpl implements NoteResource {
+public class NoteResourceImpl extends BaseResource {
 
   NoteService noteService;
 
@@ -35,8 +38,7 @@ public class NoteResourceImpl implements NoteResource {
   @GET
   @Path("/{userId}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public List<Note> read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam) {
+  public Response read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam) {
     Integer first = null;
     Integer count = null;
     if (firstParam != null) {
@@ -46,21 +48,29 @@ public class NoteResourceImpl implements NoteResource {
       count = new Integer(countParam);
     }
     List<Note> notes = noteService.getNotesByUser(userId, first, count);
-    return notes;
+
+    GenericEntity<List<Note>> genericNotes = new GenericEntity<List<Note>>(notes) {
+    };
+
+    Response response = getResponseOk(genericNotes);
+    return response;
   }
 
   @GET
   @Path("/detail/{noteId}")
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
-  public Note getById(@PathParam("noteId") String noteId) {
-    return noteService.getById(noteId);
+  public Response getById(@PathParam("noteId") String noteId) {
+    Note note = noteService.getById(noteId);
+    if (note == null) {
+      throw new WebApplicationException();
+    }
+    Response response = getResponseOk(note);
+    return response;
   }
 
   @POST
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
   public Note save(Note note) {
     if (note != null && note.getId() == null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());
@@ -75,7 +85,6 @@ public class NoteResourceImpl implements NoteResource {
   @PUT
   @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Override
   public Note update(Note note) {
     if (note != null && note.getId() != null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());
@@ -89,7 +98,6 @@ public class NoteResourceImpl implements NoteResource {
 
   @DELETE
   @Path("/{noteId}")
-  @Override
   public void delete(@PathParam("noteId") String noteId) {
     noteService.delete(noteId);
   }

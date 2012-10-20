@@ -13,13 +13,14 @@ function loginUser(login, password) {
   console.log('loginUser');
   $.ajax({
     type: 'POST',
+    crossDomain:true,
     url: userResource + '/login',
     data: {'login':login, 'password':password},
     success: connectUser,
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp'
+    dataType: 'json'
   });
 }
 
@@ -36,13 +37,14 @@ function registerUser(data) {
   console.log('registerUser');
   $.ajax({
     type: 'POST',
+    crossDomain:true,
     url: userResource,
     data: data,
     success: connectUser,
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
+    dataType: 'json',
     contentType: 'application/json'
   });
 }
