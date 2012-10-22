@@ -10,6 +10,7 @@ function loadNotes() {
   console.log('loadNotes');
   $.ajax({
     type: 'GET',
+    crossDomain:true,
     url: noteResource + '/' + getUserId(),
     success: function(data) {
       renderNotes(data);
@@ -89,6 +90,7 @@ function createNote(note) {
   console.log('createNote');
   $.ajax({
     type: 'POST',
+    crossDomain:true,
     url: noteResource,
     data: note,
     success: function(data) {
@@ -138,6 +140,7 @@ function deleteNote(noteId) {
   console.log('deleteNote');
   $.ajax({
     type: 'DELETE',
+    crossDomain:true,
     url: noteResource + '/' + noteId,
     success: function(data) {
       loadNotes();
