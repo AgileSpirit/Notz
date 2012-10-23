@@ -38,6 +38,13 @@ public class UserResourceImpl extends BaseResource {
     return "Hello " + firstName + " " + lastName + " !";
   }
 
+  /**
+   * Service to authenticate a user.
+   * 
+   * @param login
+   * @param password
+   * @return
+   */
   @POST
   @Path("/login")
   public Response login(@FormParam("login") String login, @FormParam("password") String password) {
