@@ -24,10 +24,16 @@
        -->
        
       <!-- CloudBees -->
+      <!--  
       <property name="javax.persistence.jdbc.driver" value="com.cloudbees.jdbc.Driver" />
       <property name="javax.persistence.jdbc.url" value="jdbc:cloudbees://notz" />
       <property name="javax.persistence.jdbc.user" value="Notz" />
       <property name="javax.persistence.jdbc.password" value="Notz" />
+      -->
+      <property name="hibernate.connection.driver_class" value="com.cloudbees.jdbc.Driver" />
+      <property name="hibernate.connection.url" value="jdbc:cloudbees://notz" />
+      <property name="hibernate.connection.username" value="Notz" />
+      <property name="hibernate.connection.password" value="Notz" />
       <property name="hibernate.show_sql" value="true"/>
       <property name="hibernate.format_sql" value="false"/>
       <property name="hibernate.id.new_generator_mappings" value="true"/>

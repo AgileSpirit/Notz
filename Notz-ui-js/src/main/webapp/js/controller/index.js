@@ -20,7 +20,6 @@ function loginUser(login, password) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json'
   });
 }
 

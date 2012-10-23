@@ -2,18 +2,15 @@ package com.agile.spirit.notz.ws;
 
 import java.util.List;
 
-import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
-import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.agile.spirit.notz.domain.Note;
@@ -37,7 +34,6 @@ public class NoteResourceImpl extends BaseResource {
 
   @GET
   @Path("/{userId}")
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam) {
     Integer first = null;
     Integer count = null;
@@ -58,7 +54,6 @@ public class NoteResourceImpl extends BaseResource {
 
   @GET
   @Path("/detail/{noteId}")
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response getById(@PathParam("noteId") String noteId) {
     Note note = noteService.getById(noteId);
     if (note == null) {
@@ -69,31 +64,35 @@ public class NoteResourceImpl extends BaseResource {
   }
 
   @POST
-  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  public Note save(Note note) {
+  public Response save(Note note) {
     if (note != null && note.getId() == null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());
       if (user != null) {
         note.setUser(user);
       }
-      return noteService.saveOrUpdate(note);
+      Note persisted = noteService.saveOrUpdate(note);
+      if (persisted == null) {
+        throw new WebApplicationException();
+      }
+      return getResponseOk(persisted);
     }
-    return null;
+    throw new WebApplicationException();
   }
 
   @PUT
-  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  @Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-  public Note update(Note note) {
+  public Response update(Note note) {
     if (note != null && note.getId() != null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());
       if (user != null) {
         note.setUser(user);
       }
-      return noteService.saveOrUpdate(note);
+      Note merged = noteService.saveOrUpdate(note);
+      if (merged == null) {
+        throw new WebApplicationException();
+      }
+      return getResponseOk(merged);
     }
-    return null;
+    throw new WebApplicationException();
   }
 
   @DELETE
