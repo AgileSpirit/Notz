@@ -10,7 +10,7 @@
 
     <properties>
       <!-- Localhost -->
-      <!-- 
+      <!-- --> 
       <property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver"/>
       <property name="hibernate.connection.url" value="jdbc:mysql://localhost:3306/Notz"/>
       <property name="hibernate.connection.username" value="root"/>
@@ -21,7 +21,7 @@
       <property name="hibernate.format_sql" value="false"/>
       <property name="hibernate.id.new_generator_mappings" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="validate"/>
-       -->
+       
        
       <!-- CloudBees -->
       <!--  
@@ -29,7 +29,8 @@
       <property name="javax.persistence.jdbc.url" value="jdbc:cloudbees://notz" />
       <property name="javax.persistence.jdbc.user" value="Notz" />
       <property name="javax.persistence.jdbc.password" value="Notz" />
-      -->
+      
+      
       <property name="hibernate.connection.driver_class" value="com.cloudbees.jdbc.Driver" />
       <property name="hibernate.connection.url" value="jdbc:cloudbees://notz" />
       <property name="hibernate.connection.username" value="Notz" />
@@ -38,7 +39,7 @@
       <property name="hibernate.format_sql" value="false"/>
       <property name="hibernate.id.new_generator_mappings" value="true"/>
       <property name="hibernate.hbm2ddl.auto" value="validate"/>
-      
+      -->
     </properties>
 
   </persistence-unit>

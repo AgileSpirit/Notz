@@ -13,13 +13,13 @@ function loginUser(login, password) {
   console.log('loginUser');
   $.ajax({
     type: 'POST',
-    crossDomain:true,
     url: userResource + '/login',
     data: {'login':login, 'password':password},
     success: connectUser,
     error: function(data) {
       alert('error');
     },
+    dataType: 'json'
   });
 }
 
@@ -36,7 +36,6 @@ function registerUser(data) {
   console.log('registerUser');
   $.ajax({
     type: 'POST',
-    crossDomain:true,
     url: userResource,
     data: data,
     success: connectUser,
@@ -61,6 +60,7 @@ function signupFormToJSON() {
 
 //
 function connectUser(user) {
+  console.log('user=' + user);
   if (user != null) {
     var userId = user.id;
     if (userId != null && userId != '') {

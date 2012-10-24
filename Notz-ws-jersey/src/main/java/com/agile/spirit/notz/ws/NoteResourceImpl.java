@@ -2,6 +2,7 @@ package com.agile.spirit.notz.ws;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -11,6 +12,7 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import com.agile.spirit.notz.domain.Note;
@@ -64,6 +66,7 @@ public class NoteResourceImpl extends BaseResource {
   }
 
   @POST
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response save(Note note) {
     if (note != null && note.getId() == null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());
@@ -80,6 +83,7 @@ public class NoteResourceImpl extends BaseResource {
   }
 
   @PUT
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response update(Note note) {
     if (note != null && note.getId() != null && note.getUser() != null && note.getUser().getId() != null) {
       User user = userService.getUserById(note.getUser().getId());

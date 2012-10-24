@@ -2,6 +2,7 @@ package com.agile.spirit.notz.ws;
 
 import java.util.List;
 
+import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.GET;
@@ -59,6 +60,7 @@ public class UserResourceImpl extends BaseResource {
   }
 
   @POST
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response save(User user) {
     LOGGER.info("Save user " + user.toString());
 
@@ -72,6 +74,7 @@ public class UserResourceImpl extends BaseResource {
   }
 
   @PUT
+  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
   public Response update(User user) {
     LOGGER.info("Update user " + user.toString());
     User merged = userService.saveOrUpdate(user);
