@@ -1,7 +1,6 @@
 package com.agile.spirit.notz.services;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -87,7 +86,16 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findUser(String expression) {
-    return Collections.emptyList();
+    List<User> users = new ArrayList<User>();
+    for (User user : memoryCache.getData().values()) {
+      if (user.getId().equals(expression) //
+          || user.getCompleteName().contains(expression) //
+          || user.getEmail().contains(expression) //
+          || user.getUsername().contains(expression)) {
+        users.add(user);
+      }
+    }
+    return users;
   }
 
   @Override

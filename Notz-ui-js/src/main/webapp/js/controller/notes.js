@@ -19,7 +19,6 @@ loadNotes();
 
 function loadNotes() {
   console.log('loadNotes');
-  console.log('close modal');
 
   $('#noteFormModal').modal('hide');
   
@@ -32,12 +31,12 @@ function loadNotes() {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json'
+    dataType: 'jsonp'
   });
 }
 
 function renderNotes(data) {
-  console.log('renderList');
+  console.log('renderNotes');
    // JAX-RS serializes an empty list as null, and a 'collection of one' as an object (not an 'array of one')
    var list = (data == null || data.note == null) ? [] : (data.note instanceof Array ? data.note : [data.note]);
 
@@ -128,6 +127,7 @@ function getUserId() {
  */
 
 $("#newNoteButton").click(function(event) {
+  console.log('click on #newNoteButton');
   createNote();
   event.stopPropagation();
   event.preventDefault();
@@ -144,7 +144,7 @@ function createNote() {
 }
 
 function saveNote(note) {
-  console.log('createNote');
+  console.log('saveNote');
   var resourcePath = noteResource + '/' + getUserId();
   $.ajax({
     type: 'POST',
@@ -154,7 +154,7 @@ function saveNote(note) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json',
+    dataType: 'jsonp',
     contentType: 'application/json'
   });
 }
@@ -173,7 +173,7 @@ function editNote(note) {
 }
 
 function updateNote(note) {
-  console.log('editNote');
+  console.log('updateNote');
   var resourcePath = noteResource + '/' + getUserId();
   $.ajax({
     type: 'PUT',
@@ -183,7 +183,7 @@ function updateNote(note) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'json',
+    dataType: 'jsonp',
     contentType: 'application/json'
   });
 }

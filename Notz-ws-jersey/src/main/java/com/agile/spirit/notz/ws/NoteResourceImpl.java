@@ -13,7 +13,6 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.Response;
 
 import org.apache.log4j.Logger;
 
@@ -22,6 +21,7 @@ import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.NoteService;
 import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
+import com.sun.jersey.api.json.JSONWithPadding;
 
 @Path("/notes")
 public class NoteResourceImpl extends BaseResource {
@@ -40,7 +40,9 @@ public class NoteResourceImpl extends BaseResource {
 
   @GET
   @Path("/{userId}")
-  public Response read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam) {
+  @Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+  public JSONWithPadding read(@PathParam("userId") String userId, @QueryParam("first") String firstParam,
+      @QueryParam("count") String countParam, @QueryParam("callback") String callback) {
     LOGGER.info("[GET] #read : userId=" + userId + ", first=" + firstParam + ", count=" + countParam);
 
     Integer first = null;
@@ -55,19 +57,18 @@ public class NoteResourceImpl extends BaseResource {
 
     GenericEntity<List<Note>> genericNotes = new GenericEntity<List<Note>>(notes) {
     };
-
-    Response response = getResponseOk(genericNotes);
-    return response;
+    return new JSONWithPadding(genericNotes, callback);
   }
 
   @GET
   @Path("/note/{noteId}")
-  public Response getById(@PathParam("noteId") String noteId) {
+  @Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+  public JSONWithPadding getById(@PathParam("noteId") String noteId, @QueryParam("callback") String callback) {
     LOGGER.info("[GET] #getById : noteId=" + noteId);
     Note note = noteService.getById(noteId);
     if (note != null) {
       LOGGER.info("Note was successfully found : note = " + note.toString());
-      return getResponseOk(note);
+      return new JSONWithPadding(note, callback);
     }
     LOGGER.error("Note was not found for id '" + noteId + "'");
     throw new WebApplicationException();
@@ -75,15 +76,15 @@ public class NoteResourceImpl extends BaseResource {
 
   @POST
   @Path("/{userId}")
-  @Produces({ MediaType.APPLICATION_JSON })
-  public Response save(@PathParam("userId") String userId, Note note) {
+  @Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+  public JSONWithPadding save(@PathParam("userId") String userId, Note note, @QueryParam("callback") String callback) {
     LOGGER.info("[POST] #save : userId=" + userId + ", note=" + note.toString());
     if (userId != null && note != null && note.getId() == null) {
       User user = userService.getUserById(userId);
       Note persisted = noteService.saveOrUpdate(user, note);
       if (persisted != null) {
         LOGGER.info("Note was successfully saved : note = " + note.toString());
-        return getResponseOk(persisted);
+        return new JSONWithPadding(persisted, callback);
       }
     }
     LOGGER.error("Note was not saved");
@@ -92,15 +93,15 @@ public class NoteResourceImpl extends BaseResource {
 
   @PUT
   @Path("/{userId}")
-  @Produces({ MediaType.APPLICATION_JSON })
-  public Response update(@PathParam("userId") String userId, Note note) {
+  @Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+  public JSONWithPadding update(@PathParam("userId") String userId, Note note, @QueryParam("callback") String callback) {
     LOGGER.info("[PUT] #update : userId=" + userId + ", note=" + note.toString());
     if (userId != null && note != null && note.getId() != null) {
       User user = userService.getUserById(userId);
       Note merged = noteService.saveOrUpdate(user, note);
       if (merged != null) {
         LOGGER.info("Note was successfully updated : note = " + note.toString());
-        return getResponseOk(merged);
+        return new JSONWithPadding(merged, callback);
       }
     }
     LOGGER.error("Note was not updated");

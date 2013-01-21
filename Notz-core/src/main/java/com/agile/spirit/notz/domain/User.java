@@ -115,6 +115,9 @@ public class User extends BaseEntity {
   }
 
   public void addNote(Note note) {
+    if (notes == null) {
+      notes = new ArrayList<Note>();
+    }
     if (!notes.contains(note)) {
       notes.add(note);
     }
