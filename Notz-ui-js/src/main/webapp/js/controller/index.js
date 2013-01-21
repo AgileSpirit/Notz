@@ -15,11 +15,11 @@ function loginUser(login, password) {
     type: 'POST',
     url: userResource + '/login',
     data: {'login':login, 'password':password},
+    dataType: 'jsonp',
     success: connectUser,
     error: function(data) {
       alert('error');
-    },
-    dataType: 'json'
+    }
   });
 }
 
@@ -38,11 +38,12 @@ function registerUser(data) {
     type: 'POST',
     url: userResource,
     data: data,
+    dataType: 'jsonp',
+    cache: true,
     success: connectUser,
     error: function(data) {
       alert('error');
     },
-    dataType: 'json',
     contentType: 'application/json'
   });
 }

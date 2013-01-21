@@ -31,7 +31,8 @@ function loadNotes() {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp'
+    dataType: 'jsonp',
+    jsonpCallback: 'callback'
   });
 }
 
