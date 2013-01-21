@@ -35,6 +35,7 @@ public interface NoteResource {
    * @param webUser
    * @return
    */
+  // Note save(String userId, Note note);
   Note save(Note note);
 
   /**
@@ -43,13 +44,13 @@ public interface NoteResource {
    * @param webUser
    * @return
    */
-  Note update(Note note);
+  Note update(String userId, Note note);
 
   /**
    * Service used for delete an existing note.
    * 
    * @param id
    */
-  void delete(String id);
+  void delete(String userId, String id);
 
 }

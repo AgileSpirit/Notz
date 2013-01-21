@@ -78,10 +78,6 @@ public class BaseEntity implements Serializable, Comparable<BaseEntity> {
     this.version = version;
   }
 
-  /*
-   * 
-   */
-
   @Override
   public int compareTo(BaseEntity compared) {
     if (compared == null)

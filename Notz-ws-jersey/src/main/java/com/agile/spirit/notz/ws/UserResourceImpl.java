@@ -48,46 +48,47 @@ public class UserResourceImpl extends BaseResource {
    */
   @POST
   @Path("/login")
+  @Produces({ MediaType.APPLICATION_JSON })
   public Response login(@FormParam("login") String login, @FormParam("password") String password) {
-    LOGGER.info("Login user with login '" + login + "' and password " + password + "'");
+    LOGGER.info("[POST] #login : login=" + login + ", password=" + password);
     User user = userService.loginUser(login, password);
-    if (user == null) {
-      throw new WebApplicationException();
+    if (user != null) {
+      return getResponseOk(user);
     }
-
-    Response response = getResponseOk(user);
-    return response;
+    LOGGER.error("User was not logged in");
+    throw new WebApplicationException();
   }
 
   @POST
-  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @Consumes({ MediaType.APPLICATION_JSON })
+  @Produces({ MediaType.APPLICATION_JSON })
   public Response save(User user) {
-    LOGGER.info("Save user " + user.toString());
-
+    LOGGER.info("[POST] #save : user=" + user.toString());
     User persisted = userService.saveOrUpdate(user);
-    if (persisted == null) {
-      throw new WebApplicationException();
+    if (persisted != null) {
+      LOGGER.info("User was saved : user = " + user.toString());
+      return getResponseOk(persisted);
     }
-
-    Response response = getResponseOk(persisted);
-    return response;
+    LOGGER.error("User was not saved");
+    throw new WebApplicationException();
   }
 
   @PUT
-  @Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+  @Consumes({ MediaType.APPLICATION_JSON })
+  @Produces({ MediaType.APPLICATION_JSON })
   public Response update(User user) {
-    LOGGER.info("Update user " + user.toString());
+    LOGGER.info("[PUT] #update: user=" + user.toString());
     User merged = userService.saveOrUpdate(user);
-    if (merged == null) {
-      throw new WebApplicationException();
+    if (merged != null) {
+      return getResponseOk(merged);
     }
-
-    Response response = getResponseOk(merged);
-    return response;
+    LOGGER.error("User was not updated");
+    throw new WebApplicationException();
   }
 
   @GET
   @Path("/{expression}")
+  @Produces({ MediaType.APPLICATION_JSON })
   public Response getUser(@PathParam("expression") String expression) {
     LOGGER.info("Get user matching expression '" + expression + "'");
     List<User> users = userService.findUser(expression);
@@ -116,19 +117,12 @@ public class UserResourceImpl extends BaseResource {
 
   @GET
   @Path("/list")
-  public Response listJSON() {
-    LOGGER.info("List (JSON) all users");
-
-    // Retrieve users
+  @Produces(MediaType.APPLICATION_JSON)
+  public Response listUsers() {
     List<User> users = userService.listUsers();
-
     GenericEntity<List<User>> genericUsers = new GenericEntity<List<User>>(users) {
     };
-    LOGGER.info("Retrieved users = " + genericUsers);
-
-    // Build & return Response
-    Response response = getResponseOk(genericUsers);
-    return response;
+    return getResponseOk(genericUsers);
   }
 
 }

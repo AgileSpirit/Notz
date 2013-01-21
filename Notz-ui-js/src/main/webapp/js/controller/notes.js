@@ -1,4 +1,15 @@
 $.getScript('js/controller/notz.js');
+$.getScript('js/lib/dateutil.js');
+
+/*
+ * CONTROLLER VARIABLES
+ */
+var currentNote = null;
+var formMode = 'CREATION'; // | EDITION
+
+/*
+ * ON INITIALIZE
+ */
 
 loadNotes();
 
@@ -8,6 +19,10 @@ loadNotes();
 
 function loadNotes() {
   console.log('loadNotes');
+  console.log('close modal');
+
+  $('#noteFormModal').modal('hide');
+  
   $.ajax({
     type: 'GET',
     url: noteResource + '/' + getUserId(),
@@ -40,7 +55,7 @@ function renderNotes(data) {
      noteHtml = noteHtml.concat('  <div class="noteHeader">').concat("\n");
      noteHtml = noteHtml.concat('    <div class="title"><strong>' + title + '</strong></div>').concat("\n");
      noteHtml = noteHtml.concat('    <div class="actions">').concat("\n");
-     noteHtml = noteHtml.concat('      <a id="' + editLinkId + '" href="#" class="editLink" title="Editer" ></a>').concat("\n");
+     noteHtml = noteHtml.concat('      <a id="' + editLinkId + '" href="#noteFormModal" class="editLink" title="Editer" role="button" data-toggle="modal"></a>').concat("\n");
      noteHtml = noteHtml.concat('      <a id="' + deleteLinkId + '" href="#" class="deleteLink" title="Supprimer" ></a>').concat("\n");
      noteHtml = noteHtml.concat('    </div>').concat("\n");
      noteHtml = noteHtml.concat('  </div>').concat("\n");
@@ -60,8 +75,10 @@ function renderNotes(data) {
      
      $('#noteList').append(noteHtml);
      
-     $("#" + editLinkId).click(function() {
+     $("#" + editLinkId).click(function(event) {
        editNote(note);
+       event.stopPropagation();
+       event.preventDefault();
      });
 
      $("#" + deleteLinkId).click(function() {
@@ -72,48 +89,33 @@ function renderNotes(data) {
 }
 
 /*
- * NOTE CREATION
+ * NOTE FORM common behavior
  */
 
-$("#saveNewNoteButton").click(function() {
-  $("#noteCreationForm").submit();
+$("#validateNoteButton").click(function() {
+  $("#noteForm").submit();
 });
 
-$("#noteCreationForm").submit(function(event) {
+$("#noteForm").submit(function(event) {
   event.preventDefault();
-  createNote(noteCreationFormToJSON());
+  if (formMode == 'CREATION') {
+    saveNote(noteFormToJSON());
+  } else {
+    updateNote(noteFormToJSON());
+  }
 });
-
-function createNote(note) {
-  console.log('createNote with note=' + note);
-  $.ajax({
-    type: 'POST',
-    url: noteResource,
-    data: note,
-    success: function(data) {
-      $('#noteCreationModal').modal('hide');
-      loadNotes();
-    },
-    error: function(data) {
-      alert('error');
-    },
-    dataType: 'json',
-    contentType: 'application/json'
-  });
-}
 
 //Helper function to serialize all the form fields into a JSON string
-function noteCreationFormToJSON() {
-  console.log('noteCreationFormToJSON()');
-  
-  var user = new Object();
-  user.id = getUserId();
-  
-  var note = new Object();
-  note.title = $('#noteCreationTitle').val();
-  note.description = $('#noteCreationDescription').val();
-  note.user = user;
-  
+function noteFormToJSON() {
+  var note = null;
+  if (formMode == 'CREATION') {
+    note = new Object();
+  } else { // EDITION
+    note = currentNote;
+  }
+  note.title = $('#noteFormTitle').val();
+  note.description = $('#noteFormDescription').val();
+
   return JSON.stringify(note);
 }
 
@@ -122,11 +124,68 @@ function getUserId() {
 }
 
 /*
+ * NOTE CREATION
+ */
+
+$("#newNoteButton").click(function(event) {
+  createNote();
+  event.stopPropagation();
+  event.preventDefault();
+});
+
+
+function createNote() {
+  console.log('createNote');
+  currentNote = null;
+  formMode = 'CREATION';
+  $('#noteFormTitle').val('');
+  $('#noteFormDescription').val('');
+  $('#noteFormModal').modal('show');
+}
+
+function saveNote(note) {
+  console.log('createNote');
+  var resourcePath = noteResource + '/' + getUserId();
+  $.ajax({
+    type: 'POST',
+    url: resourcePath,
+    data: note,
+    success: loadNotes,
+    error: function(data) {
+      alert('error');
+    },
+    dataType: 'json',
+    contentType: 'application/json'
+  });
+}
+
+/*
  * NOTE EDITION
  */
 
 function editNote(note) {
   console.log('editNote');
+  currentNote = note;
+  formMode = 'EDITION';
+  $('#noteFormTitle').val(note.title);
+  $('#noteFormDescription').val(note.description);
+  $('#noteFormModal').modal('show');
+}
+
+function updateNote(note) {
+  console.log('editNote');
+  var resourcePath = noteResource + '/' + getUserId();
+  $.ajax({
+    type: 'PUT',
+    url: resourcePath,
+    data: note,
+    success: loadNotes,
+    error: function(data) {
+      alert('error');
+    },
+    dataType: 'json',
+    contentType: 'application/json'
+  });
 }
 
 /*
@@ -135,9 +194,11 @@ function editNote(note) {
 
 function deleteNote(noteId) {
   console.log('deleteNote');
+  var resourcePath = noteResource + '/' + getUserId();
   $.ajax({
     type: 'DELETE',
-    url: noteResource + '/' + noteId,
+    url: resourcePath,
+    data: noteId,
     success: function(data) {
       loadNotes();
     },

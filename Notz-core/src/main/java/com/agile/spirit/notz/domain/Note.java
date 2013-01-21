@@ -1,29 +1,17 @@
 package com.agile.spirit.notz.domain;
 
-import static com.agile.spirit.notz.domain.Note.FIND_NOTES_BY_USER;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement(name = "note")
 @Entity
 @Table(name = "NTZ_NOTES")
-@NamedQueries({ @NamedQuery(name = FIND_NOTES_BY_USER, query = "FROM Note n WHERE n.user.id=:userId ORDER BY n.modificationDate DESC, n.creationDate DESC") })
 public class Note extends BaseEntity {
 
   private static final long serialVersionUID = 1L;
-
-  /*
-   * NAMED QUERIES
-   */
-  public static final String FIND_NOTES_BY_USER = "findNotesByUser";
 
   /*
    * ATTRIBUTES
@@ -31,7 +19,6 @@ public class Note extends BaseEntity {
 
   private String title;
   private String description;
-  private User user;
 
   /*
    * CONSTRUCTORS
@@ -81,23 +68,25 @@ public class Note extends BaseEntity {
     this.description = description;
   }
 
-  @ManyToOne(targetEntity = User.class)
-  @JoinColumn(name = "userId", updatable = false)
-  public User getUser() {
-    return user;
-  }
-
-  public void setUser(User user) {
-    this.user = user;
-  }
-
   /*
    * BEHAVIORS
    */
 
   @Override
+  public boolean equals(Object object) {
+    if (object == null) {
+      return false;
+    }
+    if (object instanceof Note) {
+      Note note = (Note) object;
+      return this.getId().equals(note.getId());
+    }
+    return false;
+  }
+
+  @Override
   public String toString() {
-    return "Note [title=" + title + ", description=" + description + "]";
+    return "{\"id\":\"" + getId() + "\", \"title\":\"" + title + "\", \"description\":\"" + description + "\"}";
   }
 
 }

@@ -1,5 +1,5 @@
 $.getScript('js/controller/notz.js');
-
+$.getScript('js/lib/dateutil.js');
 /*
  * LOGIN
  */
@@ -61,11 +61,15 @@ function signupFormToJSON() {
 //
 function connectUser(user) {
   console.log('user=' + user);
+  
   if (user != null) {
     var userId = user.id;
     if (userId != null && userId != '') {
       $.cookie('Notz-UserId', userId);
       $(location).attr('href', applicationUri + '/notes.html');
     }
+  } else {
+    console.log('user is null');
   }
+  
 }

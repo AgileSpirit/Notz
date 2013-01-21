@@ -114,6 +114,18 @@ public class User extends BaseEntity {
     this.notes = notes;
   }
 
+  public void addNote(Note note) {
+    if (!notes.contains(note)) {
+      notes.add(note);
+    }
+  }
+
+  public void removeNote(Note note) {
+    if (notes.contains(note)) {
+      notes.remove(note);
+    }
+  }
+
   /*
    * BEHAVIORS
    */
@@ -129,8 +141,33 @@ public class User extends BaseEntity {
 
   @Override
   public String toString() {
-    return "User [username=" + username + ", completeName=" + completeName + ", email=" + email + ", password=" + password + ", notes="
-        + (notes != null ? notes.size() : "null") + "]";
+    StringBuilder sb = new StringBuilder();
+    if (notes != null && !notes.isEmpty()) {
+      sb.append(", \"notes\":[");
+      int index = 0;
+      while (index < notes.size() - 1) {
+        Note note = notes.get(index);
+        sb.append(note.toString());
+        sb.append(", ");
+      }
+      Note note = notes.get(index);
+      sb.append(note.toString());
+      sb.append("]");
+    }
+    return "{\"id\":\"" + getId() + "\", \"username\":\"" + username + "\", \"completeName\":\"" + completeName + "\", \"email\":\""
+        + email + "\", \"password\":\"" + password + "\"" + sb.toString() + "}";
+  }
+
+  @Override
+  public boolean equals(Object object) {
+    if (object == null) {
+      return false;
+    }
+    if (object instanceof User) {
+      User user = (User) object;
+      return this.getId().equals(user.getId());
+    }
+    return false;
   }
 
 }

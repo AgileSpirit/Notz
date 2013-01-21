@@ -1,6 +1,5 @@
 package com.agile.spirit.notz.services;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -12,9 +11,11 @@ import com.agile.spirit.notz.util.MemoryCache;
 public class NoteServiceImpl implements NoteService {
 
   MemoryCache memoryCache;
+  UserService userService;
 
   public NoteServiceImpl() {
     this.memoryCache = MemoryCache.getInstance();
+    this.userService = new UserServiceImpl();
   }
 
   @Override
@@ -52,14 +53,12 @@ public class NoteServiceImpl implements NoteService {
   }
 
   @Override
-  public Note saveOrUpdate(Note note) {
-    for (User user : memoryCache.getData().values()) {
-      if (note.getUser().getId().equals(user.getId())) {
-        if (note.getId() == null) {
-          return saveNote(user, note);
-        }
-        return updateNote(user, note);
+  public Note saveOrUpdate(User user, Note note) {
+    if (user != null) {
+      if (note.getId() == null) {
+        return saveNote(user, note);
       }
+      return updateNote(user, note);
     }
     return null;
   }
@@ -67,10 +66,8 @@ public class NoteServiceImpl implements NoteService {
   private Note saveNote(User user, Note note) {
     note.setId(memoryCache.getNextVal());
     note.setCreationDate(new Date());
-    if (user.getNotes() == null) {
-      user.setNotes(new ArrayList<Note>());
-    }
-    user.getNotes().add(note);
+    note.setModificationDate(note.getCreationDate());
+    user.addNote(note);
     return note;
   }
 
@@ -87,14 +84,9 @@ public class NoteServiceImpl implements NoteService {
   }
 
   @Override
-  public void delete(String id) {
-    for (User user : memoryCache.getData().values()) {
-      for (Note note : user.getNotes()) {
-        if (note.getId().equals(id)) {
-          user.getNotes().remove(note);
-          return;
-        }
-      }
+  public void delete(User user, Note note) {
+    if (user != null) {
+      user.removeNote(note);
     }
   }
 

@@ -1,7 +1,6 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.agile.spirit.notz</groupId>
   <artifactId>Notz-ws-jersey</artifactId>
   <name>Notz-ws-jersey</name>
   <packaging>war</packaging>
@@ -13,19 +12,18 @@
   </parent>
 
   <properties>
-    <jersey.version>1.13</jersey.version>
-    <mockito.version>1.9.0</mockito.version>
-    <gson.version>2.2.2</gson.version>
+    <jersey.version>1.17</jersey.version>
   </properties>
 
   <dependencies>
     <!-- Notz-services -->
     <dependency>
       <groupId>${project.groupId}</groupId>
-      <!-- <artifactId>Notz-services-memcache</artifactId> -->
-      <artifactId>Notz-services-db</artifactId>
+      <artifactId>Notz-services-memcache</artifactId>
+      <!-- <artifactId>Notz-services-db</artifactId> -->
       <version>${project.parent.version}</version>
     </dependency>
+
     <!-- LOGGING DEPENDENCIES - LOG4J -->
     <dependency>
       <groupId>org.slf4j</groupId>
@@ -35,12 +33,14 @@
       <groupId>log4j</groupId>
       <artifactId>log4j</artifactId>
     </dependency>
+
     <!-- JUNIT DEPENDENCY FOR TESTING -->
     <dependency>
       <groupId>junit</groupId>
       <artifactId>junit</artifactId>
       <scope>test</scope>
     </dependency>
+
     <!-- JERSEY -->
     <dependency>
       <groupId>com.sun.jersey</groupId>
@@ -57,31 +57,6 @@
       <artifactId>jersey-json</artifactId>
       <version>${jersey.version}</version>
     </dependency>
-    <!-- 
-    <dependency>
-      <groupId>com.sun.jersey.jersey-test-framework</groupId>
-      <artifactId>jersey-test-framework-external</artifactId>
-      <version>${jersey.version}</version>
-      <scope>provided</scope>
-    </dependency>
-     -->
-    <!-- GSON (Google JSON converter) -->
-    <!-- 
-    <dependency>
-      <groupId>com.google.code.gson</groupId>
-      <artifactId>gson</artifactId>
-      <version>${gson.version}</version>
-    </dependency>
-    -->
-    <!-- MOCKITO -->
-    <!-- 
-    <dependency>
-      <groupId>org.mockito</groupId>
-      <artifactId>mockito-all</artifactId>
-      <version>${mockito.version}</version>
-      <scope>test</scope>
-    </dependency>
-     -->
   </dependencies>
 
 </project>

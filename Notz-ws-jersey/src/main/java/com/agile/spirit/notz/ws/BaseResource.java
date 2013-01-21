@@ -8,6 +8,7 @@ public abstract class BaseResource {
   protected Response getResponseOk(Object entity) {
     ResponseBuilder responseBuilder = Response.ok(entity);
     responseBuilder.header("Access-Control-Allow-Origin", "*");
+    responseBuilder.header("Access-Control-Requet-Method", "GET,HEAD,POST,PUT,OPTIONS");
     return responseBuilder.build();
   }
 

@@ -1,5 +1,7 @@
 package com.agile.spirit.notz.services;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -51,6 +53,7 @@ public class UserServiceImpl implements UserService {
   public void generateUsers(int nb) {
     User admin = DataGenerator.generateAdminUser(0);
     Note sampleNote = new Note();
+    sampleNote.setId(DataGenerator.generateRandomString(true));
     sampleNote.setTitle("Candide ~ Voltaire");
     sampleNote
         .setDescription("Candide est un conte philosophique de Voltaire paru à Genève en janvier 1759. Il a été réédité vingt fois du vivant"
@@ -70,11 +73,9 @@ public class UserServiceImpl implements UserService {
             + " ce qu'il observera au fil de ses tribulations, à la façon apparemment enfantine de Socrate dans les dialogues platoniciens,"
             + " personnifiant ainsi, selon l'étymologie du mot, l'ironie — e????e?a (eironeia) —, l'ignorance feinte.");
     sampleNote.setCreationDate(new Date());
-    admin.getNotes().add(sampleNote);
-    admin.getNotes().add(Note.create(sampleNote));
-    admin.getNotes().add(Note.create(sampleNote));
-    admin.getNotes().add(Note.create(sampleNote));
-    admin.getNotes().add(Note.create(sampleNote));
+    sampleNote.setModificationDate(sampleNote.getCreationDate());
+
+    admin.addNote(sampleNote);
     saveOrUpdate(admin);
 
     List<User> users = DataGenerator.generateUsers(nb);
@@ -86,14 +87,12 @@ public class UserServiceImpl implements UserService {
 
   @Override
   public List<User> findUser(String expression) {
-    // TODO Auto-generated method stub
-    return null;
+    return Collections.emptyList();
   }
 
   @Override
   public List<User> listUsers() {
-    // TODO Auto-generated method stub
-    return null;
+    return new ArrayList<User>(memoryCache.getData().values());
   }
 
 }
