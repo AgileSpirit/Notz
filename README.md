@@ -52,3 +52,6 @@ II.  Build factory configuration (Maven + GIT) and technical design concetption 
     <tr><td></td><td></td><td></td><td></td><td></td></tr>
     <tr><td></td><td></td><td></td><td></td><td></td></tr>
 </table>
+
+-- 
+Agile Spirit
