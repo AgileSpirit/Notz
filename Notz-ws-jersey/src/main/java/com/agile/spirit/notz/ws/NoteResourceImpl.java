@@ -22,10 +22,9 @@ import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.NoteService;
 import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
-import com.sun.jersey.api.json.JSONWithPadding;
 
 @Path("/notes")
-@Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+@Produces({ MediaType.APPLICATION_JSON })
 public class NoteResourceImpl extends BaseResource {
 
   private final static Logger LOGGER = Logger.getLogger(NoteResourceImpl.class);
@@ -42,8 +41,7 @@ public class NoteResourceImpl extends BaseResource {
 
   @GET
   @Path("/{userId}")
-  public Response read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam,
-      @QueryParam("callback") String callback) {
+  public Response read(@PathParam("userId") String userId, @QueryParam("first") String firstParam, @QueryParam("count") String countParam) {
     LOGGER.info("[GET] #read : userId=" + userId + ", first=" + firstParam + ", count=" + countParam);
 
     Integer first = null;
@@ -58,17 +56,17 @@ public class NoteResourceImpl extends BaseResource {
 
     GenericEntity<List<Note>> genericNotes = new GenericEntity<List<Note>>(notes) {
     };
-    return getResponseOk(new JSONWithPadding(genericNotes, callback));
+    return getResponseOk(genericNotes);
   }
 
   @GET
   @Path("/note/{noteId}")
-  public Response getById(@PathParam("noteId") String noteId, @QueryParam("callback") String callback) {
+  public Response getById(@PathParam("noteId") String noteId) {
     LOGGER.info("[GET] #getById : noteId=" + noteId);
     Note note = noteService.getById(noteId);
     if (note != null) {
       LOGGER.info("Note was successfully found : note = " + note.toString());
-      return getResponseOk(new JSONWithPadding(note, callback));
+      return getResponseOk(note);
     }
     LOGGER.error("Note was not found for id '" + noteId + "'");
     throw new WebApplicationException();
@@ -76,14 +74,14 @@ public class NoteResourceImpl extends BaseResource {
 
   @POST
   @Path("/{userId}")
-  public Response save(@PathParam("userId") String userId, Note note, @QueryParam("callback") String callback) {
+  public Response save(@PathParam("userId") String userId, Note note) {
     LOGGER.info("[POST] #save : userId=" + userId + ", note=" + note.toString());
     if (userId != null && note != null && note.getId() == null) {
       User user = userService.getUserById(userId);
       Note persisted = noteService.saveOrUpdate(user, note);
       if (persisted != null) {
         LOGGER.info("Note was successfully saved : note = " + note.toString());
-        return getResponseOk(new JSONWithPadding(persisted, callback));
+        return getResponseOk(persisted);
       }
     }
     LOGGER.error("Note was not saved");
@@ -92,14 +90,14 @@ public class NoteResourceImpl extends BaseResource {
 
   @PUT
   @Path("/{userId}")
-  public Response update(@PathParam("userId") String userId, Note note, @QueryParam("callback") String callback) {
+  public Response update(@PathParam("userId") String userId, Note note) {
     LOGGER.info("[PUT] #update : userId=" + userId + ", note=" + note.toString());
     if (userId != null && note != null && note.getId() != null) {
       User user = userService.getUserById(userId);
       Note merged = noteService.saveOrUpdate(user, note);
       if (merged != null) {
         LOGGER.info("Note was successfully updated : note = " + note.toString());
-        return getResponseOk(new JSONWithPadding(merged, callback));
+        return getResponseOk(merged);
       }
     }
     LOGGER.error("Note was not updated");

@@ -10,7 +10,6 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.WebApplicationException;
 import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.MediaType;
@@ -21,10 +20,9 @@ import org.apache.log4j.Logger;
 import com.agile.spirit.notz.domain.User;
 import com.agile.spirit.notz.services.ServiceFactory;
 import com.agile.spirit.notz.services.UserService;
-import com.sun.jersey.api.json.JSONWithPadding;
 
 @Path("/users")
-@Produces({ "application/x-javascript", MediaType.APPLICATION_JSON })
+@Produces({ MediaType.APPLICATION_JSON })
 public class UserResourceImpl extends BaseResource {
 
   private final static Logger LOGGER = Logger.getLogger(UserResourceImpl.class);
@@ -50,34 +48,34 @@ public class UserResourceImpl extends BaseResource {
    */
   @POST
   @Path("/login")
-  public Response login(@FormParam("login") String login, @FormParam("password") String password, @QueryParam("callback") String callback) {
+  public Response login(@FormParam("login") String login, @FormParam("password") String password) {
     LOGGER.info("[POST] #login : login=" + login + ", password=" + password);
     User user = userService.loginUser(login, password);
     if (user != null) {
-      return getResponseOk(new JSONWithPadding(user, callback));
+      return getResponseOk(user);
     }
     LOGGER.error("User was not logged in");
     throw new WebApplicationException();
   }
 
   @POST
-  public Response save(User user, @QueryParam("callback") String callback) {
+  public Response save(User user) {
     LOGGER.info("[POST] #save : user=" + user.toString());
     User persisted = userService.saveOrUpdate(user);
     if (persisted != null) {
       LOGGER.info("User was saved : user = " + user.toString());
-      return getResponseOk(new JSONWithPadding(persisted, callback));
+      return getResponseOk(persisted);
     }
     LOGGER.error("User was not saved");
     throw new WebApplicationException();
   }
 
   @PUT
-  public Response update(User user, @QueryParam("callback") String callback) {
+  public Response update(User user) {
     LOGGER.info("[PUT] #update: user=" + user.toString());
     User merged = userService.saveOrUpdate(user);
     if (merged != null) {
-      return getResponseOk(new JSONWithPadding(merged, callback));
+      return getResponseOk(merged);
     }
     LOGGER.error("User was not updated");
     throw new WebApplicationException();
@@ -85,7 +83,7 @@ public class UserResourceImpl extends BaseResource {
 
   @GET
   @Path("/{expression}")
-  public Response getUser(@PathParam("expression") String expression, @QueryParam("callback") String callback) {
+  public Response getUser(@PathParam("expression") String expression) {
     LOGGER.info("Get user matching expression '" + expression + "'");
     List<User> users = userService.findUser(expression);
 
@@ -93,7 +91,7 @@ public class UserResourceImpl extends BaseResource {
       throw new WebApplicationException();
     }
 
-    return getResponseOk(new JSONWithPadding(users.get(0), callback));
+    return getResponseOk(users.get(0));
   }
 
   @DELETE
@@ -117,7 +115,7 @@ public class UserResourceImpl extends BaseResource {
     List<User> users = userService.listUsers();
     GenericEntity<List<User>> genericUsers = new GenericEntity<List<User>>(users) {
     };
-    return getResponseOk(new JSONWithPadding(genericUsers));
+    return getResponseOk(genericUsers);
   }
 
 }

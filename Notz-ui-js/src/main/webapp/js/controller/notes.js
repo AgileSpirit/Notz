@@ -30,9 +30,7 @@ function loadNotes() {
     },
     error: function(data) {
       alert('error');
-    },
-    dataType: 'jsonp',
-    jsonpCallback: 'callback'
+    }
   });
 }
 
@@ -155,7 +153,6 @@ function saveNote(note) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
     contentType: 'application/json'
   });
 }
@@ -184,7 +181,6 @@ function updateNote(note) {
     error: function(data) {
       alert('error');
     },
-    dataType: 'jsonp',
     contentType: 'application/json'
   });
 }
