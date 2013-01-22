@@ -15,6 +15,14 @@
       <param-name>com.sun.jersey.spi.container.ContainerResponseFilters</param-name>
       <param-value>com.agile.spirit.notz.security.ResponseCorsFilter</param-value>
     </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.config.feature.DisableWADL</param-name>
+      <param-value>FEATURE_DISABLE_WADL</param-value>
+    </init-param>
+    <init-param>
+      <param-name>com.sun.jersey.config.feature.Trace</param-name>
+      <param-value>FEATURE_TRACE</param-value>
+    </init-param>
     <load-on-startup>1</load-on-startup>
   </servlet>
 

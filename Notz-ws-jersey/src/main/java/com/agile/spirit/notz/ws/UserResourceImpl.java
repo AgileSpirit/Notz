@@ -33,12 +33,6 @@ public class UserResourceImpl extends BaseResource {
     this.userService = ServiceFactory.getInstance().getUserService();
   }
 
-  @GET
-  @Path("/greeting/{firstName}-{lastName}")
-  public String greeting(@PathParam("firstName") String firstName, @PathParam("lastName") String lastName) {
-    return "Hello " + firstName + " " + lastName + " !";
-  }
-
   /**
    * Service to authenticate a user.
    * 
